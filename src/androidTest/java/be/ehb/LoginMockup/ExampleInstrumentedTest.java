@@ -1,4 +1,4 @@
-package be.ehb.haseb;
+package be.ehb.LoginMockup;
 
 import android.content.Context;
 
