@@ -9,7 +9,7 @@ public class Profile {
         this.age = age;
     }
 
-    public void showInfo(){
-        System.out.println(name + " " + age);
+    public void setNewname(String newName){
+        name = newName;
     }
 }
