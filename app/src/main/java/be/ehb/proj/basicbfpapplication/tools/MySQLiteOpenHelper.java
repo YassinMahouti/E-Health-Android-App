@@ -7,9 +7,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 public class MySQLiteOpenHelper extends SQLiteOpenHelper {
-// properties :  REAL => floating point value : 8byte
-    private String creation = "create table profile ("
-        + "datemMasure TEXT PRIMARY KEY," // no type Date so TEXT
+    private static final String TABLE_NAME = "profile";
+    private static  final String COL1 ="weight";
+    private static  final String COL2 ="height";
+    private static  final String COL3 ="age";
+    private static  final String COL4 ="sex";
+
+// properties :  REAL => floating point value : 8byte = > double
+    private String creation = "CREATE TABLE profile ("
         + "weight REAL NOT NULL,"
         + "height REAL NOT NULL,"
         + "age INTEGER NOT NULL,"
@@ -43,11 +48,13 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     /**
      * if version change
      * @param db
+     *
      * @param oldVersion
      * @param newVersion
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+       db.execSQL("DROP TABLE profile");
+       this.onCreate(db);
     }
 }

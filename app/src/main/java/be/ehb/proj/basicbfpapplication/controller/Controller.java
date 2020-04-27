@@ -11,11 +11,10 @@ import be.ehb.proj.basicbfpapplication.tools.Serialiser;
 public class Controller { // all static for Serialiser that is static
     private static Profile profile; // nieuw object aanmaken > import nodig
     private static Controller instance = null;
-    private static String nameFile = "saveprofil";
+    private static String nameFile = "saveprofile";
     private static AccesLocal localAcces;
 
     private Controller(){
-
         super();
     }
 
@@ -42,7 +41,7 @@ public class Controller { // all static for Serialiser that is static
      * @param context
      */
     public void createProfile(float weight, float height, int age, int sex, Context context){
-        profile = new Profile(new Date(), weight, height, age, sex);
+        profile = new Profile(weight, height, age, sex);
         localAcces.addProfile(profile);
 
       //  Serialiser.serialise(nameFile,profile, context);
@@ -86,10 +85,10 @@ public class Controller { // all static for Serialiser that is static
             return profile.getAge();
         }
     }
-    public float getSex(){
+    public Integer getSex(){
         if(profile == null)
         {
-            return Float.parseFloat(null);
+            return null;
         } else {
             return profile.getSex();
         }
