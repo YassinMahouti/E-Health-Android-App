@@ -3,12 +3,15 @@ package com.example.iliasspush;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.List;
+
 @Entity
 public class User {
     @PrimaryKey(autoGenerate = true)
     private String name;
     private int id;
 
+    List<User>users;
 
     /////////////User constructor////////////////
     public User(String name, int id) {

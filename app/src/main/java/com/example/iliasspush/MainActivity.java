@@ -1,6 +1,7 @@
 package com.example.iliasspush;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Insert;
 
 import android.os.Bundle;
 import android.widget.Button;
@@ -19,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText txtUsername;
     private EditText txtAge;
     private Button btnConfirm;
+
+    User iliass = new User("Iliass",1);
 
 
 
