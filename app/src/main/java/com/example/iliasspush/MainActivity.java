@@ -21,7 +21,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText txtAge;
     private Button btnConfirm;
 
-    User iliass = new User("Iliass",1);
+    
+
 
 
 

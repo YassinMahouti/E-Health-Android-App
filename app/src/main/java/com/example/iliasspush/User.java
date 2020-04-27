@@ -1,17 +1,24 @@
 package com.example.iliasspush;
 
+
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
 
 import java.util.List;
 
 @Entity
 public class User {
     @PrimaryKey(autoGenerate = true)
-    private String name;
+
+    @ColumnInfo(id = "id")
     private int id;
 
-    List<User>users;
+    @ColumnInfo(name = "name")
+    private String name;
+
+
 
     /////////////User constructor////////////////
     public User(String name, int id) {
@@ -20,7 +27,6 @@ public class User {
     }
 
     //////////////////Getters en Setters//////////////
-
     public String getName() {
         return name;
     }
