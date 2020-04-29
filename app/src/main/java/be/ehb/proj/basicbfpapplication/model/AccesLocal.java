@@ -32,12 +32,12 @@ public class AccesLocal {
      */
     public void addProfile(Profile profile){
         sqLiteDatabase = accesDB.getWritableDatabase();
-        String  req = "insert into profile (weight,height, age, sex) values";
+        //statement
+        String  req = "insert into profile (uid,weight,height, age, sex) values";
        //concatenation
-        req += "("+profile.getWeight()+","+profile.getHeight()+","+profile.getAge()+","+profile.getSex()+")";
+        req += "("+profile.getUid()+","+profile.getWeight()+","+profile.getHeight()+","+profile.getAge()+","+profile.getSex()+")";
         // execute
         sqLiteDatabase.execSQL(req);
-
     }
 
     /**
@@ -60,11 +60,13 @@ public class AccesLocal {
         if(!cursor.isAfterLast()){
             // if there is a profile -> recover
             // need to be care with DATE !!! here just a new date
-            float weight = (float) cursor.getDouble(0);
-            float height = (float) cursor.getDouble(1);
-            Integer age = cursor.getInt(2);
-            Integer sex = cursor.getInt(3);
-            profile = new Profile(weight, height,age,sex);
+            int resultId = (int) cursor.getInt(0);
+            int uid = (int) cursor.getInt(1);
+            float weight = (float) cursor.getDouble(2);
+            float height = (float) cursor.getDouble(3);
+            Integer age = cursor.getInt(4);
+            Integer sex = cursor.getInt(5);
+            profile = new Profile(resultId, 1, weight, height,age,sex);
         }
         cursor.close();
         return profile;

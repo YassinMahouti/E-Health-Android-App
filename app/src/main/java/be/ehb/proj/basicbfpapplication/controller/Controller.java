@@ -40,8 +40,8 @@ public class Controller { // all static for Serialiser that is static
      * @param sex
      * @param context
      */
-    public void createProfile(float weight, float height, int age, int sex, Context context){
-        profile = new Profile(weight, height, age, sex);
+    public void createProfile(int resultID, int uid, float weight, float height, int age, int sex, Context context){
+        profile = new Profile(resultID, uid,weight, height, age, sex);
         localAcces.addProfile(profile);
 
       //  Serialiser.serialise(nameFile,profile, context);

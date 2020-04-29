@@ -6,37 +6,34 @@ import android.widget.RadioGroup;
 
 import java.io.ObjectInputStream;
 import java.io.Serializable;
-import java.util.Date;
 
 // i will make profile Serialiaseble so i can have info stored of before
 public class Profile implements Serializable {
 
     //constants : Ess ,
-    private static final int minEssWoman =10;
-    private static final int maxEssWoman =14;
-    private static final int minEssMan =3;
-    private static final int maxEssMan =5;
+    private final int minEssWoman =10;
+    private final int maxEssWoman =14;
+    private final int minEssMan =3;
+    private final int maxEssMan =5;
     //constants : Ath ,
-    private static final int minAthWoman =14;
-    private static final int maxAthWoman =21;
-    private static final int minAthMan =6;
-    private static final int maxAthMan =14;
+    private final int minAthWoman =14;
+    private final int maxAthWoman =21;
+    private final int minAthMan =6;
+    private final int maxAthMan =14;
     //constants : Fit ,
-    private static final int minFitWoman =21;
-    private static final int maxFitWoman =25;
-    private static final int minFitMan =14;
-    private static final int maxFitMan =18;
+    private final int minFitWoman =21;
+    private final int maxFitWoman =25;
+    private final int minFitMan =14;
+    private final int maxFitMan =18;
     //constants : Ave ,
-    private static final int minAveWoman =25;
-    private static final int maxAveWoman =32;
-    private static final int minAveMan =18;
-    private static final int maxAveMan =25;
+    private final int minAveWoman =25;
+    private final int maxAveWoman =32;
+    private final int minAveMan =18;
+    private final int maxAveMan =25;
     //constants : Obe
-    private static final int minObeWoman =32;
-    private  static final int minObeMan =25;
-    //for SQLite
-   // private int id;
-   // private Date dateMeasure;
+    private final int minObeWoman =32;
+    private final int minObeMan =25;
+
     // properties
     private float weight;
     private float height;
@@ -44,22 +41,27 @@ public class Profile implements Serializable {
     private int sex;
     private float valueBFP;
     private float valueBMI;
-
+    private int result_id ;
+    private int uid =1 ;
     private String message;
 
-    public Profile(float weight, float height, int age, int sex) {
-       // this.id = id;
-        //this.dateMeasure = dateMeasure;
+    public Profile(int result_id, int uid, float weight, float height, int age, int sex) {
         this.weight = weight;
         this.height = height;
         this.age = age;
-        this.sex = sex;
-        this.calculateBMI();
-        this.calculateBFP();
-        this.resultBFP();
+       this.sex = sex;
+       this.calculateBMI();
+       this.calculateBFP();
+       this.resultBFP();
     }
 
+    public int getResult_id() {
+        return result_id;
+    }
 
+    public int getUid() {
+        return uid;
+    }
 
     public float getWeight() {
         return weight;
@@ -69,11 +71,11 @@ public class Profile implements Serializable {
         return height;
     }
 
-    public Integer getAge() {
+    public int getAge() {
         return age;
     }
 
-    public Integer getSex() {
+    public int getSex() {
         return sex;
     }
 
@@ -88,21 +90,14 @@ public class Profile implements Serializable {
         float heightInM = (float) height/100;
         this.valueBMI =  weight / (heightInM*heightInM); // weight in KG
     }
-   /* public Date getDateMeasure() {
-        return dateMeasure;
-    }
-
-    public void setDateMeasure(Date dateMeasure) {
-        this.dateMeasure = dateMeasure;
-    }*/
-    private void calculateBFP(){
+    public void calculateBFP(){
         float heightInM = (float) height/100;
         calculateBMI();
         if ( age >= 16)
             this.valueBFP = (float)((1.2*valueBMI) +(0.23*age)-(10.8*sex) -5.4);
         else this.valueBFP = (float)((1.51*valueBMI) -(0.7*age)-(3.6*sex) +1.4);
     }
-    private void resultBFP(){
+    public void resultBFP(){
         if ( sex == 0)
         { // female
             if (valueBFP < minEssWoman)  message =" You are UNDER the category 'Essential Fat' you have a BFP Under the "+ minEssWoman +"%.";

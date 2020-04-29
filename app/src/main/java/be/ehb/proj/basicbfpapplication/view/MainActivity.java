@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 if ( weight ==0 || height ==0 || age ==0 )
                 {
                     Toast.makeText(MainActivity.this, "Invalid Input !", Toast.LENGTH_SHORT).show();
-                } else viewResult(weight, height, age, sex);
+                } else viewResult( 1,1,weight, height, age, sex);
             }
         });
     }
@@ -107,9 +107,9 @@ public class MainActivity extends AppCompatActivity {
     //constants : Obe
     private final int minObeWoman =32;
     private final int minObeMan =25;
-    private void viewResult(float weight, float height , int age , int sex){
+    private void viewResult(int resultID, int uid, float weight, float height , int age , int sex){
         // via controller > aanmaak profiel en data inhalen
-        this.controle.createProfile(weight,height,age,sex, this); // context = this = Mainactivity => for Serialisable
+        this.controle.createProfile(resultID,uid,weight,height,age,sex, this); // context = this = Mainactivity => for Serialisable
         float bfp = this.controle.getBFP();
         String message = this.controle.getMessage();
         // categorisering
