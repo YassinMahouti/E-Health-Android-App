@@ -11,10 +11,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.iliasspush.database.dao.BaseDAO;
 import com.example.iliasspush.database.dao.User2DAO;
 
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import javax.xml.transform.Result;
 
 public class MainActivity extends AppCompatActivity {
     private EditText txtUsername, txtAge;
@@ -24,6 +30,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        BaseDAO bd = new BaseDAO();
+        try {
+            ResultSet gebruikers = bd.getConn().createStatement().executeQuery("select * from User");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        /*
         txtUsername = (EditText) findViewById(R.id.txtNameInput);
         txtAge = (EditText) findViewById(R.id.txtAgeInput);
         btnConfirm = (Button) findViewById(R.id.btnConfirm);
@@ -34,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 new Task().execute();
                 User user = new User(1, "Iliass");
             }
-        });
+        });*/
 
     }
 }
@@ -45,7 +60,8 @@ public class MainActivity extends AppCompatActivity {
         protected Void doInBackground(Void...voids) {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = (Connection) DriverManager.getConnection("C:\\Users\\bilia\\OneDrive\\Documenten");
+            Connection connection = (Connection) DriverManager.getConnection("\"jdbc:mysql://dt5.ehb.be/");
+            //Statement statement =  connection.creatStatement
 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();

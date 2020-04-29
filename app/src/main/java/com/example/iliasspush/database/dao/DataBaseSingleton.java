@@ -23,14 +23,18 @@ public class DataBaseSingleton {
         }
 
         public Connection getConnection() {
+            System.out.println("TEST");
             try {
                 if (con == null || con.isClosed()) {
-                    Connection con = DriverManager.getConnection("C:\\Users\\bilia\\OneDrive\\Documenten");
+                   // Class.forName("com.mysql.jdbc.Driver");
+                    con = DriverManager.getConnection("jdbc:mysql://193.190.238.37:3306/1920PROGPROJ_GR2","1920PROGPROJ_GR2","STpY5H9");
                 }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
-            }
-
+            } /*catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }*/
+            System.out.println("TEST2");
             return con;
         }
     }

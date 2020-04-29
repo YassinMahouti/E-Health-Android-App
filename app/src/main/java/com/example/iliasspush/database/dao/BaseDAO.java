@@ -4,7 +4,7 @@ package com.example.iliasspush.database.dao;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public abstract class BaseDAO {
+public  class BaseDAO {
 
     private Connection conn;
 
