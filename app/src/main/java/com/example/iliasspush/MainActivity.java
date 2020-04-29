@@ -1,20 +1,25 @@
 package com.example.iliasspush;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.telecom.Connection;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import com.example.iliasspush.database.dao.UserDatabase;
+import com.example.iliasspush.database.dao.User2DAO;
+
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class MainActivity extends AppCompatActivity {
     private EditText txtUsername, txtAge;
     private Button btnConfirm;
-    User user = new User(1, "Iliass");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +32,26 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 new Task().execute();
+                User user = new User(1, "Iliass");
             }
         });
 
     }
 }
+
     class Task extends AsyncTask<Void, Void, Void> {
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+        protected Void doInBackground(Void...voids) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection connection = (Connection) DriverManager.getConnection("C:\\Users\\bilia\\OneDrive\\Documenten");
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     }
 
 
