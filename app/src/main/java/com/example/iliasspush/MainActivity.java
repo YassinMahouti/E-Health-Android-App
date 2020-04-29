@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        /*
+/*
         txtUsername = (EditText) findViewById(R.id.txtNameInput);
         txtAge = (EditText) findViewById(R.id.txtAgeInput);
         btnConfirm = (Button) findViewById(R.id.btnConfirm);
@@ -49,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
                 new Task().execute();
                 User user = new User(1, "Iliass");
             }
-        });*/
-
+        });
+*/
     }
 }
 
