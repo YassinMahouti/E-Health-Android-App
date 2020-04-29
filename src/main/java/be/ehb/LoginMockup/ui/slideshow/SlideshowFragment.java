@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import be.ehb.haseb.R;
+import be.ehb.Ehealth.R;
 
 public class SlideshowFragment extends Fragment {
 

@@ -1,16 +1,14 @@
 package be.ehb.LoginMockup;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import be.ehb.haseb.R;
+import be.ehb.Ehealth.R;
 
 public class LoginAct extends AppCompatActivity {
 

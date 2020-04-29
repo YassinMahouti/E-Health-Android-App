@@ -1,4 +1,4 @@
-package be.ehb.haseb;
+package be.ehb.Ehealth;
 
 import org.junit.Test;
 

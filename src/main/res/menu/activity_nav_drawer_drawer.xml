@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="navigation_view">
+   >
+
 
     <group android:checkableBehavior="single">
         <item
@@ -16,5 +17,15 @@
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_slideshow" />
+
+        <item
+            android:id="@+id/nav_sport"
+            android:icon="@drawable/ic_where_to_workout"
+            android:title="Where can i workout ?" />
+
+        <item
+            android:id="@+id/nav_privacy"
+            android:icon="@drawable/ic_privacy"
+            android:title="Privacy" />
     </group>
 </menu>

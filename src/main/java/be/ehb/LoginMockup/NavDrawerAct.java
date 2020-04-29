@@ -15,7 +15,7 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import be.ehb.haseb.R;
+import be.ehb.Ehealth.R;
 
 
 public class NavDrawerAct extends AppCompatActivity {
@@ -41,7 +41,7 @@ public class NavDrawerAct extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,R.id.nav_privacy)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
