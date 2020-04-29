@@ -33,9 +33,9 @@ public class AccesLocal {
     public void addProfile(Profile profile){
         sqLiteDatabase = accesDB.getWritableDatabase();
         //statement
-        String  req = "insert into profile (uid,weight,height, age, sex) values";
+        String  req = "insert into profile (uid,weight,height, age, sex,resultBFP) values";
        //concatenation
-        req += "("+profile.getUid()+","+profile.getWeight()+","+profile.getHeight()+","+profile.getAge()+","+profile.getSex()+")";
+        req += "("+profile.getUid()+","+profile.getWeight()+","+profile.getHeight()+","+profile.getAge()+","+profile.getSex()+","+profile.getValueBFP()+")";
         // execute
         sqLiteDatabase.execSQL(req);
     }

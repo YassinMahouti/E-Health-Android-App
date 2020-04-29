@@ -13,6 +13,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     private static  final String COL2 ="height";
     private static  final String COL3 ="age";
     private static  final String COL4 ="sex";
+    private static  final String COL5 ="resultBFP";
 
 // properties :  REAL => floating point value : 8byte = > double
     private String creation = "CREATE TABLE profile ( resultID INTEGER PRIMARY KEY AUTOINCREMENT , "
@@ -20,7 +21,8 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
         + "weight REAL NOT NULL,"
         + "height REAL NOT NULL,"
         + "age INTEGER NOT NULL,"
-        + "sex INTEGER NOT NULL);";
+        + "sex INTEGER NOT NULL , "
+        + "resultBFP REAL NOT NULL);";
 
     /**
      * Constructor

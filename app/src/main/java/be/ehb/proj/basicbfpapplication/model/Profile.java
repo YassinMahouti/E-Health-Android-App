@@ -43,6 +43,7 @@ public class Profile implements Serializable {
     private float valueBMI;
     private int result_id ;
     private int uid =1 ;
+
     private String message;
 
     public Profile(int result_id, int uid, float weight, float height, int age, int sex) {

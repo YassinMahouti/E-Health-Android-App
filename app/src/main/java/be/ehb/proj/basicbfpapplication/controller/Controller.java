@@ -22,45 +22,56 @@ public class Controller { // all static for Serialiser that is static
         if( Controller.instance == null){
             // nog niet gegenereerd => hier kan ik wel een new aanmaken
             Controller.instance = new Controller();
-            // recup info db, need context
+            //To recuperate info from  db we need a Context > context
             localAcces = new AccesLocal(context);
             // call method -> recoverLastProfil
             profile = localAcces.recoverLastProfile();
-           // getSerialise(context); // static method -> localStorage
+           /* getSerialise(context); // static method -> localStorage*/
         }
         //anders return bestaande
         return Controller.instance;
     }// zo heb je steeds 1 instance > Singleton
 
     /**
-     * creation of profile and use date from DB -> localAcces
+     * creation of profile with date from SQLite DB -> localAcces
+     * @param resultID : This is the ID for each results
+     * @param uid : This is the User ID
      * @param weight
      * @param height
      * @param age
      * @param sex
-     * @param context
+     * @param context need to precise the context
      */
-    public void createProfile(int resultID, int uid, float weight, float height, int age, int sex, Context context){
+    public void createProfile(int resultID, int uid, float weight, float height, int age, int sex, Context context)
+    {
         profile = new Profile(resultID, uid,weight, height, age, sex);
         localAcces.addProfile(profile);
 
       //  Serialiser.serialise(nameFile,profile, context);
     }
     
-    public float getBFP(){ // bfp gaan inlezen
+    public float getBFP()
+    { // to recuperate the value of the Body Fat Percentage
         return profile.getValueBFP();
     }
-    public String getMessage(){ //messag gaan inlezen
+    public String getMessage()
+    { //to recuperate the message => the message is for e.g "Fat" or "Normal"
         return profile.getMessage();
     }
 
     /**
      * Recuperation of Serializble object from the profil
-     * @param context
+     * @param context:  need a context
      */
-    private static void getSerialise(Context context){
+    private static void getSerialise(Context context)
+    {
         profile = (Profile) Serialiser.deSerialise(nameFile,context);
     }
+
+    /**
+     * recuperation of the height => we need to verify if its null (empty)
+     * @return  type float
+     */
     public float getHeight(){
         if(profile == null)
         {
@@ -69,6 +80,10 @@ public class Controller { // all static for Serialiser that is static
             return profile.getHeight();
         }
     }
+    /**
+     * recuperation of the weight => we need to verify if its null (empty)
+     * @return  type float
+     */
     public float getWeight(){
         if(profile == null)
         {
