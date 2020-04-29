@@ -19,13 +19,13 @@
             android:title="@string/menu_slideshow" />
 
         <item
-            android:id="@+id/nav_sport"
+            android:id="@+id/nav_find_place"
             android:icon="@drawable/ic_where_to_workout"
-            android:title="Where can i workout ?" />
-
+            android:title="Where can i workout?" />
         <item
             android:id="@+id/nav_privacy"
             android:icon="@drawable/ic_privacy"
             android:title="Privacy" />
+
     </group>
 </menu>
