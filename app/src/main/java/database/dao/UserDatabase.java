@@ -1,5 +1,6 @@
 package database.dao;
 
+import android.app.Application;
 import android.content.Context;
 
 import androidx.room.Database;
@@ -32,6 +33,9 @@ public abstract class UserDatabase extends RoomDatabase {
                 DB_NAME).allowMainThreadQueries().build();
 
     }
+
+
+
     public abstract UserDAO getRepoDao();
 
     private static final int NUMBER_OF_THREADS = 4;
