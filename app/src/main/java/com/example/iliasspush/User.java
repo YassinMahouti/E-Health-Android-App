@@ -13,15 +13,19 @@ import java.util.List;
 public class User {
     @PrimaryKey(autoGenerate = true)
 
-    @ColumnInfo(id = "id")
+    @ColumnInfo(name = "id")
     private int id;
 
     @ColumnInfo(name = "name")
     private String name;
 
 
-@Ignore
+    public User() {
+    }
+
+    @Ignore
     /////////////User constructor////////////////
+
     public User(int id, String name) {
         this.id = id;
         this.name = name;

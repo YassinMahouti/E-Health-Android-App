@@ -1,4 +1,4 @@
-package database.dao;
+package com.example.iliasspush.database.dao;
 
 import androidx.room.Dao;
 import androidx.room.Delete;

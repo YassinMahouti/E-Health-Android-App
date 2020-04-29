@@ -1,24 +1,48 @@
 package com.example.iliasspush;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Insert;
-import androidx.room.RoomDatabase;
-import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import java.net.URL;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.concurrent.ForkJoinPool;
+import android.widget.TextView;
 
-import database.dao.UserDAO;
+import com.example.iliasspush.database.dao.UserDatabase;
 
-public class MainActivity {
+public class MainActivity extends AppCompatActivity {
+    private EditText txtUsername, txtAge;
+    private Button btnConfirm;
+    User user = new User(1, "Iliass");
 
-    private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        txtUsername = (EditText) findViewById(R.id.txtNameInput);
+        txtAge = (EditText) findViewById(R.id.txtAgeInput);
+        btnConfirm = (Button) findViewById(R.id.btnConfirm);
+
+        btnConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Task().execute();
+            }
+        });
+
+    }
+}
+    class Task extends AsyncTask<Void, Void, Void> {
+    }
+
+
+
+
+
+
+
+
+    /*private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
         @Override
         public void onOpen(@NonNull SupportSQLiteDatabase db) {
             super.onOpen(db);
@@ -35,24 +59,6 @@ public class MainActivity {
 
             });
         }
-    };
+    };*/
 
 
-
-
-
-    /*@Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);     //on Vieuw activity_main.xml openen
-    }
-    private EditText txtUsername;
-    private EditText txtAge;
-    private Button btnConfirm;
-
-    public void intit(){
-        txtUsername = (EditText) findViewById(R.id.txtNameInput);
-        txtAge = (EditText) findViewById(R.id.txtAgeInput);
-
-    }*/
-}
