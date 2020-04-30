@@ -3,11 +3,13 @@ package be.ehb.proj.basicbfpapplication.model;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.Switch;
 
 import java.sql.Statement;
 import java.util.Date;
 
 import be.ehb.proj.basicbfpapplication.tools.MySQLiteOpenHelper;
+import be.ehb.proj.basicbfpapplication.view.MainActivity;
 
 public class AccesLocal {
     //properties
@@ -30,12 +32,13 @@ public class AccesLocal {
      * Add a profile in Database
      * @param profile
      */
-    public void addProfile(Profile profile){
+    public void addProfile(Profile profile)
+    {
         sqLiteDatabase = accesDB.getWritableDatabase();
         //statement
-        String  req = "insert into profile (uid,weight,height, age, sex,resultBFP) values";
+        String  req = "insert into profile (uid,weight,height, age, sex, resultBMI , resultBFP) values";
        //concatenation
-        req += "("+profile.getUid()+","+profile.getWeight()+","+profile.getHeight()+","+profile.getAge()+","+profile.getSex()+","+profile.getValueBFP()+")";
+        req += "("+profile.getUid()+","+profile.getWeight()+","+profile.getHeight()+","+profile.getAge()+","+profile.getSex()+","+profile.calculateBMI()+","+profile.getValueBFP()+")";
         // execute
         sqLiteDatabase.execSQL(req);
     }
@@ -44,7 +47,8 @@ public class AccesLocal {
      * recover the last Profile, no param needed
      * @return
      */
-    public Profile recoverLastProfile(){
+    public Profile recoverLastProfile()
+    {
         //read
         sqLiteDatabase = accesDB.getReadableDatabase();
         //make local profile -> null
@@ -55,9 +59,9 @@ public class AccesLocal {
         Cursor cursor = sqLiteDatabase.rawQuery(req,null);
         // to have last profile
         cursor.moveToLast();
-
         // check if there is a last profile
-        if(!cursor.isAfterLast()){
+        if(!cursor.isAfterLast())
+        {
             // if there is a profile -> recover
             // need to be care with DATE !!! here just a new date
             int resultId = (int) cursor.getInt(0);
@@ -66,7 +70,7 @@ public class AccesLocal {
             float height = (float) cursor.getDouble(3);
             Integer age = cursor.getInt(4);
             Integer sex = cursor.getInt(5);
-            profile = new Profile(resultId, 1, weight, height,age,sex);
+            profile = new Profile(resultId, 1, weight, height,age,sex,true);
         }
         cursor.close();
         return profile;

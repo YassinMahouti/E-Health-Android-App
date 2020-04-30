@@ -1,12 +1,14 @@
 package be.ehb.proj.basicbfpapplication.controller;
 
 import android.content.Context;
+import android.widget.Switch;
 
 import java.util.Date;
 
 import be.ehb.proj.basicbfpapplication.model.AccesLocal;
 import be.ehb.proj.basicbfpapplication.model.Profile;
 import be.ehb.proj.basicbfpapplication.tools.Serialiser;
+import be.ehb.proj.basicbfpapplication.view.MainActivity;
 
 public class Controller { // all static for Serialiser that is static
     private static Profile profile; // nieuw object aanmaken > import nodig
@@ -32,6 +34,8 @@ public class Controller { // all static for Serialiser that is static
         return Controller.instance;
     }// zo heb je steeds 1 instance > Singleton
 
+
+
     /**
      * creation of profile with date from SQLite DB -> localAcces
      * @param resultID : This is the ID for each results
@@ -42,9 +46,10 @@ public class Controller { // all static for Serialiser that is static
      * @param sex
      * @param context need to precise the context
      */
-    public void createProfile(int resultID, int uid, float weight, float height, int age, int sex, Context context)
+    public void createProfile(int resultID, int uid, float weight, float height, int age, int sex,boolean save, Context context)
     {
-        profile = new Profile(resultID, uid,weight, height, age, sex);
+        profile = new Profile(resultID, uid,weight, height, age, sex,save);
+        if ( save )
         localAcces.addProfile(profile);
 
       //  Serialiser.serialise(nameFile,profile, context);
@@ -54,9 +59,14 @@ public class Controller { // all static for Serialiser that is static
     { // to recuperate the value of the Body Fat Percentage
         return profile.getValueBFP();
     }
+
     public String getMessage()
     { //to recuperate the message => the message is for e.g "Fat" or "Normal"
         return profile.getMessage();
+    }
+    public float getBMI()
+    { // to recuperate the value of the Body Fat Percentage
+        return profile.calculateBMI();
     }
 
     /**
@@ -92,20 +102,15 @@ public class Controller { // all static for Serialiser that is static
             return profile.getWeight();
         }
     }
-    public Integer getAge(){
-        if(profile == null)
-        {
-            return null;
-        } else {
-            return profile.getAge();
-        }
+    public Integer getAge()
+    {
+        if(profile == null) return null;
+        else return profile.getAge();
     }
-    public Integer getSex(){
-        if(profile == null)
-        {
-            return null;
-        } else {
-            return profile.getSex();
-        }
+
+    public Integer getSex()
+    {
+        if(profile == null) return null;
+        else return profile.getSex();
     }
 }

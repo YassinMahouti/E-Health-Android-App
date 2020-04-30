@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import be.ehb.proj.basicbfpapplication.view.MainActivity;
+
 public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     private static final String TABLE_NAME = "profile";
     private static  final String COL0 ="uid";
@@ -13,7 +15,8 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     private static  final String COL2 ="height";
     private static  final String COL3 ="age";
     private static  final String COL4 ="sex";
-    private static  final String COL5 ="resultBFP";
+    private static  final String COL5 ="resultBMI";
+    private static  final String COL6 ="resultBFP";
 
 // properties :  REAL => floating point value : 8byte = > double
     private String creation = "CREATE TABLE profile ( resultID INTEGER PRIMARY KEY AUTOINCREMENT , "
@@ -22,6 +25,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
         + "height REAL NOT NULL,"
         + "age INTEGER NOT NULL,"
         + "sex INTEGER NOT NULL , "
+        + "resultBMI REAL NOT NULL , "
         + "resultBFP REAL NOT NULL);";
 
     /**
@@ -45,6 +49,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
       //onCreate execute SQL defined in creation
+
         db.execSQL(creation);
 
     }

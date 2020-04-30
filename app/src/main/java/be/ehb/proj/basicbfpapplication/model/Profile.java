@@ -3,57 +3,49 @@ package be.ehb.proj.basicbfpapplication.model;
 import android.renderscript.Sampler;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Switch;
 
 import java.io.ObjectInputStream;
 import java.io.Serializable;
 
+import be.ehb.proj.basicbfpapplication.controller.Controller;
+import be.ehb.proj.basicbfpapplication.view.MainActivity;
+
 // i will make profile Serialiaseble so i can have info stored of before
 public class Profile implements Serializable {
-
-    //constants : Ess ,
-    private final int minEssWoman =10;
-    private final int maxEssWoman =14;
-    private final int minEssMan =3;
-    private final int maxEssMan =5;
-    //constants : Ath ,
-    private final int minAthWoman =14;
-    private final int maxAthWoman =21;
-    private final int minAthMan =6;
-    private final int maxAthMan =14;
-    //constants : Fit ,
-    private final int minFitWoman =21;
-    private final int maxFitWoman =25;
-    private final int minFitMan =14;
-    private final int maxFitMan =18;
-    //constants : Ave ,
-    private final int minAveWoman =25;
-    private final int maxAveWoman =32;
-    private final int minAveMan =18;
-    private final int maxAveMan =25;
-    //constants : Obe
-    private final int minObeWoman =32;
-    private final int minObeMan =25;
-
     // properties
+            //database
+    private int result_id ;
+    private int uid =1 ;
+            // nodig voor berekening
     private float weight;
     private float height;
     private int age;
     private int sex;
+            // nodig voor resultaat
     private float valueBFP;
     private float valueBMI;
-    private int result_id ;
-    private int uid =1 ;
-
     private String message;
 
-    public Profile(int result_id, int uid, float weight, float height, int age, int sex) {
+    private boolean save;
+
+    public Profile(int result_id, int uid, float weight, float height, int age, int sex, boolean save)
+    {
         this.weight = weight;
         this.height = height;
         this.age = age;
-       this.sex = sex;
-       this.calculateBMI();
-       this.calculateBFP();
-       this.resultBFP();
+        this.sex = sex;
+        this.save = save;
+        this.calculateBMI();
+        this.calculateBFP();
+        this.resultBFP();
+    }
+
+    // getters
+
+
+    public boolean isSave() {
+        return save;
     }
 
     public int getResult_id() {
@@ -65,7 +57,7 @@ public class Profile implements Serializable {
     }
 
     public float getWeight() {
-        return weight;
+   return weight;
     }
 
     public float getHeight() {
@@ -84,14 +76,15 @@ public class Profile implements Serializable {
         return valueBFP;
     }
 
-    public String getMessage() {
-        return message;
-    }
-    public void calculateBMI(){
+    public String getMessage() {  return message; }
+
+    public float calculateBMI()
+    {
         float heightInM = (float) height/100;
-        this.valueBMI =  weight / (heightInM*heightInM); // weight in KG
+        return this.valueBMI =  weight / (heightInM*heightInM); // weight in kg
     }
-    public void calculateBFP(){
+    public void calculateBFP()
+    {
         float heightInM = (float) height/100;
         calculateBMI();
         if ( age >= 16)
@@ -101,21 +94,21 @@ public class Profile implements Serializable {
     public void resultBFP(){
         if ( sex == 0)
         { // female
-            if (valueBFP < minEssWoman)  message =" You are UNDER the category 'Essential Fat' you have a BFP Under the "+ minEssWoman +"%.";
-            if ( valueBFP>= minEssWoman && valueBFP <maxEssWoman ) message ="You are in the category 'Essential Fat' you have a BFP between " +minEssWoman +"% -"+maxEssWoman+"%.";
-            if ( valueBFP>= minAthWoman && valueBFP <maxAthWoman ) message = "You are in the category 'Athlete' you have a BFP between " +minAthWoman +"% -"+maxAthWoman+"%.";
-            if ( valueBFP>= minFitWoman && valueBFP <maxFitWoman )message ="You are in the category 'Fitness' you have a BFP between " +minFitWoman +"% -"+maxFitWoman+"%.";
-            if ( valueBFP>= minAveWoman && valueBFP <maxAveWoman )message ="You are in the category 'Average' you have a BFP between " +minAveWoman +"% -"+maxAveWoman+"%.";
-            if ( valueBFP>= minObeWoman  )message ="You are in the category 'Obese' you have a BFP  ABOVE"+ minObeWoman +"%.";
+            if (valueBFP < MainActivity.MIN_ESS_W)  message = MainActivity.CAT_1;
+            if ( valueBFP> MainActivity.MIN_ESS_W && valueBFP <=MainActivity.MAX_ESS_W ) message =MainActivity.CAT_2;
+            if ( valueBFP> MainActivity.MIN_ATH_W && valueBFP <= MainActivity.MAX_ATH_W ) message = MainActivity.CAT_3;
+            if ( valueBFP> MainActivity.MIN_FIT_W && valueBFP <=MainActivity.MAX_FIT_W )message =MainActivity.CAT_4;
+            if ( valueBFP> MainActivity.MIN_AVE_W && valueBFP <=MainActivity.MAX_AVE_W )message =MainActivity.CAT_5;
+            if ( valueBFP> MainActivity.MIN_OBE_W  )message =MainActivity.CAT_6;
         }
         else {
             //male
-            if (valueBFP < minEssMan)  message =" You are UNDER the category 'Essential Fat' you have a BFP Under the "+ minEssMan +"%. Make sure you eat in of because you have an actual BFP of" + valueBFP;
-            if ( valueBFP>= minEssMan && valueBFP <maxEssMan ) message =" Your BFP is " + valueBFP + "\n"+"You are in the category 'Essential Fat' you have a BFP between " +minEssMan +"% -"+maxEssMan+"%.";
-            if ( valueBFP>= minAthMan && valueBFP <maxAthMan ) message = " Your BFP is " + valueBFP + "\n"+"You are in the category 'Athlete' you have a BFP between " +minAthMan +"% -"+maxAthMan+"%.";
-            if ( valueBFP>= minFitWoman && valueBFP <maxFitMan )message =" Your BFP is " + valueBFP + "\n"+"You are in the category 'Fitness' you have a BFP between " +minFitMan +"% -"+maxFitMan+"%.";
-            if ( valueBFP>= minAveMan && valueBFP <maxAveMan )message =" Your BFP is " + valueBFP + "\n"+"You are in the category 'Average' you have a BFP between " +minAveMan +"% -"+maxAveMan+"%.";
-            if ( valueBFP>= minObeMan  )message =" Your BFP is " + valueBFP + "\n"+"You are in the category 'Obese' you have a BFP  ABOVE"+ minObeMan +"%.";
+            if (valueBFP < MainActivity.MIN_ESS_M)  message = MainActivity.CAT_1;
+            if ( valueBFP > MainActivity.MIN_ESS_M && valueBFP <= MainActivity.MAX_ESS_M ) message =MainActivity.CAT_2;
+            if ( valueBFP > MainActivity.MIN_ATH_M && valueBFP <= MainActivity.MAX_ATH_M ) message = MainActivity.CAT_3;
+            if ( valueBFP > MainActivity.MIN_FIT_M && valueBFP <= MainActivity.MAX_FIT_M )message =MainActivity.CAT_4;
+            if ( valueBFP > MainActivity.MIN_AVE_M && valueBFP <= MainActivity.MAX_AVE_M )message =MainActivity.CAT_5;
+            if ( valueBFP > MainActivity.MIN_OBE_M  )message =MainActivity.CAT_6;
         }
     }
 

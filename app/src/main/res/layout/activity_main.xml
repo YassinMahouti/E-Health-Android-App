@@ -151,11 +151,35 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btnCalculateBFP_Click"
-                android:layout_width="wrap_content"
+                android:id="@+id/btnCalculateBMI"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Calculate BMI" />
+
+            <Button
+                android:id="@+id/btnCalculateBFP_Click"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Calculate BFP"
                 android:textColorHighlight="#FFFFFF" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="445dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <Switch
+                android:id="@+id/sw_saveResult"
+                android:layout_width="319dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="clip_vertical|center_vertical"
+                android:checked="true"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="Save My result" />
         </LinearLayout>
 
         <LinearLayout
@@ -166,13 +190,11 @@
             android:gravity="center_horizontal|center_vertical"
             android:orientation="horizontal">
 
-            <ProgressBar
-                android:id="@+id/progressBarBFP"
-                style="?android:attr/progressBarStyleHorizontal"
+            <TextView
+                android:id="@+id/txtResultBMI"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:indeterminate="false" />
+                android:layout_weight="1" />
 
             <TextView
                 android:id="@+id/lblResultBFP"
@@ -181,5 +203,6 @@
                 android:layout_weight="1" />
 
         </LinearLayout>
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
