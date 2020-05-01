@@ -1,4 +1,4 @@
-package be.ehb.LoginMockup.ui.WhereToWorkout;
+package be.ehb.LoginMockup.ui.whereToWorkout;
 
 
 import androidx.lifecycle.LiveData;

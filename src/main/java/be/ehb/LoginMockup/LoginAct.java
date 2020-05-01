@@ -22,6 +22,7 @@ public class LoginAct extends AppCompatActivity {
 
         login = findViewById(R.id.button);
 
+        //ga naar home
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

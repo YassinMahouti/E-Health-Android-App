@@ -1,4 +1,4 @@
-package be.ehb.LoginMockup.ui.WhereToWorkout;
+package be.ehb.LoginMockup.ui.whereToWorkout;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,7 +13,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import be.ehb.Ehealth.R;
-import be.ehb.LoginMockup.ui.slideshow.SlideshowViewModel;
 
 public class FindPlaceFragment extends Fragment {
 
