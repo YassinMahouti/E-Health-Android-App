@@ -7,7 +7,9 @@ import java.util.Date;
 
 import be.ehb.proj.basicbfpapplication.model.AccesLocal;
 import be.ehb.proj.basicbfpapplication.model.Profile;
+import be.ehb.proj.basicbfpapplication.model.User;
 import be.ehb.proj.basicbfpapplication.tools.Serialiser;
+import be.ehb.proj.basicbfpapplication.view.BMICalculator;
 import be.ehb.proj.basicbfpapplication.view.MainActivity;
 
 public class Controller { // all static for Serialiser that is static
@@ -15,6 +17,7 @@ public class Controller { // all static for Serialiser that is static
     private static Controller instance = null;
     private static String nameFile = "saveprofile";
     private static AccesLocal localAcces;
+    private static User user;
 
     private Controller(){
         super();
@@ -28,11 +31,14 @@ public class Controller { // all static for Serialiser that is static
             localAcces = new AccesLocal(context);
             // call method -> recoverLastProfil
             profile = localAcces.recoverLastProfile();
+            user = localAcces.recoverUser();
+
            /* getSerialise(context); // static method -> localStorage*/
         }
         //anders return bestaande
         return Controller.instance;
     }// zo heb je steeds 1 instance > Singleton
+
 
 
 
@@ -54,6 +60,13 @@ public class Controller { // all static for Serialiser that is static
 
       //  Serialiser.serialise(nameFile,profile, context);
     }
+    public void createUser( int result_id, int user_id, float height, float weight, boolean save)
+    {
+        user= new User( result_id, user_id, height, weight , save);
+        if ( save )
+        localAcces.addBMIresults(user);
+
+    }
     
     public float getBFP()
     { // to recuperate the value of the Body Fat Percentage
@@ -67,6 +80,10 @@ public class Controller { // all static for Serialiser that is static
     public float getBMI()
     { // to recuperate the value of the Body Fat Percentage
         return profile.calculateBMI();
+    }
+    public float getBMIOnly()
+    { // to recuperate the value of the Body Fat Percentage
+        return user.calculateBMI();
     }
 
     /**
@@ -90,6 +107,15 @@ public class Controller { // all static for Serialiser that is static
             return profile.getHeight();
         }
     }
+    public float getHeightBMI(){
+        if(user == null)
+        {
+            return Float.parseFloat(null);
+        } else {
+            return user.getHeight();
+        }
+    }
+
     /**
      * recuperation of the weight => we need to verify if its null (empty)
      * @return  type float
@@ -100,6 +126,14 @@ public class Controller { // all static for Serialiser that is static
             return Float.parseFloat(null);
         } else {
             return profile.getWeight();
+        }
+    }
+    public float getWeightBMI(){
+        if(user == null)
+        {
+            return 0;
+        } else {
+            return user.getWeight();
         }
     }
     public Integer getAge()

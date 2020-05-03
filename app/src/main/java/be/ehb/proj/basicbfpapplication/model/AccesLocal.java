@@ -9,7 +9,8 @@ import java.sql.Statement;
 import java.util.Date;
 
 import be.ehb.proj.basicbfpapplication.tools.MySQLiteOpenHelper;
-import be.ehb.proj.basicbfpapplication.view.MainActivity;
+import be.ehb.proj.basicbfpapplication.view.BMICalculator;
+
 
 public class AccesLocal {
     //properties
@@ -74,5 +75,42 @@ public class AccesLocal {
         }
         cursor.close();
         return profile;
+    }
+
+    public void addBMIresults(User user)
+    {
+        sqLiteDatabase = accesDB.getWritableDatabase();
+        //statement
+        String  req = "insert into bmiresult (user_id, height, weight , result_bmi) values";
+        //concatenation
+        req += "("+user.getUser_id()+","+user.getHeight()+","+user.getWeight()+","+user.getResult_bmi()+")";
+        // execute
+        sqLiteDatabase.execSQL(req);
+    }
+    public User recoverUser()
+    {
+        //read
+        sqLiteDatabase = accesDB.getReadableDatabase();
+        //make local profile -> null
+        User user = null;
+        // query for recover Profile
+        String req = "select * from bmiresult ";
+        // need a cursor bcs we use a type select
+        Cursor cursor = sqLiteDatabase.rawQuery(req,null);
+        // to have last profile
+        cursor.moveToLast();
+        // check if there is a last profile
+        if(!cursor.isAfterLast())
+        {
+           // BMIresult (user_id, result_id, height, weight , result_bmi)
+            int result_id = (int) cursor.getInt(0);
+            int user_id = (int) cursor.getInt(1);
+            float height = (float) cursor.getDouble(2);
+            float weight = (float) cursor.getDouble(3);
+            float result_bmi = (float) cursor.getDouble(4);
+            user = new User(result_id, 1, height, weight, true);
+        }
+        cursor.close();
+        return user;
     }
 }

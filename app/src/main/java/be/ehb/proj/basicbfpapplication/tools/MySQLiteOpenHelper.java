@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-import be.ehb.proj.basicbfpapplication.view.MainActivity;
+
 
 public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     private static final String TABLE_NAME = "profile";
@@ -27,6 +27,14 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
         + "sex INTEGER NOT NULL , "
         + "resultBMI REAL NOT NULL , "
         + "resultBFP REAL NOT NULL);";
+
+    //user (user_id, result_id, height, weight , result_bmi)
+
+    private String cTableBmi = "CREATE TABLE bmiresult ( result_id INTEGER PRIMARY KEY AUTOINCREMENT ,"
+            +" user_id INTEGER NOT NULL ,"
+            +"height REAL NOT NULL ,"
+            +"weight REAL NOT NULL ,"
+            +"result_bmi REAL NOT NULL);";
 
     /**
      * Constructor
@@ -51,6 +59,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
       //onCreate execute SQL defined in creation
 
         db.execSQL(creation);
+        db.execSQL(cTableBmi);
 
     }
 
@@ -64,6 +73,8 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
        db.execSQL("DROP TABLE profile");
+       this.onCreate(db);
+       db.execSQL("DROP TABLE bmiresult");
        this.onCreate(db);
     }
 }
