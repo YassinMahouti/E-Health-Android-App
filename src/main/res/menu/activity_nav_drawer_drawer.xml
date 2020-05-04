@@ -27,9 +27,12 @@
             android:title="Privacy" />
         <item
             android:id="@+id/nav_food_lookup"
+            android:icon="@drawable/ic_search"
             android:title="FoodLookup"/>
-
-
+        <item
+            android:id="@+id/nav_drink_water"
+            android:icon="@drawable/ic_drink_water"
+            android:title="Drink Water"/>
 
     </group>
 </menu>

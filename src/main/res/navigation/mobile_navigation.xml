@@ -55,6 +55,12 @@
         android:name="be.ehb.LoginMockup.ui.foodlookup.FoodLookup"
         android:label="FoodLookup"
         tools:layout="@layout/food_lookup_fragment"></fragment>
+    <fragment
+        android:id="@+id/nav_drink_water"
+        android:name="be.ehb.LoginMockup.ui.drinkwater.DrinkWater"
+        android:label="@string/drink_water"
+        tools:layout="@layout/drink_water_fragment"
+        />
 
 
 </navigation>
