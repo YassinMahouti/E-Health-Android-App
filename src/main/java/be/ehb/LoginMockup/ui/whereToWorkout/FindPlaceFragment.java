@@ -16,7 +16,6 @@ import androidx.lifecycle.ViewModelProviders;
 import be.ehb.Ehealth.R;
 
 public class FindPlaceFragment extends Fragment {
-    private Button mFirebaseBtn;
     private FindPlaceViewModel findPlaceViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,

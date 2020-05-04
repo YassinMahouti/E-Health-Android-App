@@ -10,7 +10,7 @@ public class bfbViewModel extends ViewModel {
 
     public bfbViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is slideshow fragment");
+        mText.setValue("This is BFP fragment");
     }
 
     public LiveData<String> getText() {

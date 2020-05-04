@@ -11,14 +11,12 @@
             android:title="@string/menu_home" />
        <item
            android:id="@+id/nav_bfp"
-           android:title="BFP"></item>
-
+           android:title="BFP">
+       </item>
         <item
             android:id="@+id/nav_bmi"
             android:title="BMI">
-
         </item>
-
         <item
             android:id="@+id/nav_find_place"
             android:icon="@drawable/ic_where_to_workout"
@@ -27,6 +25,11 @@
             android:id="@+id/nav_privacy"
             android:icon="@drawable/ic_privacy"
             android:title="Privacy" />
+        <item
+            android:id="@+id/nav_food_lookup"
+            android:title="FoodLookup"/>
+
+
 
     </group>
 </menu>

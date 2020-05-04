@@ -16,16 +16,16 @@ import be.ehb.Ehealth.R;
 
 public class bmiFragment extends Fragment {
 
-    private bmiViewModel galleryViewModel;
+    private bmiViewModel bmiViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        galleryViewModel =
+        bmiViewModel =
                 ViewModelProviders.of(this).get(bmiViewModel.class);
         View root = inflater.inflate(R.layout.bmi, container, false);
         final TextView textView = root.findViewById(R.id.text_gallery);
-        galleryViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        bmiViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

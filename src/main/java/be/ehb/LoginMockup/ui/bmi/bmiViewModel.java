@@ -8,9 +8,12 @@ public class bmiViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
+
+
+
     public bmiViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is gallery fragment");
+        mText.setValue("This is bmi fragment");
     }
 
     public LiveData<String> getText() {
