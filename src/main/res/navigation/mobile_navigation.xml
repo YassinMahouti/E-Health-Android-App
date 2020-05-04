@@ -29,16 +29,16 @@
             app:argType="string" />
     </fragment>-->
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="be.ehb.LoginMockup.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_bmi"
+        android:name="be.ehb.LoginMockup.ui.bmi.bmiFragment"
+        android:label="@string/menu_bmi"
+        tools:layout="@layout/bmi" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="be.ehb.LoginMockup.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_bfp"
+        android:name="be.ehb.LoginMockup.ui.bfp.bfbFragment"
+        android:label="@string/menu_bfp"
+        tools:layout="@layout/bfp" />
     <fragment
         android:id="@+id/nav_privacy"
         android:name="be.ehb.LoginMockup.ui.privacy.PrivacyFragment"
