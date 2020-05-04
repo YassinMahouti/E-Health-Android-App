@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MyBFPapp</string>
+    <string name="vraag1">Hebt u koorts ? (>38°C)</string>
+    <string name="vraag2">Hebt u een droge hoest ? </string>
+    <string name="vraag3">Hebt u last om te ademen (of buiten adem zijn)? </string>
+    <string name="vraag4">Hebt u last van vermoeidheid ? </string>
+    <string name="vraag5">Hebt u  last van expectoraties (slijm) ? </string>
+
+</resources>

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal|center_vertical"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/txt_Titel_Corona"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Welcome to the Corona checkup" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="99dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txt_symptom1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/vraag1" />
+
+                <RadioGroup
+                    android:id="@+id/rd_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="207dp">
+
+                    <RadioButton
+                        android:id="@+id/rd_First_yes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Yes" />
+
+                    <RadioButton
+                        android:id="@+id/rd_first_no"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="no" />
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/linearLayout3d"
+                android:layout_width="match_parent"
+                android:layout_height="94dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txt_symptom4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/vraag4" />
+
+                <RadioGroup
+                    android:id="@+id/rd_group4"
+                    android:layout_width="match_parent"
+                    android:layout_height="207dp">
+
+                    <RadioButton
+                        android:id="@+id/rd_Fo_yes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Yes" />
+
+                    <RadioButton
+                        android:id="@+id/rd_Fo_no"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="no" />
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout3b"
+                android:layout_width="match_parent"
+                android:layout_height="93dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txt_symptom2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/vraag2" />
+
+                <RadioGroup
+                    android:id="@+id/rd_group2"
+                    android:layout_width="match_parent"
+                    android:layout_height="207dp">
+
+                    <RadioButton
+                        android:id="@+id/rd_Sec_yes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Yes" />
+
+                    <RadioButton
+                        android:id="@+id/rd_Sec_no"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="no" />
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout3e"
+                android:layout_width="match_parent"
+                android:layout_height="93dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txt_symptom5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/vraag5" />
+
+                <RadioGroup
+                    android:id="@+id/rd_group5"
+                    android:layout_width="match_parent"
+                    android:layout_height="207dp">
+
+                    <RadioButton
+                        android:id="@+id/rd_Fif_yes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Yes" />
+
+                    <RadioButton
+                        android:id="@+id/rd_Fif_no"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="no" />
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout3c"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txt_symptom3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/vraag3" />
+
+                <RadioGroup
+                    android:id="@+id/rd_group3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:id="@+id/rd_Third_yes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Yes" />
+
+                    <RadioButton
+                        android:id="@+id/rd_Third_no"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="no" />
+
+                </RadioGroup>
+
+                <Button
+                    android:id="@+id/btn_saveSymptoms"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:text="Save your symptoms in the cloud" />
+
+                <Button
+                    android:id="@+id/btn_calculateRisk"
+                    android:layout_width="match_parent"
+                    android:layout_height="37dp"
+                    android:text="show my risk percentage" />
+
+
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scrollbars="vertical">
+
+                        <ListView
+                            android:id="@+id/listSymptoms"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                    </HorizontalScrollView>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
