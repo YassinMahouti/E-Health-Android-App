@@ -61,6 +61,12 @@
         android:label="@string/drink_water"
         tools:layout="@layout/drink_water_fragment"
         />
+    <fragment
+        android:id="@+id/nav_movement_monitor"
+        android:name="be.ehb.LoginMockup.ui.movementMonitor.MovementMonitor"
+        android:label="@string/movement_monitor"
+        tools:layout="@layout/movement_monitor_fragment"
+        />
 
 
 </navigation>

@@ -11,9 +11,11 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+
     <string name="menu_calCalc">Calorie Calculator</string>
     <string name="home_second">Home Second</string>
-    <string name="drink_water">Drink water</string>
+    <string name="drink_water">Drink Water</string>
+    <string name="movement_monitor">Movement Monitor</string>
     <string name="menu_bfp" />
     <string name="menu_bmi" />
 
