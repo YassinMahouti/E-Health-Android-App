@@ -40,7 +40,7 @@ public class Login extends AppCompatActivity {
         myLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = myEmail.getText().toString().trim(); // convert type object to string
+                String email = myEmail.getText().toString().trim();
                 String password = myPassword.getText().toString().trim();
 
                 if (TextUtils.isEmpty(email)) {
