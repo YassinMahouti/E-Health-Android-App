@@ -14,11 +14,26 @@
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
 
+        <TextView
+            android:id="@+id/txt_TitelBmiBfp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/menu_title"
+            android:textColor="#020202"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txt_SubtitelBmiBfp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/menu_subtitle"
+            android:textStyle="italic" />
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="329dp"
             android:layout_gravity="center_horizontal|center_vertical"
-            android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
             android:orientation="horizontal">
 
@@ -49,14 +64,14 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:checked="true"
-                            android:text="Man" />
+                            android:text="Im a man" />
 
                         <RadioButton
                             android:id="@+id/radioWoman"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Woman" />
+                            android:text="Im a woman" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -80,7 +95,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Weight" />
+                            android:text="My weight:" />
 
                         <EditText
                             android:id="@+id/txtInputWeight"
@@ -103,7 +118,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Height" />
+                            android:text="My height" />
 
                         <EditText
                             android:id="@+id/txtInputHeight"
@@ -127,7 +142,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Age :" />
+                            android:text="My Age:" />
 
                         <EditText
                             android:id="@+id/txtInputAge"
@@ -142,65 +157,81 @@
             </LinearLayout>
         </LinearLayout>
 
+        <Button
+            android:id="@+id/button_saveCloud"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Save results in the cloud (so you can view your results)"
+            android:textSize="12sp" />
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="465dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
-            android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btnCalculateBMI"
-                android:layout_width="0dp"
+                android:id="@+id/btnViewResultsInCloud"
+                android:layout_width="7dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Calculate BMI" />
+                android:background="#C5383CFF"
+                android:text="View results" />
 
             <Button
-                android:id="@+id/btnCalculateBFP_Click"
+                android:id="@+id/btnCalculateBMI_BFP_Click"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Calculate BFP"
-                android:textColorHighlight="#FFFFFF" />
+                android:background="#BE4DFF28"
+                android:text="Calculate my BFP and BMI"
+                android:textColorHighlight="#FFFFFF"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="445dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <Switch
                 android:id="@+id/sw_saveResult"
-                android:layout_width="319dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="clip_vertical|center_vertical"
+                android:layout_gravity="center_horizontal|center_vertical"
                 android:checked="true"
                 android:gravity="center_horizontal|center_vertical"
-                android:text="Save My result" />
+                android:text="Save my informations for the next time" />
+
+            <Switch
+                android:id="@+id/sw_cloud"
+                android:layout_width="289dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:checked="true"
+                android:gravity="center_horizontal"
+                android:text="I agree to save my results in the cloud" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="120dp"
             android:layout_gravity="center_horizontal|center_vertical"
-            android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/txtResultBMI"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/lblResultBFP"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_width="match_parent"
+                android:layout_height="53dp"
+                android:gravity="center_horizontal"
+                android:textColor="#D60000" />
 
         </LinearLayout>
 

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">BasicBMI Application</string>
-    <string name="menu_title">Welcome to the Calculator </string>
-    <string name="menu_subtitle">Please chose between next options </string>
+    <string name="menu_title">Welcome to the BMI and BFP Calculator </string>
+    <string name="menu_subtitle">Please fill in the next cases:</string>
     <string name="menu_bmi">Here you can calculate your Body Mass Index</string>
     <string name="menu_bfp">Here you can calculate your Body Fat Percentage</string>
     <string name="menu_both">Here you can calculate both</string>

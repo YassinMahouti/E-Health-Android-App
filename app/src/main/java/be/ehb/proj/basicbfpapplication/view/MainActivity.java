@@ -2,15 +2,20 @@ package be.ehb.proj.basicbfpapplication.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Date;
 
 import be.ehb.proj.basicbfpapplication.R;
 import be.ehb.proj.basicbfpapplication.controller.Controller;
@@ -55,12 +60,19 @@ public class MainActivity extends AppCompatActivity
     private EditText txtInputAge;
     private RadioButton radioMan;
     private RadioButton radioWoman;
-    private TextView lblResultBFP;
-    private TextView txtResultBMI;
-    private ProgressBar progressBarBFP;
+    private TextView lblResult;
+    private TextView lblResultBMI;
     private Controller controle;
     private Switch sw_save;
-   // public Switch aSwitch;
+    private Switch sw_cloud;
+    //properties for Firebase
+    DatabaseReference mRootUserBB;
+    DatabaseReference mRootUserID;
+    DatabaseReference mRootUserInfo;
+    private Thread savingData;
+    private Button btn_saveCloud;
+
+
     /**
      * initialisation of my links to my graphical objects in a separated funtion so it's easyer to read code
      */
@@ -71,12 +83,15 @@ public class MainActivity extends AppCompatActivity
         txtInputAge =(EditText) findViewById(R.id.txtInputAge);
         radioMan =(RadioButton) findViewById(R.id.radioMan);
         radioWoman =(RadioButton) findViewById(R.id.radioWoman);
-        lblResultBFP = (TextView) findViewById(R.id.lblResultBFP);
-        txtResultBMI = (TextView) findViewById(R.id.txtResultBMI);
+        lblResult = (TextView) findViewById(R.id.lblResultBFP);
+        lblResultBMI =(TextView) findViewById(R.id.txtResultBMI);
         sw_save = (Switch) findViewById(R.id.sw_saveResult);
+        sw_cloud=(Switch) findViewById(R.id.sw_cloud);
+        btn_saveCloud =(Button) findViewById(R.id.button_saveCloud);
         this.controle = Controller.getInstance(this);
-        listenCalculationBFP();
-        listenCalculBMI();
+        //eventlistener for calculation on btn_calculateBmiBfp
+        listenCalculation();
+        //Data stored locally: SQLite -> to recuperate user input: call recupProfile;
         recupProfile();
     }
 
@@ -89,21 +104,73 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        init();
+        init();// initialise all we need
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        //getReference to Firebase
+        mRootUserBB = database.getReference("UserBB");
+        mRootUserID = database.getReference("resultsBB");
+
+        btn_saveCloud.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listenCloudSave();
+            }
+        });
+
+
+
+    }
+    private void listenCloudSave()
+    {
+        sw_cloud= ((Switch) findViewById(R.id.sw_cloud));
+        float weight = 0;
+        float height = 0;
+        int age = 0;
+        int sex = 0;
+        try {
+            weight = Float.parseFloat(txtInputWeight.getText().toString());
+            height = Float.parseFloat(txtInputHeight.getText().toString());
+            age = Integer.parseInt(txtInputAge.getText().toString());
+
+        } catch (Exception e) {
+            // e.printStackTrace();
+        };
+        if (sw_cloud.isChecked())
+        {
+            Date date = new Date();
+            mRootUserID = mRootUserBB.child("resultsBB").push();
+            mRootUserInfo = mRootUserID.child("user_weight");
+            mRootUserInfo.setValue(weight);
+            mRootUserInfo = mRootUserID.child("user_height");
+            mRootUserInfo.setValue(height);
+            Toast.makeText(this, "Date Saved in Cloud", Toast.LENGTH_SHORT).show();
+
+        }
+        else Toast.makeText(this, "Date CANT BE saved Cloud", Toast.LENGTH_SHORT).show();
     }
 
-    private void listenCalculationBFP()
-    {
+
+    private void listenCalculation()
+    {    savingData = new Thread(new Runnable() {
+        public void run() {
+            listenCalculation();
+        }
+    });
+        savingData.start();
+
         //EventListener
-        ((Button) findViewById(R.id.btnCalculateBFP_Click)).setOnClickListener(new Button.OnClickListener() {
+        ((Button) findViewById(R.id.btnCalculateBMI_BFP_Click)).setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
+
+
                 //Toast.makeText(MainActivity.this, "test", Toast.LENGTH_SHORT).show();
                 float weight = 0;
                 float height = 0;
                 int age = 0;
                 int sex = 0;
                 boolean save = false;
-
+                boolean cloud = false;
                 try {
                     weight = Float.parseFloat(txtInputWeight.getText().toString());
                     height = Float.parseFloat(txtInputHeight.getText().toString());
@@ -116,42 +183,11 @@ public class MainActivity extends AppCompatActivity
                 {
                     save = true;
                 }
-
-                if ( radioMan.isChecked())
+                if(sw_cloud.isChecked())
                 {
-                    sex = 1;
-                }
-                if ( weight ==0 || height ==0 || age ==0 )
-                {
-                    Toast.makeText(MainActivity.this, "Invalid Input !", Toast.LENGTH_SHORT).show();
-                } else viewResultBFP( 1,1,weight, height, age, sex,save);
-            }
-        });
-    }
-    private void listenCalculBMI()
-    {
-        //EventListener
-        ((Button) findViewById(R.id.btnCalculateBMI)).setOnClickListener(new Button.OnClickListener() {
-            public void onClick(View v) {
-                // Toast for a popup e.g here to know if my listener works when I push on it.
-                //Toast.makeText(MainActivity.this, "test", Toast.LENGTH_SHORT).show();
-                float weight = 0;
-                float height = 0;
-                int age = 0;
-                int sex = 0;
-                boolean save = false;
+                    cloud = true;
 
-                try {
-                    weight = Float.parseFloat(txtInputWeight.getText().toString());
-                    height = Float.parseFloat(txtInputHeight.getText().toString());
-                    age = Integer.parseInt(txtInputAge.getText().toString());
 
-                } catch (Exception e) {
-                    // e.printStackTrace();
-                };
-                if( sw_save.isChecked())
-                {
-                    save = true;
                 }
 
                 if ( radioMan.isChecked())
@@ -161,70 +197,68 @@ public class MainActivity extends AppCompatActivity
                 if ( weight ==0 || height ==0 || age ==0 )
                 {
                     Toast.makeText(MainActivity.this, "Invalid Input !", Toast.LENGTH_SHORT).show();
-                } else viewResultBMI( 1,1,weight, height, age, sex, save);
+                } else viewResult( 1,1,weight, height, age, sex,save,cloud);
+
+
             }
         });
+
     }
 
-    private void viewResultBFP(int resultID, int uid, float weight, float height , int age , int sex, boolean save)
+    private void viewResult(int resultID, int uid, float weight, float height , int age , int sex, boolean save, boolean cloud)
     {
         // via controller > aanmaak profiel en data inhalen
-        this.controle.createProfile(resultID,uid,weight,height,age,sex, save,this); // context = this = Mainactivity => for Serialisable
+        this.controle.createProfileLocal(resultID,uid,weight,height,age,sex, save,cloud,this); // context = this = Mainactivity => for Serialisable
         float bfp = this.controle.getBFP();
+        float bmi = this.controle.getBMI();
+        lblResultBMI.setText("Your BMI is "+ String.format(String.valueOf("%.01f"),bmi));
         String message = this.controle.getMessage();
         // categorisering
         if (sex ==0) {
             switch (message) {
                 case CAT_1:
-                    lblResultBFP.setText("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + " You are in the category " + CAT_1 + ". You have a Body Fat Percentage <" + MIN_ESS_W + "%.");
+                    lblResult.setText("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + " You are in the category " + CAT_1 + ". You have a Body Fat Percentage <" + MIN_ESS_W + "%.");
                     break;
                 case CAT_2:
-                    lblResultBFP.setText("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + "You are in the category " + CAT_2 + ". You have a Body Fat Percentage between " + MIN_ESS_W + "% -" + MAX_ESS_W + "%.");
+                    lblResult.setText("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + "You are in the category " + CAT_2 + ". You have a Body Fat Percentage between " + MIN_ESS_W + "% -" + MAX_ESS_W + "%.");
                     break;
                 case CAT_3:
-                    lblResultBFP.setText("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + "You are in the category " + CAT_3 + ". You have a Body Fat Percentage between " + MIN_ATH_W + "% -" + MAX_ATH_W + "%.");
+                    lblResult.setText("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + "You are in the category " + CAT_3 + ". You have a Body Fat Percentage between " + MIN_ATH_W + "% -" + MAX_ATH_W + "%.");
                     break;
                 case CAT_4:
-                    lblResultBFP.setText("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + "You are in the category " + CAT_4 + ". You have a Body Fat Percentage between " + MIN_FIT_W + "% -" + MAX_FIT_W + "%.");
+                    lblResult.setText("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + "You are in the category " + CAT_4 + ". You have a Body Fat Percentage between " + MIN_FIT_W + "% -" + MAX_FIT_W + "%.");
                     break;
                 case CAT_5:
-                    lblResultBFP.setText("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + "You are in the category " + CAT_5 + ". You have a Body Fat Percentage between " + MIN_AVE_W + "% -" + MAX_AVE_W + "%.");
+                    lblResult.setText("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + "You are in the category " + CAT_5 + ". You have a Body Fat Percentage between " + MIN_AVE_W + "% -" + MAX_AVE_W + "%.");
                     break;
                 case CAT_6:
-                    lblResultBFP.setText("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + "You are in the category " + CAT_6 + ". You have a Body Fat Percentage >" + MIN_OBE_W + "%.");
+                    lblResult.setText("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + "You are in the category " + CAT_6 + ". You have a Body Fat Percentage >" + MIN_OBE_W + "%.");
                     break;
             }
         }
             else  {
                 switch (message) {
                     case CAT_1:
-                        lblResultBFP.setText("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + " You are in the category " + CAT_1 + ". You have a Body Fat Percentage <" + MIN_ESS_M + "%.");
+                        lblResult.setText("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + " You are in the category " + CAT_1 + ". You have a Body Fat Percentage <" + MIN_ESS_M + "%.");
                         break;
                     case CAT_2:
-                        lblResultBFP.setText("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + "You are in the category " + CAT_2 + ". You have a Body Fat Percentage between " + MIN_ESS_M + "% -" + MAX_ESS_M + "%.");
+                        lblResult.setText("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + "You are in the category " + CAT_2 + ". You have a Body Fat Percentage between " + MIN_ESS_M + "% -" + MAX_ESS_M + "%.");
                         break;
                     case CAT_3:
-                        lblResultBFP.setText("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + "You are in the category " + CAT_3 + ". You have a Body Fat Percentage between " + MIN_ATH_M + "% -" + MAX_ATH_M + "%.");
+                        lblResult.setText("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + "You are in the category " + CAT_3 + ". You have a Body Fat Percentage between " + MIN_ATH_M + "% -" + MAX_ATH_M + "%.");
                         break;
                     case CAT_4:
-                        lblResultBFP.setText("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + "You are in the category " + CAT_4 + ". You have a Body Fat Percentage between " + MIN_FIT_M + "% -" + MAX_FIT_M + "%.");
+                        lblResult.setText("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + "You are in the category " + CAT_4 + ". You have a Body Fat Percentage between " + MIN_FIT_M + "% -" + MAX_FIT_M + "%.");
                         break;
                     case CAT_5:
-                        lblResultBFP.setText("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + "You are in the category " + CAT_5 + ". You have a Body Fat Percentage between " + MIN_AVE_M+ "% -" + MAX_AVE_M + "%.");
+                        lblResult.setText("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + "You are in the category " + CAT_5 + ". You have a Body Fat Percentage between " + MIN_AVE_M+ "% -" + MAX_AVE_M + "%.");
                         break;
                     case CAT_6:
-                        lblResultBFP.setText("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + "You are in the category " + CAT_6 + ". You have a Body Fat Percentage >" + MIN_OBE_M + "%.");
+                        lblResult.setText("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + "You are in the category " + CAT_6 + ". You have a Body Fat Percentage >" + MIN_OBE_M + "%.");
                         break;
                 }
 
         }
-    }
-    private void viewResultBMI(int resultID, int uid, float weight, float height , int age , int sex, boolean save)
-    {
-        // via controller > aanmaak profiel en data inhalen
-        this.controle.createProfile(resultID,uid,weight,height,age,sex, save, this); // context = this = Mainactivity => for Serialisable
-        float bmi = this.controle.getBMI();
-        txtResultBMI.setText("Your BMI is "+ String.format(String.valueOf("%.01f"),bmi));
     }
     // MVC -> controller check info for MainActivity !
 
@@ -243,8 +277,9 @@ public class MainActivity extends AppCompatActivity
             {
                 radioMan.setChecked(true);
             }
-            ((Button) findViewById(R.id.btnCalculateBFP_Click)).performClick(); // simulate a click
-            ((Button) findViewById(R.id.btnCalculateBMI)).performClick();
+            ((Button) findViewById(R.id.btnCalculateBMI_BFP_Click)).performClick(); // simulate a click
+
+
         }
     }
 }

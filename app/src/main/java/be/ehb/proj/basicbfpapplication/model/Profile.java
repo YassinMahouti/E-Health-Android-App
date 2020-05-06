@@ -7,6 +7,7 @@ import android.widget.Switch;
 
 import java.io.ObjectInputStream;
 import java.io.Serializable;
+import java.util.Date;
 
 import be.ehb.proj.basicbfpapplication.controller.Controller;
 import be.ehb.proj.basicbfpapplication.view.MainActivity;
@@ -28,14 +29,18 @@ public class Profile implements Serializable {
     private String message;
 
     private boolean save;
+    private boolean cloud;
+    private Date dateMeasure;
 
-    public Profile(int result_id, int uid, float weight, float height, int age, int sex, boolean save)
+    public Profile(int result_id, Date dateMeasure, int uid, float weight, float height, int age, int sex, boolean save, boolean cloud)
     {
+        this.dateMeasure =dateMeasure;
         this.weight = weight;
         this.height = height;
         this.age = age;
         this.sex = sex;
         this.save = save;
+        this.cloud = cloud;
         this.calculateBMI();
         this.calculateBFP();
         this.resultBFP();
@@ -43,6 +48,14 @@ public class Profile implements Serializable {
 
     // getters
 
+
+    public boolean isCloud() {
+        return cloud;
+    }
+
+    public Date getDateMeasure() {
+        return dateMeasure;
+    }
 
     public boolean isSave() {
         return save;

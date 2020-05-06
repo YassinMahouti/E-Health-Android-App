@@ -20,7 +20,8 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
 // properties :  REAL => floating point value : 8byte = > double
     private String creation = "CREATE TABLE profile ( resultID INTEGER PRIMARY KEY AUTOINCREMENT , "
-            +" UID INTEGER NOT NULL ,"
+        +"dateMeasure Text ,"
+        +" UID INTEGER NOT NULL ,"
         + "weight REAL NOT NULL,"
         + "height REAL NOT NULL,"
         + "age INTEGER NOT NULL,"
@@ -31,6 +32,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     //user (user_id, result_id, height, weight , result_bmi)
 
     private String cTableBmi = "CREATE TABLE bmiresult ( result_id INTEGER PRIMARY KEY AUTOINCREMENT ,"
+            +"datebmi TEXT ,"
             +" user_id INTEGER NOT NULL ,"
             +"height REAL NOT NULL ,"
             +"weight REAL NOT NULL ,"
@@ -57,10 +59,9 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
       //onCreate execute SQL defined in creation
-
         db.execSQL(creation);
-        db.execSQL(cTableBmi);
 
+        //db.execSQL(cTableBmi);
     }
 
     /**
@@ -74,7 +75,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
        db.execSQL("DROP TABLE profile");
        this.onCreate(db);
-       db.execSQL("DROP TABLE bmiresult");
-       this.onCreate(db);
+      /* db.execSQL("DROP TABLE bmiresult");
+       this.onCreate(db);*/
     }
 }
