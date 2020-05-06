@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="be.ehb.Ehealth">
 
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:allowBackup="true"
@@ -17,9 +17,7 @@
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
             android:value="barcode" />
 
-        <activity android:name="be.ehb.LoginMockup.ui.BarcodeScanner.BarcodeScanner"
-            android:screenOrientation="unspecified">
-
+        <activity android:name="be.ehb.LoginMockup.ui.foodlookup.Foodlookup">
             <meta-data
                 android:name="com.google.firebase.ml.vision.DEPENDENCIES"
                 android:value="barcode" />
@@ -31,15 +29,13 @@
         <activity android:name="be.ehb.LoginMockup.LoginAct" />
         <activity android:name="be.ehb.LoginMockup.ui.registratie.RegAct" />
         <activity android:name="be.ehb.LoginMockup.MainActivity">
-
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="be.ehb.LoginMockup.bfp.FragmentBfp" />
+
     </application>
 
 </manifest>
