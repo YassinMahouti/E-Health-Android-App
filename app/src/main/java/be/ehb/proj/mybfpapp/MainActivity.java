@@ -7,21 +7,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
+import org.w3c.dom.Text;
+
 import java.util.Date;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btn_save;
-    private Button btn_calculateRisk;
+    private Button btn_saveAndCalculate;
+    private Button btn_showAllResults;
+    private TextView lbl_result;
     private RadioGroup rd_groupFirst;
     private RadioButton rd_answerFirst_yes;
     private RadioButton rd_answerFirst_no;
@@ -72,9 +74,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void init()
     {
-        //listSymptoms =(ListView) findViewById(R.id.listSymptoms);
-        btn_save =(Button) findViewById(R.id.btn_saveSymptoms);
-        btn_calculateRisk =(Button) findViewById(R.id.btn_calculateRisk);
+        btn_saveAndCalculate =(Button) findViewById(R.id.btn_saveSymptoms);
+        btn_showAllResults =(Button) findViewById(R.id.btn_calculateRisk);
+
 
         rd_groupFirst = (RadioGroup) findViewById(R.id.rd_group);
         rd_answerFirst_yes = (RadioButton) findViewById(R.id.rd_First_yes);
@@ -153,7 +155,6 @@ public class MainActivity extends AppCompatActivity {
         // instantiate db -> getInstance()
         FirebaseDatabase db = FirebaseDatabase.getInstance();
 
-
         //-------------
         mRootUserCorona = db.getReference("UserCorona");
         mUserResult = db.getReference("UserResult");
@@ -162,11 +163,13 @@ public class MainActivity extends AppCompatActivity {
         createTableDiseases(db);
 
         init();
+        lbl_result =(TextView) findViewById(R.id.txt_Result);
 
-
-        btn_save.setOnClickListener(new View.OnClickListener() {
+        btn_saveAndCalculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String symptomsMessage="";
+                String disease;
                 count =0;
                 userRisk =0;
                 rd_answerFirst_no.isChecked();
@@ -177,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
                     addSymp.setValue("1");
                     userRisk += 32.0685f;
                     count++;
+                    symptomsMessage +="koorts";
                 }
                 else
                 addSymp.setValue("0");
@@ -188,6 +192,7 @@ public class MainActivity extends AppCompatActivity {
                     addSymp.setValue("1");
                     userRisk += 24.6990f;
                     count++;
+                    symptomsMessage +=", droge hoest";
                 }
                 else
                     addSymp.setValue("0");
@@ -199,6 +204,7 @@ public class MainActivity extends AppCompatActivity {
                     addSymp.setValue("1");
                     userRisk += 13.9000f;
                     count++;
+                    symptomsMessage +=", vermoeidheid";
                 }
                 else
                     addSymp.setValue("0");
@@ -209,6 +215,7 @@ public class MainActivity extends AppCompatActivity {
                     addSymp.setValue("1");
                     userRisk += 12.1853f;
                     count++;
+                    symptomsMessage +=", expectoratie(slijm)";
                 }
                 else
                     addSymp.setValue("0");
@@ -219,6 +226,7 @@ public class MainActivity extends AppCompatActivity {
                     addSymp.setValue("1");
                     userRisk += 6.7858f;
                     count++;
+                    symptomsMessage +=", buiten adem zijn";
                 }
                 else
                     addSymp.setValue("0");
@@ -229,6 +237,7 @@ public class MainActivity extends AppCompatActivity {
                     addSymp.setValue("1");
                     userRisk += 5.3995f;
                     count++;
+                    symptomsMessage +=", pijn in de spieren en of articulaties";
                 }
                 else
                     addSymp.setValue("0");
@@ -239,9 +248,18 @@ public class MainActivity extends AppCompatActivity {
                     addSymp.setValue("1");
                     userRisk += 4.9617f;
                     count++;
+                    symptomsMessage +=", hoofdpijn";
                 }
                 else
                     addSymp.setValue("0");
+
+                if(userRisk>=70)
+                    disease = "You have a result that may us think you possibly have Corona or at least symptoms that coincide whit it.";
+                else if (userRisk <70 && userRisk>=40)
+                    disease= "Corona is a possibility but Griep has also kind of the same symptoms.";
+                else if (userRisk <40 && userRisk >=12)
+                    disease="You are ill, you maybe have a Griep or maybe just a Verkoudheid.";
+                else disease ="You are safe, you maybe just ill and suffering from some headache or a runny nose. ";
 
 
 
@@ -259,18 +277,20 @@ public class MainActivity extends AppCompatActivity {
                 mUserResultRisk.setValue(count);
                 mUserResultRisk = mUserResult.child("date");
                 mUserResultRisk.setValue(String.valueOf(date));
-
-
+                Toast.makeText(MainActivity.this, "Successfully added to cloud", Toast.LENGTH_SHORT).show();
+                String stdAdvies = " Please daily check your temperature(fever) and stay safe, keep following your symptoms !"+"\n" +"Please respect the rules of distance between people and follow safety precautions.";
+                lbl_result.setText("You have a risk percentage of "+userRisk+"%." + "\n "+"You have following symptoms:"+symptomsMessage +"."+ disease + "\n" +stdAdvies);
 
 
             }
         });
 
-      btn_calculateRisk.setOnClickListener(new View.OnClickListener() {
+      btn_showAllResults.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
               Intent intent = new Intent(MainActivity.this , CoronaResult.class);
               startActivity(intent);
+              finish();
           }
       });
     }

@@ -49,4 +49,6 @@ public class User {
     public void setUser_risk(float user_risk) {
         this.user_risk = user_risk;
     }
+
+
 }
