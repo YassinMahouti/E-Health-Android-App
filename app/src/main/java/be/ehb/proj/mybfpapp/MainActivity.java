@@ -56,7 +56,9 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
 
 
-
+    DatabaseReference mRootUser;
+    DatabaseReference mRootUserID;
+    DatabaseReference mRootUserID_risk;
     //---Table "UserCorona" Database Reference ------
     DatabaseReference mRootUserCorona;
     DatabaseReference mUserResult;
@@ -158,6 +160,8 @@ public class MainActivity extends AppCompatActivity {
         //-------------
         mRootUserCorona = db.getReference("UserCorona");
         mUserResult = db.getReference("UserResult");
+        mRootUser = db.getReference("User");
+        mRootUserID = db.getReference("user_ID");
         //---------------
 
         createTableDiseases(db);
@@ -260,6 +264,11 @@ public class MainActivity extends AppCompatActivity {
                 else if (userRisk <40 && userRisk >=12)
                     disease="You are ill, you maybe have a Griep or maybe just a Verkoudheid.";
                 else disease ="You are safe, you maybe just ill and suffering from some headache or a runny nose. ";
+
+            //-------------- Write to User -> user_id -> user_risk_corona = userRisk
+                mRootUserID = mRootUser.child("user_ID");
+                mRootUserID_risk = mRootUserID.child("user_risk_corona");
+                mRootUserID_risk.setValue(userRisk);
 
 
 
