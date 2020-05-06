@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "12790660582",
+    "firebase_url": "https://haseb-da217.firebaseio.com",
+    "project_id": "haseb-da217",
+    "storage_bucket": "haseb-da217.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:12790660582:android:285bf005f691da2e422a27",
+        "android_client_info": {
+          "package_name": "be.ehb.haseb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "12790660582-tffrbt1fmjn21rga7h4mvravqj9i28m6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "be.ehb.haseb",
+            "certificate_hash": "bbd3c11e99052a8674f12dc252d09cc84356c695"
+          }
+        },
+        {
+          "client_id": "12790660582-ludpogbbpkv566o5708p3fdvto7dpals.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-81maQjUZ_hokKF8RnNKcjup3NqUF6AY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "12790660582-ludpogbbpkv566o5708p3fdvto7dpals.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
