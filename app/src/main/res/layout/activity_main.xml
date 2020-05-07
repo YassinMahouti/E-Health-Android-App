@@ -49,7 +49,7 @@
         android:layout_marginBottom="20dp"
         android:hint="Enter your weight"
         android:inputType="number"
-        android:visibility="visible" />
+        android:visibility="invisible" />
 
     <Button
         android:id="@+id/btn_confirm"
@@ -58,7 +58,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="274dp"
-        android:text="Confirm" />
+        android:text="Confirm"
+        android:visibility="invisible" />
 
 
 </RelativeLayout>
