@@ -16,14 +16,14 @@ import java.util.List;
 public class CoronaResult extends AppCompatActivity {
 private RecyclerView mRecyclerView;
 private ImageButton newTest;
-private ImageButton btn_testDelete;
+//private ImageButton btn_testDelete;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_corona_result);
-        btn_testDelete = (ImageButton) findViewById(R.id.imageButton);
+       // btn_testDelete = (ImageButton) findViewById(R.id.imageButton);
         mRecyclerView = (RecyclerView) findViewById(R.id.recylerview_userCorona);
         newTest = (ImageButton) findViewById(R.id.imgBtn_newTest);
         newTest.setOnClickListener(new View.OnClickListener() {

@@ -1,0 +1,2 @@
+rootProject.name='MyBFPapp'
+include ':app'
