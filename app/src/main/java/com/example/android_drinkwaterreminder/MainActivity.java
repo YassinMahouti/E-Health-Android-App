@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,7 +24,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements Runnable {
 
     private static final String CHANNEL_ID = "1";
     Switch switch_state;
@@ -80,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
         //set notification
         confirm_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,24 +90,22 @@ public class MainActivity extends AppCompatActivity {
                 int user_weight = Integer.parseInt(value);
 
 
-
-
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
+        @Override
+             public void run() {
                         //set time to notif
                         Date date = new Date();   // given date
                         Calendar calendar = GregorianCalendar.getInstance(); // creates a new calendar instance
                         calendar.setTime(date);   // assigns calendar to given date
-                        final int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+                        int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
 
                         while (switch_state.isChecked()) {
-                            while (currentHour >= 1 && currentHour <= 7) {
+                            while (!(currentHour >= 1 && currentHour <= 7)) {
                                 //notification
                                 String message = "Drink water now";
                                 NotificationCompat.Builder builder = new NotificationCompat.Builder(
-                                        MainActivity.this,CHANNEL_ID
+                                        MainActivity.this, CHANNEL_ID
                                 )
                                         .setSmallIcon(R.drawable.ic_drinkwater)
                                         .setContentTitle("Reminder")
@@ -127,11 +125,13 @@ public class MainActivity extends AppCompatActivity {
 
                             }
                         }
+
                     }
-                }, 1*60);
 
-
+                },1*60);
             }
+
         });
     }
+
 }
