@@ -5,6 +5,19 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/nav_home">
 
+
+
+    <activity
+        android:id="@+id/nav_am_i_sick"
+        android:name="be.ehb.LoginMockup.ui.corona.AmISick"
+        tools:layout="@layout/am_i_sick"/>
+
+    <activity
+        android:id="@+id/nav_corona"
+        android:name="be.ehb.LoginMockup.ui.corona.CoronaMain"
+        android:label="@string/nav_corona"
+        tools:layout="@layout/corona_main"/>
+
     <fragment
         android:id="@+id/nav_home"
         android:name="be.ehb.LoginMockup.ui.home.HomeFragment"
@@ -59,12 +72,6 @@
         android:name="be.ehb.LoginMockup.ui.foodlookup.Foodlookup"
         android:label="@string/nav_foodlookup"
         tools:layout="@layout/activity__food_look_up"/>
-
-    <activity
-        android:id="@+id/nav_corona"
-        android:name="be.ehb.LoginMockup.ui.corona.CoronaCheck"
-        android:label="What sickness do i have?"
-        tools:layout="@layout/corona_activity"/>
 
 
 </navigation>

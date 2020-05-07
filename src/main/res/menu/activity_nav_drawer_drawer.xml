@@ -21,10 +21,7 @@
             android:id="@+id/nav_find_place"
             android:icon="@drawable/ic_where_to_workout"
             android:title="@string/where_can_i_workout" />
-      <item
-          android:id="@+id/nav_corona"
-          android:icon="@drawable/ic_sick"
-          android:title="@string/nav_corona"/>
+
         <item
             android:id="@+id/nav_foodlookup"
             android:icon="@drawable/ic_search"
@@ -33,6 +30,11 @@
             android:id="@+id/nav_drink_water"
             android:icon="@drawable/ic_drink_water"
             android:title="@string/drink_water"/>
+        <item
+            android:id="@+id/nav_am_i_sick"
+            android:icon="@drawable/ic_sick"
+            android:title="@string/nav_am_i_sick"
+            />
 
     </group>
 </menu>

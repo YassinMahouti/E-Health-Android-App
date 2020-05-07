@@ -37,6 +37,10 @@
     <string name="more_information_about_the_statistics_used">More information about the statistics used:</string>
     <string name="textview">TextView</string>
     <string name="delete_this_result">Delete this result</string>
+    <string name="hello">Hello</string>
+    <string name="welcome_to_the_corona_checkup">Welcome to the corona checkup</string>
+    <string name="please_answer_to_the_following_questions">Please answer to the following questions:</string>
+    <string name="nav_am_i_sick">Am i sick?</string>
 
 
 </resources>
