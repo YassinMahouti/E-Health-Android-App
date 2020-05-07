@@ -62,7 +62,7 @@ public class UserCoronaDetailsActivity extends AppCompatActivity {
 
                     @Override
                     public void DataIsDeleted() {
-                        Toast.makeText(UserCoronaDetailsActivity.this, "Data has been deleted", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UserCoronaDetailsActivity.this, "Data successfully deleted", Toast.LENGTH_SHORT).show();
                         finish(); //stop activity and stop returnin
                         return;
                     }
