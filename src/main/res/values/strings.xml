@@ -4,6 +4,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Username</string>
+    <string name="nav_corona">Am i sick?</string>
     <string name="nav_header_subtitle">someone@gmail.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="nav_foodlookup">Foodlookup</string>
@@ -23,6 +24,8 @@
     <string name="weight">Weight</string>
     <string name="create_an_account_here">Not a member?</string>
     <string name="clickHere">Click here!</string>
+    <string name="where_can_i_workout">Where can i workout?</string>
+    <string name="privacy">Privacy</string>
 
 
 </resources>

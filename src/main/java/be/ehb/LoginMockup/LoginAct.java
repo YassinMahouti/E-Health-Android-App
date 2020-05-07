@@ -37,6 +37,8 @@ public class LoginAct extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
+
         myEmail = findViewById(R.id.emailTxt);
         myPassword = findViewById(R.id.psswdTxt);
         progressBar = findViewById(R.id.progressBar);
@@ -90,7 +92,9 @@ public class LoginAct extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent intent = new Intent(LoginAct.this,NavDrawerAct.class);
+                startActivity(intent);
+                //finish();
             }
         });
 

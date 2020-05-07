@@ -20,19 +20,19 @@
         <item
             android:id="@+id/nav_find_place"
             android:icon="@drawable/ic_where_to_workout"
-            android:title="Where can i workout?" />
-        <item
-            android:id="@+id/nav_privacy"
-            android:icon="@drawable/ic_privacy"
-            android:title="Privacy" />
+            android:title="@string/where_can_i_workout" />
+      <item
+          android:id="@+id/nav_corona"
+          android:icon="@drawable/ic_sick"
+          android:title="@string/nav_corona"/>
         <item
             android:id="@+id/nav_foodlookup"
             android:icon="@drawable/ic_search"
-            android:title="FoodLookup"/>
+            android:title="@string/foodlookup"/>
         <item
             android:id="@+id/nav_drink_water"
             android:icon="@drawable/ic_drink_water"
-            android:title="Drink Water"/>
+            android:title="@string/drink_water"/>
 
     </group>
 </menu>

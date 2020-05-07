@@ -27,7 +27,7 @@
         <argument
             android:name="myArg"
             app:argType="string" />
-    </fragment>-->
+    </fragment>
     <fragment
         android:id="@+id/nav_bmi"
         android:name="be.ehb.LoginMockup.ui.bmi.bmiFragment"
@@ -40,11 +40,8 @@
         android:label="@string/menu_bfp"
         tools:layout="@layout/bfp"
         />
-    <fragment
-        android:id="@+id/nav_privacy"
-        android:name="be.ehb.LoginMockup.ui.privacy.PrivacyFragment"
-        android:label="Privacy"
-        tools:layout="@layout/fragment_privacy" />
+
+
     <fragment
         android:id="@+id/nav_find_place"
         android:name="be.ehb.LoginMockup.ui.whereToWorkout.FindPlaceFragment"
@@ -62,6 +59,12 @@
         android:name="be.ehb.LoginMockup.ui.foodlookup.Foodlookup"
         android:label="@string/nav_foodlookup"
         tools:layout="@layout/activity__food_look_up"/>
+
+    <activity
+        android:id="@+id/nav_corona"
+        android:name="be.ehb.LoginMockup.ui.corona.CoronaCheck"
+        android:label="What sickness do i have?"
+        tools:layout="@layout/corona_activity"/>
 
 
 </navigation>

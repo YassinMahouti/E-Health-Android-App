@@ -20,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         //initialise registration button
         regButton = findViewById(R.id.register);
         regButton.setOnClickListener(new View.OnClickListener() {
