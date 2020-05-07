@@ -15,7 +15,7 @@ import be.ehb.proj.basicbfpapplication.view.MainActivity;
 // i will make profile Serialiaseble so i can have info stored of before
 public class Profile implements Serializable {
     // properties
-            //database
+    //database
     private int result_id ;
     private int uid =1 ;
             // nodig voor berekening

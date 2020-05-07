@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity
     DatabaseReference mRootUserInfo;
     private Thread savingData;
     private Button btn_saveCloud;
+    private Button show_results;
 
 
     /**
@@ -88,6 +89,7 @@ public class MainActivity extends AppCompatActivity
         sw_save = (Switch) findViewById(R.id.sw_saveResult);
         sw_cloud=(Switch) findViewById(R.id.sw_cloud);
         btn_saveCloud =(Button) findViewById(R.id.button_saveCloud);
+        show_results =(Button) findViewById(R.id.btnViewResults);
         this.controle = Controller.getInstance(this);
         //eventlistener for calculation on btn_calculateBmiBfp
         listenCalculation();
@@ -118,6 +120,15 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        show_results.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this , UserResults.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
 
 
     }
@@ -128,6 +139,8 @@ public class MainActivity extends AppCompatActivity
         float height = 0;
         int age = 0;
         int sex = 0;
+        boolean save = false;
+        boolean cloud = false;
         try {
             weight = Float.parseFloat(txtInputWeight.getText().toString());
             height = Float.parseFloat(txtInputHeight.getText().toString());
@@ -136,6 +149,8 @@ public class MainActivity extends AppCompatActivity
         } catch (Exception e) {
             // e.printStackTrace();
         };
+        if(radioMan.isChecked())
+            sex = 1;
         if (sw_cloud.isChecked())
         {
             Date date = new Date();
@@ -144,21 +159,24 @@ public class MainActivity extends AppCompatActivity
             mRootUserInfo.setValue(weight);
             mRootUserInfo = mRootUserID.child("user_height");
             mRootUserInfo.setValue(height);
-            Toast.makeText(this, "Date Saved in Cloud", Toast.LENGTH_SHORT).show();
+            mRootUserInfo = mRootUserID.child("date");
+            mRootUserInfo.setValue(String.valueOf(date));
+            mRootUserInfo = mRootUserID.child("user_age");
+            mRootUserInfo.setValue(age);
+            mRootUserInfo = mRootUserID.child("user_sex");
+            mRootUserInfo.setValue(sex);
+
+
+            Toast.makeText(this, "Date successfully saved in Cloud", Toast.LENGTH_SHORT).show();
 
         }
-        else Toast.makeText(this, "Date CANT BE saved Cloud", Toast.LENGTH_SHORT).show();
+        else Toast.makeText(this, "Date CANT BE saved in the Cloud, please agree the conditions below.", Toast.LENGTH_SHORT).show();
+        schrijfResultCloud(1,1,weight, height, age, sex,save,cloud);
     }
 
 
     private void listenCalculation()
-    {    savingData = new Thread(new Runnable() {
-        public void run() {
-            listenCalculation();
-        }
-    });
-        savingData.start();
-
+    {
         //EventListener
         ((Button) findViewById(R.id.btnCalculateBMI_BFP_Click)).setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
@@ -204,6 +222,17 @@ public class MainActivity extends AppCompatActivity
         });
 
     }
+private void schrijfResultCloud(int resultID, int uid, float weight, float height , int age , int sex, boolean save, boolean cloud)
+{this.controle.createProfileLocal(resultID,uid,weight,height,age,sex, save,cloud,this); // context = this = Mainactivity => for Serialisable
+    float bfp = this.controle.getBFP();
+    float bmi = this.controle.getBMI();
+    mRootUserInfo = mRootUserID.child("user_bmi");
+    mRootUserInfo.setValue(bmi);
+    mRootUserInfo = mRootUserID.child("user_bfp");
+    mRootUserInfo.setValue(bfp);
+}
+
+
 
     private void viewResult(int resultID, int uid, float weight, float height , int age , int sex, boolean save, boolean cloud)
     {
@@ -211,8 +240,30 @@ public class MainActivity extends AppCompatActivity
         this.controle.createProfileLocal(resultID,uid,weight,height,age,sex, save,cloud,this); // context = this = Mainactivity => for Serialisable
         float bfp = this.controle.getBFP();
         float bmi = this.controle.getBMI();
-        lblResultBMI.setText("Your BMI is "+ String.format(String.valueOf("%.01f"),bmi));
+        String msg_bmi="";
+
+        if(bmi<18.5)
+        {
+            msg_bmi ="You have a high risk of developing problems such as nutritional deficiency and osteoporosis";
+        }
+        else if(bmi>=18.5 && bmi <23)
+        {
+            msg_bmi ="You have a low risk of developing heart disease, high blood pressure, stroke, diabetes";
+        }
+        else if(bmi >=23 && bmi <27.5)
+        {
+            msg_bmi ="You have a moderate risk of developing heart disease, high blood pressure, stroke, diabetes";
+        }
+        else if(bmi > 27.5)
+        {
+            msg_bmi ="You have a high risk of developing heart disease, high blood pressure, stroke, diabetes!";
+        }
+        lblResultBMI.setText("Your BMI is "+ String.format(String.valueOf("%.01f"),bmi)+"."+msg_bmi);
+
+        // underweight <18.5, normal weight 18.5-25 overweight 25-30  obese >30
+
         String message = this.controle.getMessage();
+
         // categorisering
         if (sex ==0) {
             switch (message) {

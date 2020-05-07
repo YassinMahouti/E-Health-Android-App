@@ -9,6 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#8564DEED"
         android:gravity="center_horizontal|center_vertical"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="0dp"
@@ -17,7 +18,7 @@
         <TextView
             android:id="@+id/txt_TitelBmiBfp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:gravity="center_horizontal"
             android:text="@string/menu_title"
             android:textColor="#020202"
@@ -25,14 +26,14 @@
 
         <TextView
             android:id="@+id/txt_SubtitelBmiBfp"
-            android:layout_width="match_parent"
+            android:layout_width="358dp"
             android:layout_height="wrap_content"
             android:text="@string/menu_subtitle"
             android:textStyle="italic" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="329dp"
+            android:layout_height="293dp"
             android:layout_gravity="center_horizontal|center_vertical"
             android:gravity="center_horizontal|center_vertical"
             android:orientation="horizontal">
@@ -61,7 +62,7 @@
                         <RadioButton
                             android:id="@+id/radioMan"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="46dp"
                             android:layout_weight="1"
                             android:checked="true"
                             android:text="Im a man" />
@@ -161,7 +162,8 @@
             android:id="@+id/button_saveCloud"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Save results in the cloud (so you can view your results)"
+            android:background="#97FF0909"
+            android:text="Save results in the cloud (so you can view your progress)"
             android:textSize="12sp" />
 
         <LinearLayout
@@ -172,7 +174,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btnViewResultsInCloud"
+                android:id="@+id/btnViewResults"
                 android:layout_width="7dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
