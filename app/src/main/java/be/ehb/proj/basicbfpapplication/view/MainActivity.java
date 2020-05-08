@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this , UserResults.class);
                 startActivity(intent);
-                finish();
+
             }
         });
 
@@ -153,25 +153,14 @@ public class MainActivity extends AppCompatActivity
             sex = 1;
         if (sw_cloud.isChecked())
         {
-            Date date = new Date();
-            mRootUserID = mRootUserBB.child("resultsBB").push();
-            mRootUserInfo = mRootUserID.child("user_weight");
-            mRootUserInfo.setValue(weight);
-            mRootUserInfo = mRootUserID.child("user_height");
-            mRootUserInfo.setValue(height);
-            mRootUserInfo = mRootUserID.child("date");
-            mRootUserInfo.setValue(String.valueOf(date));
-            mRootUserInfo = mRootUserID.child("user_age");
-            mRootUserInfo.setValue(age);
-            mRootUserInfo = mRootUserID.child("user_sex");
-            mRootUserInfo.setValue(sex);
-
+            cloud = true;
+            schrijfResultCloud(1,1,weight, height, age, sex,save,cloud);
 
             Toast.makeText(this, "Date successfully saved in Cloud", Toast.LENGTH_SHORT).show();
 
         }
         else Toast.makeText(this, "Date CANT BE saved in the Cloud, please agree the conditions below.", Toast.LENGTH_SHORT).show();
-        schrijfResultCloud(1,1,weight, height, age, sex,save,cloud);
+
     }
 
 
@@ -224,12 +213,27 @@ public class MainActivity extends AppCompatActivity
     }
 private void schrijfResultCloud(int resultID, int uid, float weight, float height , int age , int sex, boolean save, boolean cloud)
 {this.controle.createProfileLocal(resultID,uid,weight,height,age,sex, save,cloud,this); // context = this = Mainactivity => for Serialisable
-    float bfp = this.controle.getBFP();
-    float bmi = this.controle.getBMI();
-    mRootUserInfo = mRootUserID.child("user_bmi");
-    mRootUserInfo.setValue(bmi);
-    mRootUserInfo = mRootUserID.child("user_bfp");
-    mRootUserInfo.setValue(bfp);
+    if(cloud){
+        float bfp = this.controle.getBFP();
+        float bmi = this.controle.getBMI();
+        Date date = new Date();
+        mRootUserID = mRootUserBB.child("resultsBB").push();
+        mRootUserInfo = mRootUserID.child("user_weight");
+        mRootUserInfo.setValue(weight);
+        mRootUserInfo = mRootUserID.child("user_height");
+        mRootUserInfo.setValue(height);
+        mRootUserInfo = mRootUserID.child("date");
+        mRootUserInfo.setValue(String.valueOf(date));
+        mRootUserInfo = mRootUserID.child("user_age");
+        mRootUserInfo.setValue(age);
+        mRootUserInfo = mRootUserID.child("user_sex");
+        mRootUserInfo.setValue(sex);
+        mRootUserInfo = mRootUserID.child("user_bmi");
+        mRootUserInfo.setValue(bmi);
+        mRootUserInfo = mRootUserID.child("user_bfp");
+        mRootUserInfo.setValue(bfp);
+    }
+
 }
 
 

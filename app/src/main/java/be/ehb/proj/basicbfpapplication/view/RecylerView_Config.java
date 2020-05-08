@@ -2,6 +2,7 @@ package be.ehb.proj.basicbfpapplication.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,12 +74,15 @@ public class RecylerView_Config {
         public void bind(User userBB, String key)
         {
             mDate.setText(userBB.getDate());
-            mHeight.setText( String.valueOf(userBB.getHeight()));
-            mGender.setText(Integer.toString(userBB.getSex()));
-            mWeight.setText(Float.toString(userBB.getWeight()));
-            mAge.setText(Integer.toString(userBB.getAge()));
             mUserBFP.setText(Float.toString(userBB.getUser_bfp()));
             mUserBMI.setText(Float.toString(userBB.getUser_bmi()));
+            mHeight.setText(Float.toString(userBB.getUser_height()));
+            mWeight.setTextColor(Color.RED);
+            mGender.setText(Integer.toString(userBB.getUser_sex()));
+            mWeight.setText(Float.toString(userBB.getUser_weight()));
+            mAge.setText(Integer.toString(userBB.getUser_age()));
+
+
 
             this.key =key;
 
@@ -103,24 +107,7 @@ public class RecylerView_Config {
         public void onBindViewHolder(@NonNull UserBBItemView holder, final int position) {
             holder.bind(mUserList.get(position), mkeys.get(position));
 
-        /*
-        //locaal items uit  de lijst verwijderen
-        holder.imgbtn.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                removeAt(position);
-
-                }
-            });*/
-
         }
-        /*
-        private void removeAt(int position) {
-            mUserList.remove(position);
-            notifyItemRemoved(position);
-            notifyItemRangeChanged(position, mUserList.size());
-        }*/
 
         @Override
         public int getItemCount() {

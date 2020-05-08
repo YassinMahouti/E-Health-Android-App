@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,6 +41,8 @@ public class UserResults extends AppCompatActivity {
                 //when data is loaded from cloud into the recyclerView -> show "waiting" with a progressbar -> setVisibility : GONE
                 findViewById(R.id.progressBarWaitingResults).setVisibility(ViewGroup.GONE);
                 new RecylerView_Config().setConfig(rv_resultsBB, UserResults.this , userBMI, keys);
+                Toast.makeText(UserResults.this, "Data is loaded"+ userBMI, Toast.LENGTH_SHORT).show();
+                System.out.println(userBMI);
             }
 
             @Override

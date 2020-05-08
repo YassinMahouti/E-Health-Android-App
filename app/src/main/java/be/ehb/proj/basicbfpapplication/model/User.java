@@ -3,24 +3,24 @@ package be.ehb.proj.basicbfpapplication.model;
 public class User {
 
         //properties same name as in table on Firebase database
-        private float height;
+        private float user_height;
         private String date;
-        private float weight;
+        private float user_weight;
         private float user_bmi;
         private float user_bfp;
-        private int sex;
-        private int age=5;
+        private int user_sex;
+        private int user_age;
 
 
         public User() {
         }
 
-        public User(float height, String date, float weight,int sex, int age, float user_bmi, float user_bfp) {
-            this.height = height;
+        public User(float user_height, String date, float user_weight, int user_sex, int user_age, float user_bmi, float user_bfp) {
+            this.user_height = user_height;
             this.date = date;
-            this.weight = weight;
-            this.sex = sex;
-            this.age = age;
+            this.user_weight = user_weight;
+            this.user_sex = user_sex;
+            this.user_age = user_age;
             this.user_bmi = user_bmi;
             this.user_bfp = user_bfp;
         }
@@ -33,28 +33,28 @@ public class User {
         this.user_bfp = user_bfp;
     }
 
-    public int getSex() {
-        return sex;
+    public int getUser_sex() {
+        return user_sex;
     }
 
-    public void setSex(int sex) {
-        this.sex = sex;
+    public void setUser_sex(int user_sex) {
+        this.user_sex = user_sex;
     }
 
-    public int getAge() {
-        return age;
+    public int getUser_age() {
+        return user_age;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setUser_age(int user_age) {
+        this.user_age = user_age;
     }
 
-    public float getHeight() {
-        return height;
+    public float getUser_height() {
+        return user_height;
     }
 
-    public void setHeight(float height) {
-        this.height = height;
+    public void setUser_height(float user_height) {
+        this.user_height = user_height;
     }
 
     public String getDate() {
@@ -65,14 +65,13 @@ public class User {
         this.date = date;
     }
 
-    public float getWeight() {
-        return weight;
+    public float getUser_weight() {
+        return user_weight;
     }
 
-    public void setWeight(float weight) {
-        this.weight = weight;
+    public void setUser_weight(float user_weight) {
+        this.user_weight = user_weight;
     }
-
     public float getUser_bmi() {
         return user_bmi;
     }

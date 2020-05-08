@@ -1,5 +1,6 @@
 package be.ehb.proj.basicbfpapplication.view;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -45,29 +46,34 @@ public class UserDetails extends AppCompatActivity {
         //get data from intent object
         key = getIntent().getStringExtra("key");
         date = getIntent().getStringExtra("date");
-        weight = getIntent().getStringExtra("user_weight");
+        resultBFP =getIntent().getStringExtra("user_bfp");
+        resultBMI =getIntent().getStringExtra("user_bmi");
         height = getIntent().getStringExtra("user_height");
         gender = getIntent().getStringExtra("user_sex");
         age = getIntent().getStringExtra("user_age");
-        resultBFP =getIntent().getStringExtra("user_bfp");
-        resultBMI =getIntent().getStringExtra("user_bmi");
+        weight = getIntent().getStringExtra("user_weight");
+
 
 
         //init
         mDate_tv =(TextView) findViewById(R.id.txt_Date);
         mDate_tv.setText(date);
-        mHeight_tv =(TextView) findViewById(R.id.txt_height);
-        mHeight_tv.setText(height);
-        mWeight_tv =(TextView) findViewById(R.id.txt_weight);
-        mWeight_tv.setText(weight);
-        mAge_tv= (TextView) findViewById(R.id.txt_age);
-        mAge_tv.setText(age);
-        mSex_tv= (TextView) findViewById(R.id.txt_gender);
-        mSex_tv.setText(gender);
-        mResult_bmi= (TextView) findViewById(R.id.txt_BMI);
-        mResult_bmi.setText(resultBMI);
         mResult_bfp= (TextView) findViewById(R.id.txt_BFP);
         mResult_bfp.setText(resultBFP);
+        mResult_bmi= (TextView) findViewById(R.id.txt_BMI);
+        mResult_bmi.setText(resultBMI);
+        mHeight_tv =(TextView) findViewById(R.id.txt_height);
+        mHeight_tv.setText(height);
+        mSex_tv= (TextView) findViewById(R.id.txt_gender);
+        mSex_tv.setText(gender);
+        mAge_tv= (TextView) findViewById(R.id.txt_age);
+        mAge_tv.setText(age);
+        mWeight_tv =(TextView) findViewById(R.id.txt_weight);
+        mWeight_tv.setText(weight);
+
+
+
+
         btn_delete =(Button) findViewById(R.id.btn_delete);
 
         btn_delete.setOnClickListener(new View.OnClickListener() {
