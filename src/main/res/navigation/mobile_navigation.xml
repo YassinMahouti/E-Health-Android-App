@@ -13,10 +13,18 @@
         tools:layout="@layout/am_i_sick"/>
 
     <activity
+        android:id="@+id/nav_drink_water"
+        android:name="be.ehb.LoginMockup.ui.drinkwater.DrinkWater"
+        android:label="@string/drink_water"
+        tools:layout="@layout/drink_water_fragment"
+        />
+
+    <activity
         android:id="@+id/nav_corona"
         android:name="be.ehb.LoginMockup.ui.corona.CoronaMain"
         android:label="@string/nav_corona"
         tools:layout="@layout/corona_main"/>
+
 
     <fragment
         android:id="@+id/nav_home"
@@ -61,12 +69,7 @@
         android:label="Where to workout? "
         tools:layout="@layout/fragment_find_place" />
 
-    <fragment
-        android:id="@+id/nav_drink_water"
-        android:name="be.ehb.LoginMockup.ui.drinkwater.DrinkWater"
-        android:label="@string/drink_water"
-        tools:layout="@layout/drink_water_fragment"
-        />
+
     <activity
         android:id="@+id/nav_foodlookup"
         android:name="be.ehb.LoginMockup.ui.foodlookup.Foodlookup"
