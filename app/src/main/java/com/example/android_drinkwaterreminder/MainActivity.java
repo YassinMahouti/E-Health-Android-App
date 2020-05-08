@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -30,12 +31,14 @@ public class MainActivity extends AppCompatActivity implements Runnable {
     Switch switch_state;
     EditText txt_weight;
     Button confirm_btn;
+    TextView amountToDrink;
     boolean save = false;
 
     public void intitialize() {      //intitialisation of android screen vraiables
         switch_state = findViewById(R.id.switch_status);
         txt_weight = findViewById(R.id.Txt_weight);
         confirm_btn = findViewById(R.id.btn_confirm);
+        amountToDrink=findViewById(R.id.amountToDrink);
 
     }
 
@@ -88,6 +91,10 @@ public class MainActivity extends AppCompatActivity implements Runnable {
                 //Typeconvertion to get the userweight edit_text -> Integer
                 String value = txt_weight.getText().toString();
                 int user_weight = Integer.parseInt(value);
+
+                String textForAmountToDrink = ("You have to drink"+ calcToDrinkWater(user_weight)+"everytime you get a notification");
+                amountToDrink.setText(textForAmountToDrink);
+                amountToDrink.getText().toString();
 
 
                 Handler handler = new Handler();
