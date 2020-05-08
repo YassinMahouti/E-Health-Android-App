@@ -3,6 +3,7 @@
 
     package="be.ehb.proj.mybfpapp"
     package="be.ehb.proj.basicbfpapplication"
+    package="be.ehb.version1">
 
     <application
         android:allowBackup="true"
@@ -19,6 +20,10 @@
         <activity android:name=".view.UserResults"/>
         <activity android:name=".view.UserDetails"/>
         <activity android:name=".view.MainActivity">
+        <activity android:name=".ListActivity" />
+        <activity android:name=".InputActivity" />
+        <activity android:name=".StartActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
