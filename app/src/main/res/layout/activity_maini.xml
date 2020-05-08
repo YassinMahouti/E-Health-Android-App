@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+=======
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+>>>>>>> 0c2f96d092e7df5d86ae6e45eefa2a53006dea5b
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+<<<<<<< HEAD
     tools:context=".MainActivity">
 
     <TextView
@@ -53,3 +58,64 @@
         app:layout_constraintVertical_bias="0.626" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+=======
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+
+    <Switch
+        android:id="@+id/switch_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="193dp"
+        android:layout_marginBottom="674dp"
+        android:checked="false"
+        android:showText="true"
+        android:text="Reminder   "
+        android:textOff="Off"
+        android:textOn="On"
+        android:textSize="24dp"
+        android:thumb="@drawable/thumboff"
+        android:track="@drawable/track" />
+
+    <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp" />
+
+    <EditText
+        android:id="@+id/Txt_weight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="319dp"
+        android:layout_marginEnd="29dp"
+        android:layout_marginBottom="20dp"
+        android:hint="Enter your weight"
+        android:inputType="number"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/btn_confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="274dp"
+        android:text="Confirm"
+        android:visibility="invisible" />
+
+
+</RelativeLayout>
+>>>>>>> 0c2f96d092e7df5d86ae6e45eefa2a53006dea5b

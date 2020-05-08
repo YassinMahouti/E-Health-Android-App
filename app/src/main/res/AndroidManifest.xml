@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-
-    package="be.ehb.proj.mybfpapp"
-    package="be.ehb.proj.basicbfpapplication"
-    package="be.ehb.version1">
-    package="com.example.android_drinkwaterreminder">
+    package="com.example.drinkwaterreminder">
 
     <application
         android:allowBackup="true"
@@ -13,17 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".UserCoronaDetailsActivity" />
-        <activity android:name=".CoronaResult" />
-        <activity android:name=".MainActivity">
-
-        <activity android:name=".view.UserResults"/>
-        <activity android:name=".view.UserDetails"/>
-        <activity android:name=".view.MainActivity">
-        <activity android:name=".ListActivity" />
-        <activity android:name=".InputActivity" />
-        <activity android:name=".StartActivity" />
+        <activity android:name=".NotificationActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
