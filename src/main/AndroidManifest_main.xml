@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<<<<<<< HEAD
+    package="com.example.myapp">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application
+        android:allowBackup="true"
+=======
+    package="be.ehb.Ehealth">
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <application
+
+>>>>>>> 7646c33ce1827ea56796d35cb67c503b740a1c25
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+<<<<<<< HEAD
+        <activity android:name=".Login"></activity>
+        <activity android:name=".Register">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".MainActivity">
+=======
+        <activity android:name="be.ehb.LoginMockup.ui.corona.AmISick" />
+        <activity android:name="be.ehb.LoginMockup.ui.corona.CoronaResult" />
+
+        <activity android:name="be.ehb.LoginMockup.LoginAct" />
+        <activity android:name="be.ehb.LoginMockup.ui.registratie.RegAct" />
+
+        <activity
+            android:name="be.ehb.LoginMockup.ui.corona.CoronaMain">
+        <intent-filter>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+        <activity android:name="be.ehb.LoginMockup.ui.drinkwater.NotificationActivity"/>
+        <activity android:name="be.ehb.LoginMockup.ui.drinkwater.DrinkWater">
+        <intent-filter>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+
+        <activity android:name="be.ehb.LoginMockup.ui.corona.UserCoronaDetailsActivity" />
+
+        <meta-data
+            android:name="com.google.firebase.ml.vision.DEPENDENCIES"
+            android:value="barcode" />
+
+        <activity android:name="be.ehb.LoginMockup.ui.foodlookup.Foodlookup">
+            <meta-data
+                android:name="com.google.firebase.ml.vision.DEPENDENCIES"
+                android:value="barcode" />
+        </activity>
+        <activity
+            android:name="be.ehb.LoginMockup.NavDrawerAct"
+            android:label="@string/title_activity_nav_drawer"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name="be.ehb.LoginMockup.MainActivity">
+>>>>>>> 7646c33ce1827ea56796d35cb67c503b740a1c25
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
