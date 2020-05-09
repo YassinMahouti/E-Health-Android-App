@@ -1,5 +1,6 @@
 package com.example.android_drinkwaterreminder;
 
+import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -25,7 +26,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class MainActivity extends AppCompatActivity implements Runnable {
+public class MainActivity extends AppCompatActivity {
 
     private static final String CHANNEL_ID = "1";
     Switch switch_state;
@@ -38,8 +39,6 @@ public class MainActivity extends AppCompatActivity implements Runnable {
         switch_state = findViewById(R.id.switch_status);
         txt_weight = findViewById(R.id.Txt_weight);
         confirm_btn = findViewById(R.id.btn_confirm);
-        amountToDrink=findViewById(R.id.amountToDrink);
-
     }
 
     public double calcToDrinkWater(int weight) {     //methode to calculate amount of to drink water
@@ -92,58 +91,50 @@ public class MainActivity extends AppCompatActivity implements Runnable {
                 String value = txt_weight.getText().toString();
                 int user_weight = Integer.parseInt(value);
 
-                String textForAmountToDrink = ("You have to drink"+ calcToDrinkWater(user_weight)+"everytime you get a notification");
-                amountToDrink.setText(textForAmountToDrink);
-                amountToDrink.getText().toString();
 
-                Runnable runnable = new MainActivity();
-                Thread thread = new Thread(runnable);
-                thread.start();
-
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-        @Override
-             public void run() {
-                        //set time to notif
-                        Date date = new Date();   // given date
-                        Calendar calendar = GregorianCalendar.getInstance(); // creates a new calendar instance
-                        calendar.setTime(date);   // assigns calendar to given date
-                        int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
-
-                        while (switch_state.isChecked()) {
-                            while (!(currentHour >= 1 && currentHour <= 7)) {
-                                //notification
-                                String message = "Drink water now";
-                                NotificationCompat.Builder builder = new NotificationCompat.Builder(
-                                        MainActivity.this, CHANNEL_ID
-                                )
-                                        .setSmallIcon(R.drawable.ic_drinkwater)
-                                        .setContentTitle("Reminder")
-                                        .setContentText(message)
-                                        .setAutoCancel(true);
-
-                                Intent intent = new Intent(MainActivity.this, NotificationActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                intent.putExtra("message", message);
-
-                                PendingIntent pendingIntent = PendingIntent.getActivity(MainActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                                builder.setContentIntent(pendingIntent);
-
-                                NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                                notificationManager.notify(0, builder.build());
+                //set time to notif
+                Date date = new Date();   // given date
+                Calendar calendar = GregorianCalendar.getInstance(); // creates a new calendar instance
+                calendar.setTime(date);   // assigns calendar to given date
+                int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+                int nextNotif = currentHour + 2;
+                Calendar notif = calendar.getInstance();
 
 
-                            }
-                        }
+                if (switch_state.isChecked()) {
+                    if (!(currentHour >= 1 && currentHour <= 7)) {
+                        //notification
+                        String message = "Drink water now";
+                        NotificationCompat.Builder builder;
+                        builder = new NotificationCompat.Builder(MainActivity.this, CHANNEL_ID);
+                        builder.setSmallIcon(R.drawable.ic_drinkwater);
+                        builder.setContentTitle("Reminder");
+                        builder.setContentText(message);
+                        builder.setAutoCancel(true);
+
+                        Intent intent = new Intent(MainActivity.this, NotificationActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.putExtra("message", message);
+                        PendingIntent pendingIntent = PendingIntent.getActivity(MainActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        PendingIntent contentIntent = PendingIntent.getService(MainActivity.this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+                        builder.setContentIntent(pendingIntent);
+
+
+
+
+                        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                        notificationManager.notify(0, builder.build());
+
+                        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                        //alarmManager.setExact(AlarmManager.RTC_WAKEUP, notif.getTimeInMillis(), pendingIntent);
+                        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, System.currentTimeMillis(), 100, contentIntent);
+
 
                     }
+                }
 
-                },1*60);
             }
-
         });
     }
-
-
-    }
+}
 
