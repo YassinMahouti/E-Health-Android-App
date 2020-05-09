@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //initialise registration button
+
         regButton = findViewById(R.id.register);
         regButton.setOnClickListener(new View.OnClickListener() {
             @Override

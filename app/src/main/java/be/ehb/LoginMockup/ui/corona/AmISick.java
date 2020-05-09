@@ -28,10 +28,8 @@ public class AmISick extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(AmISick.this, "Corona", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(AmISick.this, CoronaMain.class);
+                Intent intent = new Intent(AmISick.this,CoronaMain.class );
                 startActivity(intent);
-                finish();
-
             }
         });
     }

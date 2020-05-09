@@ -23,7 +23,7 @@
         android:id="@+id/nav_corona"
         android:name="be.ehb.LoginMockup.ui.corona.CoronaMain"
         android:label="@string/nav_corona"
-        tools:layout="@layout/corona_main"/>
+        tools:layout="@layout/activity_corona_main"/>
 
 
     <fragment
