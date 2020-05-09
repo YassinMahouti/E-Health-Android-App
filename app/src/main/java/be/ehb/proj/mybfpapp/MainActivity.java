@@ -150,12 +150,14 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+    String test ="test";
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //To write a message to db
         // instantiate db -> getInstance()
         FirebaseDatabase db = FirebaseDatabase.getInstance();
+        mRootUser = db.getReference().child("user");
+        mRootUser.setValue(5);
 
         //-------------
         mRootUserCorona = db.getReference("UserCorona");
