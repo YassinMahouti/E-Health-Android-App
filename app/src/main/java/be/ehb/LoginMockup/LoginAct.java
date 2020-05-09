@@ -102,6 +102,7 @@ public class LoginAct extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), RegAct.class));
+
             }
         });
     }

@@ -51,11 +51,17 @@ public class RegAct extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         progressBar = findViewById(R.id.progressBar);
 
-
+/*
         if (firebaseAuth.getCurrentUser() != null) {
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-            finish();
+            startActivity(new Intent(getApplicationContext(), RegAct.class));
+
         }
+
+ */
+
+
+
+
 
         myRegisterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,6 +115,7 @@ public class RegAct extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), LoginAct.class));
+
             }
         });
     }
