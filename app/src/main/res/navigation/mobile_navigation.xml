@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+
+
+    <activity
+        android:id="@+id/nav_am_i_sick"
+        android:name="be.ehb.LoginMockup.ui.corona.AmISick"
+        tools:layout="@layout/am_i_sick"/>
+
+    <activity
+        android:id="@+id/nav_drink_water"
+        android:name="be.ehb.LoginMockup.ui.drinkwater.DrinkWaterReminder"
+        android:label="@string/drink_water"
+        tools:layout="@layout/activity_drink_water_reminder"
+        />
+
+    <activity
+        android:id="@+id/nav_corona"
+        android:name="be.ehb.LoginMockup.ui.corona.CoronaMain"
+        android:label="@string/nav_corona"
+        tools:layout="@layout/activity_corona_main"/>
+
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="be.ehb.LoginMockup.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_HomeFragment_to_HomeSecondFragment"
+            app:destination="@id/nav_home_second" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_home_second"
+        android:name="be.ehb.LoginMockup.ui.home.HomeSecondFragment"
+        android:label="@string/home_second"
+        tools:layout="@layout/fragment_home_second">
+        <action
+            android:id="@+id/action_HomeSecondFragment_to_HomeFragment"
+            app:destination="@id/nav_home" />
+
+        <argument
+            android:name="myArg"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_bmi"
+        android:name="be.ehb.LoginMockup.ui.bmi.bmiFragment"
+        android:label="@string/menu_bmi"
+        tools:layout="@layout/bmi" />
+
+    <fragment
+        android:id="@+id/nav_bfp"
+        android:name="be.ehb.LoginMockup.ui.bfp.bfbFragment"
+        android:label="@string/menu_bfp"
+        tools:layout="@layout/bfp"
+        />
+
+
+    <fragment
+        android:id="@+id/nav_find_place"
+        android:name="be.ehb.LoginMockup.ui.whereToWorkout.FindPlaceFragment"
+        android:label="Where to workout? "
+        tools:layout="@layout/fragment_find_place" />
+
+
+    <activity
+        android:id="@+id/nav_foodlookup"
+        android:name="be.ehb.LoginMockup.ui.foodlookup.Foodlookup"
+        android:label="@string/nav_foodlookup"
+        tools:layout="@layout/activity__food_look_up"/>
+
+
+</navigation>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="be.ehb.Ehealth">
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <application
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name="be.ehb.LoginMockup.ui.drinkwater.DrinkWaterReminder"></activity>
+        <activity android:name="be.ehb.LoginMockup.ui.corona.UserCoronaDetails" />
+        <activity android:name="be.ehb.LoginMockup.ui.corona.UserCoronaListItem" />
+        <activity android:name="be.ehb.LoginMockup.ui.corona.CoronaMain" />
+        <activity android:name="be.ehb.LoginMockup.ui.corona.CoronaResult" />
+        <activity android:name="be.ehb.LoginMockup.ui.corona.AmISick" />
+        <activity android:name="be.ehb.LoginMockup.LoginAct" />
+        <activity android:name="be.ehb.LoginMockup.ui.registratie.RegAct" />
+
+        <meta-data
+            android:name="com.google.firebase.ml.vision.DEPENDENCIES"
+            android:value="barcode" />
+
+        <activity android:name="be.ehb.LoginMockup.ui.foodlookup.Foodlookup">
+            <meta-data
+                android:name="com.google.firebase.ml.vision.DEPENDENCIES"
+                android:value="barcode" />
+        </activity>
+        <activity
+            android:name="be.ehb.LoginMockup.NavDrawerAct"
+            android:label="@string/title_activity_nav_drawer"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name="be.ehb.LoginMockup.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <receiver android:name="be.ehb.LoginMockup.ui.drinkwater.ReminderBroadcast"/>
+    </application>
+
+</manifest>
