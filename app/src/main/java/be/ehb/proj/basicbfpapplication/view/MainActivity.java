@@ -84,8 +84,7 @@ public class MainActivity extends AppCompatActivity
         txtInputAge =(EditText) findViewById(R.id.txtInputAge);
         radioMan =(RadioButton) findViewById(R.id.radioMan);
         radioWoman =(RadioButton) findViewById(R.id.radioWoman);
-        lblResult = (TextView) findViewById(R.id.lblResultBFP);
-        lblResultBMI =(TextView) findViewById(R.id.txtResultBMI);
+        lblResult = (TextView) findViewById(R.id.lblResult);
         sw_save = (Switch) findViewById(R.id.sw_saveResult);
         sw_cloud=(Switch) findViewById(R.id.sw_cloud);
         btn_saveCloud =(Button) findViewById(R.id.button_saveCloud);
@@ -227,7 +226,11 @@ private void schrijfResultCloud(int resultID, int uid, float weight, float heigh
         mRootUserInfo = mRootUserID.child("user_age");
         mRootUserInfo.setValue(age);
         mRootUserInfo = mRootUserID.child("user_sex");
-        mRootUserInfo.setValue(sex);
+        if(sex == 1)
+        {
+            mRootUserInfo.setValue("man");
+
+        }else mRootUserInfo.setValue("woman");
         mRootUserInfo = mRootUserID.child("user_bmi");
         mRootUserInfo.setValue(bmi);
         mRootUserInfo = mRootUserID.child("user_bfp");
@@ -235,8 +238,103 @@ private void schrijfResultCloud(int resultID, int uid, float weight, float heigh
     }
 
 }
+    public String resultBFP(String sex, float bfp ){
+        if ( sex =="woman")
+        { // female
+            if (bfp < MIN_ESS_W)  return CAT_1;
+            if ( bfp> MIN_ESS_W && bfp <=MAX_ESS_W ) return CAT_2;
+            if ( bfp> MIN_ATH_W && bfp <= MAX_ATH_W ) return CAT_3;
+            if ( bfp> MIN_FIT_W && bfp <=MAX_FIT_W ) return CAT_4;
+            if ( bfp> MIN_AVE_W && bfp <=MAX_AVE_W ) return CAT_5;
+            if ( bfp> MIN_OBE_W) return CAT_6;
+        }
+        else {
+            //male
+            if (bfp < MIN_ESS_M) return CAT_1;
+            if ( bfp > MIN_ESS_M && bfp <= MAX_ESS_M ) return CAT_2;
+            if ( bfp > MIN_ATH_M && bfp <= MAX_ATH_M ) return CAT_3;
+            if ( bfp > MIN_FIT_M && bfp <= MAX_FIT_M ) return CAT_4;
+            if ( bfp > MIN_AVE_M && bfp <= MAX_AVE_M ) return CAT_5;
+            if ( bfp > MIN_OBE_M) return CAT_6;
+        }
+        return "something went wrong, couldnt give you details";
+    }
+
+    public String msgBB(float bmi, float bfp, String sex){
+        String message = resultBFP(sex,bfp);
+        String cat_bmi ="";
+        String msg_bmi;
+        String msg_bfp ="";
+
+        if(bmi<18.5)
+        {
+             cat_bmi ="You have a high risk of developing problems such as nutritional deficiency and osteoporosis";
+        }
+        else if(bmi>=18.5 && bmi <23)
+        {
+            cat_bmi ="You have a low risk of developing heart disease, high blood pressure, stroke, diabetes";
+        }
+        else if(bmi >=23 && bmi <27.5)
+        {
+            cat_bmi ="You have a moderate risk of developing heart disease, high blood pressure, stroke, diabetes";
+        }
+        else if(bmi >= 27.5)
+        {
+            cat_bmi ="You have a high risk of developing heart disease, high blood pressure, stroke, diabetes!";
+        }
+        msg_bmi = ("Your BMI is "+ String.format(String.valueOf("%.01f"),bmi)+"."+ cat_bmi);
+
+        // underweight <18.5, normal weight 18.5-25 overweight 25-30  obese >30
 
 
+        // categorisering
+        if (sex == "woman") {
+            switch (message) {
+                case CAT_1:
+                    msg_bfp =("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + " You are in the category " + CAT_1 + ". You have a Body Fat Percentage <" + MIN_ESS_W + "%.");
+                    break;
+                case CAT_2:
+                    msg_bfp =("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + "You are in the category " + CAT_2 + ". You have a Body Fat Percentage between " + MIN_ESS_W + "% -" + MAX_ESS_W + "%.");
+                    break;
+                case CAT_3:
+                    msg_bfp =("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + "You are in the category " + CAT_3 + ". You have a Body Fat Percentage between " + MIN_ATH_W + "% -" + MAX_ATH_W + "%.");
+                    break;
+                case CAT_4:
+                    msg_bfp =("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + "You are in the category " + CAT_4 + ". You have a Body Fat Percentage between " + MIN_FIT_W + "% -" + MAX_FIT_W + "%.");
+                    break;
+                case CAT_5:
+                    msg_bfp =("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + "You are in the category " + CAT_5 + ". You have a Body Fat Percentage between " + MIN_AVE_W + "% -" + MAX_AVE_W + "%.");
+                    break;
+                case CAT_6:
+                    msg_bfp =("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + "You are in the category " + CAT_6 + ". You have a Body Fat Percentage >" + MIN_OBE_W + "%.");
+                    break;
+            }
+        }
+        else  {
+            switch (message) {
+                case CAT_1:
+                    msg_bfp =("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + " You are in the category " + CAT_1 + ". You have a Body Fat Percentage <" + MIN_ESS_M + "%.");
+                    break;
+                case CAT_2:
+                    msg_bfp =("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + "You are in the category " + CAT_2 + ". You have a Body Fat Percentage between " + MIN_ESS_M + "% -" + MAX_ESS_M + "%.");
+                    break;
+                case CAT_3:
+                    msg_bfp =("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + "You are in the category " + CAT_3 + ". You have a Body Fat Percentage between " + MIN_ATH_M + "% -" + MAX_ATH_M + "%.");
+                    break;
+                case CAT_4:
+                    msg_bfp =("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + "You are in the category " + CAT_4 + ". You have a Body Fat Percentage between " + MIN_FIT_M + "% -" + MAX_FIT_M + "%.");
+                    break;
+                case CAT_5:
+                    msg_bfp =("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + "You are in the category " + CAT_5 + ". You have a Body Fat Percentage between " + MIN_AVE_M+ "% -" + MAX_AVE_M + "%.");
+                    break;
+                case CAT_6:
+                    msg_bfp =("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + "You are in the category " + CAT_6 + ". You have a Body Fat Percentage >" + MIN_OBE_M + "%.");
+                    break;
+            }
+
+        }
+        return (msg_bmi + msg_bfp);
+    }
 
     private void viewResult(int resultID, int uid, float weight, float height , int age , int sex, boolean save, boolean cloud)
     {
@@ -244,76 +342,14 @@ private void schrijfResultCloud(int resultID, int uid, float weight, float heigh
         this.controle.createProfileLocal(resultID,uid,weight,height,age,sex, save,cloud,this); // context = this = Mainactivity => for Serialisable
         float bfp = this.controle.getBFP();
         float bmi = this.controle.getBMI();
-        String msg_bmi="";
-
-        if(bmi<18.5)
+        String gender;
+        if(sex == 0)
         {
-            msg_bmi ="You have a high risk of developing problems such as nutritional deficiency and osteoporosis";
-        }
-        else if(bmi>=18.5 && bmi <23)
-        {
-            msg_bmi ="You have a low risk of developing heart disease, high blood pressure, stroke, diabetes";
-        }
-        else if(bmi >=23 && bmi <27.5)
-        {
-            msg_bmi ="You have a moderate risk of developing heart disease, high blood pressure, stroke, diabetes";
-        }
-        else if(bmi > 27.5)
-        {
-            msg_bmi ="You have a high risk of developing heart disease, high blood pressure, stroke, diabetes!";
-        }
-        lblResultBMI.setText("Your BMI is "+ String.format(String.valueOf("%.01f"),bmi)+"."+msg_bmi);
+            gender = "woman";
+        }else gender ="man";
+        String result = msgBB(bmi,  bfp, gender);
+        lblResult.setText(result);
 
-        // underweight <18.5, normal weight 18.5-25 overweight 25-30  obese >30
-
-        String message = this.controle.getMessage();
-
-        // categorisering
-        if (sex ==0) {
-            switch (message) {
-                case CAT_1:
-                    lblResult.setText("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + " You are in the category " + CAT_1 + ". You have a Body Fat Percentage <" + MIN_ESS_W + "%.");
-                    break;
-                case CAT_2:
-                    lblResult.setText("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + "You are in the category " + CAT_2 + ". You have a Body Fat Percentage between " + MIN_ESS_W + "% -" + MAX_ESS_W + "%.");
-                    break;
-                case CAT_3:
-                    lblResult.setText("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + "You are in the category " + CAT_3 + ". You have a Body Fat Percentage between " + MIN_ATH_W + "% -" + MAX_ATH_W + "%.");
-                    break;
-                case CAT_4:
-                    lblResult.setText("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + "You are in the category " + CAT_4 + ". You have a Body Fat Percentage between " + MIN_FIT_W + "% -" + MAX_FIT_W + "%.");
-                    break;
-                case CAT_5:
-                    lblResult.setText("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + "You are in the category " + CAT_5 + ". You have a Body Fat Percentage between " + MIN_AVE_W + "% -" + MAX_AVE_W + "%.");
-                    break;
-                case CAT_6:
-                    lblResult.setText("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + "You are in the category " + CAT_6 + ". You have a Body Fat Percentage >" + MIN_OBE_W + "%.");
-                    break;
-            }
-        }
-            else  {
-                switch (message) {
-                    case CAT_1:
-                        lblResult.setText("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + " You are in the category " + CAT_1 + ". You have a Body Fat Percentage <" + MIN_ESS_M + "%.");
-                        break;
-                    case CAT_2:
-                        lblResult.setText("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + "You are in the category " + CAT_2 + ". You have a Body Fat Percentage between " + MIN_ESS_M + "% -" + MAX_ESS_M + "%.");
-                        break;
-                    case CAT_3:
-                        lblResult.setText("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + "You are in the category " + CAT_3 + ". You have a Body Fat Percentage between " + MIN_ATH_M + "% -" + MAX_ATH_M + "%.");
-                        break;
-                    case CAT_4:
-                        lblResult.setText("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + "You are in the category " + CAT_4 + ". You have a Body Fat Percentage between " + MIN_FIT_M + "% -" + MAX_FIT_M + "%.");
-                        break;
-                    case CAT_5:
-                        lblResult.setText("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + "You are in the category " + CAT_5 + ". You have a Body Fat Percentage between " + MIN_AVE_M+ "% -" + MAX_AVE_M + "%.");
-                        break;
-                    case CAT_6:
-                        lblResult.setText("You have a BFP of " + String.format(String.valueOf("%.01f"), bfp) + "%." + "You are in the category " + CAT_6 + ". You have a Body Fat Percentage >" + MIN_OBE_M + "%.");
-                        break;
-                }
-
-        }
     }
     // MVC -> controller check info for MainActivity !
 

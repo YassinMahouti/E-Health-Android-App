@@ -8,14 +8,14 @@ public class User {
         private float user_weight;
         private float user_bmi;
         private float user_bfp;
-        private int user_sex;
+        private String user_sex;
         private int user_age;
 
 
         public User() {
         }
 
-        public User(float user_height, String date, float user_weight, int user_sex, int user_age, float user_bmi, float user_bfp) {
+        public User(float user_height, String date, float user_weight, String user_sex, int user_age, float user_bmi, float user_bfp) {
             this.user_height = user_height;
             this.date = date;
             this.user_weight = user_weight;
@@ -33,11 +33,11 @@ public class User {
         this.user_bfp = user_bfp;
     }
 
-    public int getUser_sex() {
+    public String getUser_sex() {
         return user_sex;
     }
 
-    public void setUser_sex(int user_sex) {
+    public void setUser_sex(String user_sex) {
         this.user_sex = user_sex;
     }
 

@@ -76,10 +76,32 @@ public class RecylerView_Config {
             mDate.setText(userBB.getDate());
             mUserBFP.setText(Float.toString(userBB.getUser_bfp()));
             mUserBMI.setText(Float.toString(userBB.getUser_bmi()));
-            mHeight.setText(Float.toString(userBB.getUser_height()));
-            mWeight.setTextColor(Color.RED);
-            mGender.setText(Integer.toString(userBB.getUser_sex()));
-            mWeight.setText(Float.toString(userBB.getUser_weight()));
+            if( userBB.getUser_bmi() >=30.0f || userBB.getUser_bmi() <18.5f)
+            {
+                mUserBMI.setTextColor(Color.RED);
+            }
+            else   mUserBMI.setTextColor(Color.GREEN);
+            if(userBB.getUser_sex()== "woman" )
+            {
+                if(userBB.getUser_bfp() >=32.0f || userBB.getUser_bfp() <10.0f)
+                {
+                    mUserBFP.setTextColor(Color.RED);
+                }
+                else   mUserBFP.setTextColor(Color.GREEN);
+            }
+            else
+            {
+                if( userBB.getUser_bfp() >=25.0f || userBB.getUser_bfp() <3.0f)
+                {
+                    mUserBFP.setTextColor(Color.RED);
+                }
+                else   mUserBFP.setTextColor(Color.GREEN);
+            }
+
+
+            mGender.setText(userBB.getUser_sex());
+            mHeight.setText(Float.toString(userBB.getUser_height())+"cm");
+            mWeight.setText(Float.toString(userBB.getUser_weight())+"kg");
             mAge.setText(Integer.toString(userBB.getUser_age()));
 
 

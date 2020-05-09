@@ -43,7 +43,7 @@ public class Profile implements Serializable {
         this.cloud = cloud;
         this.calculateBMI();
         this.calculateBFP();
-        this.resultBFP();
+        //this.resultBFP();
     }
 
     // getters
@@ -104,26 +104,7 @@ public class Profile implements Serializable {
             this.valueBFP = (float)((1.2*valueBMI) +(0.23*age)-(10.8*sex) -5.4);
         else this.valueBFP = (float)((1.51*valueBMI) -(0.7*age)-(3.6*sex) +1.4);
     }
-    public void resultBFP(){
-        if ( sex == 0)
-        { // female
-            if (valueBFP < MainActivity.MIN_ESS_W)  message = MainActivity.CAT_1;
-            if ( valueBFP> MainActivity.MIN_ESS_W && valueBFP <=MainActivity.MAX_ESS_W ) message =MainActivity.CAT_2;
-            if ( valueBFP> MainActivity.MIN_ATH_W && valueBFP <= MainActivity.MAX_ATH_W ) message = MainActivity.CAT_3;
-            if ( valueBFP> MainActivity.MIN_FIT_W && valueBFP <=MainActivity.MAX_FIT_W )message =MainActivity.CAT_4;
-            if ( valueBFP> MainActivity.MIN_AVE_W && valueBFP <=MainActivity.MAX_AVE_W )message =MainActivity.CAT_5;
-            if ( valueBFP> MainActivity.MIN_OBE_W  )message =MainActivity.CAT_6;
-        }
-        else {
-            //male
-            if (valueBFP < MainActivity.MIN_ESS_M)  message = MainActivity.CAT_1;
-            if ( valueBFP > MainActivity.MIN_ESS_M && valueBFP <= MainActivity.MAX_ESS_M ) message =MainActivity.CAT_2;
-            if ( valueBFP > MainActivity.MIN_ATH_M && valueBFP <= MainActivity.MAX_ATH_M ) message = MainActivity.CAT_3;
-            if ( valueBFP > MainActivity.MIN_FIT_M && valueBFP <= MainActivity.MAX_FIT_M )message =MainActivity.CAT_4;
-            if ( valueBFP > MainActivity.MIN_AVE_M && valueBFP <= MainActivity.MAX_AVE_M )message =MainActivity.CAT_5;
-            if ( valueBFP > MainActivity.MIN_OBE_M  )message =MainActivity.CAT_6;
-        }
-    }
+
 
 
 }
