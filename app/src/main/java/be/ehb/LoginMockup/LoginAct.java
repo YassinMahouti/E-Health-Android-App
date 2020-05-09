@@ -94,6 +94,7 @@ public class LoginAct extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(LoginAct.this,NavDrawerAct.class);
                 startActivity(intent);
+                //gewoon finish hier om terug te gaan
                 //finish();
             }
         });

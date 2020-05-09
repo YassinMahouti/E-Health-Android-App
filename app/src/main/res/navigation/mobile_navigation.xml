@@ -14,9 +14,9 @@
 
     <activity
         android:id="@+id/nav_drink_water"
-        android:name="be.ehb.LoginMockup.ui.drinkwater.DrinkWater"
+        android:name="be.ehb.LoginMockup.ui.drinkwater.DrinkWaterReminder"
         android:label="@string/drink_water"
-        tools:layout="@layout/drink_water_fragment"
+        tools:layout="@layout/activity_drink_water_reminder"
         />
 
     <activity
