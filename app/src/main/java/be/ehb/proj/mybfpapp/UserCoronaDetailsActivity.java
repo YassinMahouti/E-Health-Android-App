@@ -1,10 +1,15 @@
 package be.ehb.proj.mybfpapp;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +20,7 @@ public class UserCoronaDetailsActivity extends AppCompatActivity {
     private TextView mRisk_tv;
     private TextView mNumberOfSymptoms_tv;
     private ImageButton imgBtn;
+    private ProgressBar progressBarRisk;
 
     // properties from intent
     private String key;
@@ -22,6 +28,7 @@ public class UserCoronaDetailsActivity extends AppCompatActivity {
     private String date;
     private String countSymptoms;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +38,6 @@ public class UserCoronaDetailsActivity extends AppCompatActivity {
         date = getIntent().getStringExtra("date");
         risk = getIntent().getStringExtra("risk");
         countSymptoms = getIntent().getStringExtra("countSymptoms");
-
         //init
         mDate_tv =(TextView) findViewById(R.id.txt_date);
         mDate_tv.setText(date);
@@ -40,7 +46,8 @@ public class UserCoronaDetailsActivity extends AppCompatActivity {
         mNumberOfSymptoms_tv =(TextView) findViewById(R.id.txt_countSymptoms);
         mNumberOfSymptoms_tv.setText(countSymptoms);
         imgBtn = (ImageButton) findViewById(R.id.imageButton);
-
+        progressBarRisk = (ProgressBar) findViewById(R.id.progressBarRisk);
+        setupPorgressBarRisk(Float.parseFloat(risk));
         imgBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,5 +76,21 @@ public class UserCoronaDetailsActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public void setupPorgressBarRisk(float risk){
+        if(risk < 10)
+        {
+            progressBarRisk.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
+        }
+        else
+        {
+            if (risk >= 10) progressBarRisk.setProgressTintList(ColorStateList.valueOf(Color.YELLOW));
+            if (risk > 30) progressBarRisk.setProgressTintList(ColorStateList.valueOf(Color.CYAN));
+            if (risk > 45) progressBarRisk.setProgressTintList(ColorStateList.valueOf(Color.RED));
+        }
+        progressBarRisk.setProgress((int) risk);
+
+
     }
 }

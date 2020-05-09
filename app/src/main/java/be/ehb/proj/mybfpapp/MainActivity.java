@@ -20,10 +20,14 @@ import org.w3c.dom.Text;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
-
+    //---------TextView-----------------------
+    private TextView lbl_result;
+    //---------RecyclerView-----------------------
+    private RecyclerView mRecyclerView;
+    //---------Buttons-----------------------
     private Button btn_saveAndCalculate;
     private Button btn_showAllResults;
-    private TextView lbl_result;
+    //---------RadioButtons------------------
     private RadioGroup rd_groupFirst;
     private RadioButton rd_answerFirst_yes;
     private RadioButton rd_answerFirst_no;
@@ -45,76 +49,74 @@ public class MainActivity extends AppCompatActivity {
     private RadioGroup rd_groupSeven;
     private RadioButton rd_answerSeven_yes;
     private RadioButton rd_answerSeven_no;
+    //----------DatabaseReference------------------
+    //----------UserCorona: answerSymptoms
     DatabaseReference mRootSymptom;
-
     DatabaseReference addSymp;
-    private int user_id =1;
-    private float userRisk =0;
-    private int count ;
-
-    //-----
-    private RecyclerView mRecyclerView;
-
-
+    //----------User: user_id -> user_risk_corona
     DatabaseReference mRootUser;
     DatabaseReference mRootUserID;
     DatabaseReference mRootUserID_risk;
-    //---Table "UserCorona" Database Reference ------
+    //----------UserCorona: userResult -> user results AUTOINCREMENT-------
     DatabaseReference mRootUserCorona;
     DatabaseReference mUserResult;
     DatabaseReference mUserResultRisk;
-
-    //---Table diseases Database Reference----------------
+    //----------diseases: disease: name, min&max percentage, number of symptoms--------
     DatabaseReference mRootDiseases;
     DatabaseReference mRootDisease;
     DatabaseReference mRootDiseaseName;
     DatabaseReference mRootDiseaseMinPercentage;
     DatabaseReference mRootDiseaseMaxPercentage;
     DatabaseReference mRootDiseaseNumberOfSymptoms;
-
-
+    //----------Datamembers----------------------------------
+    private int user_id =1;
+    private float userRisk =0;
+    private int count ;
 
     public void init()
     {
+        //---------setup TextView--------------------------------------------
+        lbl_result =(TextView) findViewById(R.id.txt_Result);
+        //---------setup Buttons---------------------------------------------
         btn_saveAndCalculate =(Button) findViewById(R.id.btn_saveSymptoms);
         btn_showAllResults =(Button) findViewById(R.id.btn_calculateRisk);
-
-
+        //---------setup RadioGroups & RadioButtons -------------------------
         rd_groupFirst = (RadioGroup) findViewById(R.id.rd_group);
         rd_answerFirst_yes = (RadioButton) findViewById(R.id.rd_First_yes);
         rd_answerFirst_no = (RadioButton) findViewById(R.id.rd_first_no);
-
         rd_groupSecond =(RadioGroup) findViewById(R.id.rd_group2);
         rd_answerSec_yes = (RadioButton) findViewById(R.id.rd_Sec_yes);
         rd_answerSec_no = (RadioButton) findViewById(R.id.rd_Sec_no);
-
         rd_groupThird =(RadioGroup) findViewById(R.id.rd_group3);
         rd_answerThird_yes = (RadioButton) findViewById(R.id.rd_Third_yes);
         rd_answerThird_no = (RadioButton) findViewById(R.id.rd_Third_no);
-
         rd_groupFo =(RadioGroup) findViewById(R.id.rd_group4);
         rd_answerFo_yes = (RadioButton) findViewById(R.id.rd_Fo_yes);
         rd_answerFo_no = (RadioButton) findViewById(R.id.rd_Fo_no);
-
         rd_groupFi =(RadioGroup) findViewById(R.id.rd_group5);
         rd_answerFi_yes = (RadioButton) findViewById(R.id.rd_Fif_yes);
         rd_answerFi_no = (RadioButton) findViewById(R.id.rd_Fif_no);
-
         rd_groupSix =(RadioGroup) findViewById(R.id.rd_group6);
         rd_answerSix_yes = (RadioButton) findViewById(R.id.rd_Six_yes);
         rd_answerSix_no = (RadioButton) findViewById(R.id.rd_Six_no);
-
         rd_groupSeven =(RadioGroup) findViewById(R.id.rd_group7);
         rd_answerSeven_yes = (RadioButton) findViewById(R.id.rd_Seven_yes);
         rd_answerSeven_no = (RadioButton) findViewById(R.id.rd_Seven_no);
     }
+
+    /**
+     * Function return nothing, it create a table for the diseases in the realtime database.
+     * @param db : Need to pass a FirebaseDatabase, to have access to the database.
+     */
     public void createTableDiseases(FirebaseDatabase db)
     {
-        //--- those are "table names"
+        //those are "table names"
         mRootDiseases = db.getReference("diseases");
         mRootDisease = db.getReference("disease");
-        //--- creating child : name & value : value
+        //creating child : name & value : value
+        //----Root: Start---------------------------------------------
         mRootDiseases  = mRootUserCorona.child("diseases");
+        //-----------Corona-------------------------------------------
         mRootDisease = mRootDiseases.child("1");
         mRootDiseaseName = mRootDisease.child("disease_name");
         mRootDiseaseName.setValue("Corona");
@@ -124,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
         mRootDiseaseMinPercentage.setValue(70);
         mRootDiseaseNumberOfSymptoms = mRootDisease.child("numberOf_symptoms");
         mRootDiseaseNumberOfSymptoms.setValue(7);
+        //-----------Griep-------------------------------------------
         mRootDisease = mRootDiseases.child("2");
         mRootDiseaseName = mRootDisease.child("disease_name");
         mRootDiseaseName.setValue("Griep");
@@ -133,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
         mRootDiseaseMinPercentage.setValue(40);
         mRootDiseaseNumberOfSymptoms = mRootDisease.child("numberOf_symptoms");
         mRootDiseaseNumberOfSymptoms.setValue(5);
+        //-----------Verkoudheid-------------------------------------------
         mRootDisease = mRootDiseases.child("3");
         mRootDiseaseName = mRootDisease.child("disease_name");
         mRootDiseaseName.setValue("Verkouden");
@@ -150,34 +154,39 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-    String test ="test";
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //To write a message to db
-        // instantiate db -> getInstance()
+        //To write to db: instantiate db -> getInstance()
+        //-----FirebaseDatabase---------------------------------
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         mRootUser = db.getReference().child("user");
         mRootUser.setValue(5);
-
-        //-------------
+        //-----References--------------------------------------
         mRootUserCorona = db.getReference("UserCorona");
         mUserResult = db.getReference("UserResult");
         mRootUser = db.getReference("User");
         mRootUserID = db.getReference("user_ID");
-        //---------------
-
+        //-----Create table diseases
         createTableDiseases(db);
-
+        //------------Initialisation of all we need (call own init)------------------------------
         init();
-        lbl_result =(TextView) findViewById(R.id.txt_Result);
-
+        //------OnClickListener-----------------------------------------------------------------
+        //--save realtime input of user: symptoms
+        /**
+         * OnClickListener to save the symptoms and the user risk percentage to the realtime database
+         */
         btn_saveAndCalculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /**
+                 * Local data-member used for creating a message from the user risk percentage.
+                 */
+                //-- init data-members and reset values to 0
                 String symptomsMessage="";
                 String disease;
-                count =0;
-                userRisk =0;
+                count =0; userRisk =0;
+                //--Check the RadioButtons status and add a percentage to become the "total user risk"
+                //----Check symptom 1----------------------------------
                 rd_answerFirst_no.isChecked();
                 mRootSymptom = mRootUserCorona.child("answerSymptoms");
                 addSymp =  mRootSymptom.child("symptom1");
@@ -190,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                 addSymp.setValue("0");
-
+                //----Check symptom 2----------------------------------
                 rd_answerSec_no.isChecked();
                 addSymp =  mRootSymptom.child("symptom2");
                 if(  rd_answerSec_yes.isChecked())
@@ -202,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                     addSymp.setValue("0");
-
+                //----Check symptom 3----------------------------------
                 rd_answerThird_no.isChecked();
                 addSymp =  mRootSymptom.child("symptom3");
                 if(  rd_answerThird_yes.isChecked())
@@ -214,7 +223,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                     addSymp.setValue("0");
-
+                //----Check symptom 4----------------------------------
                 rd_answerFo_no.isChecked();
                 addSymp =  mRootSymptom.child("symptom4");
                 if(  rd_answerFo_yes.isChecked()) {
@@ -225,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                     addSymp.setValue("0");
-
+                //----Check symptom 5----------------------------------
                 rd_answerFi_no.isChecked();
                 addSymp =  mRootSymptom.child("symptom5");
                 if(  rd_answerFi_yes.isChecked()) {
@@ -236,7 +245,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                     addSymp.setValue("0");
-
+                //----Check symptom 6----------------------------------
                 rd_answerSix_no.isChecked();
                 addSymp =  mRootSymptom.child("symptom6");
                 if(  rd_answerSix_yes.isChecked()) {
@@ -247,7 +256,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                     addSymp.setValue("0");
-
+                //----Check symptom 7----------------------------------
                 rd_answerSeven_no.isChecked();
                 addSymp =  mRootSymptom.child("symptom7");
                 if(  rd_answerSeven_yes.isChecked()) {
@@ -258,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                     addSymp.setValue("0");
-
+                //--create  message by using the user_risk obtained
                 if(userRisk>=70)
                     disease = "You have a result that may us think you possibly have Corona or at least symptoms that coincide whit it.";
                 else if (userRisk <70 && userRisk>=40)
@@ -267,19 +276,15 @@ public class MainActivity extends AppCompatActivity {
                     disease="You are ill, you maybe have a Griep or maybe just a Verkoudheid.";
                 else disease ="You are safe, you maybe just ill and suffering from some headache or a runny nose. ";
 
-            //-------------- Write to User -> user_id -> user_risk_corona = userRisk
+                 //----- Write to User: user_id-> user_risk_corona = userRisk
                 mRootUserID = mRootUser.child("user_ID");
                 mRootUserID_risk = mRootUserID.child("user_risk_corona");
                 mRootUserID_risk.setValue(userRisk);
-
-
-
-
-
-              //  t_userRisk.push().setValue(String.valueOf(userRisk));
-                //------
+                //----Need to create a date each time the user save a result( later for the progress of the user)
                 Date date = new Date();
+                //------Write to db using push for AUTOINCREMENT: for each result an id
                 mUserResult = mRootUserCorona.child("userResult").push();
+                //------Write user_risk, user_id, countSymptoms, date
                 mUserResultRisk = mUserResult.child("user_risk");
                 mUserResultRisk.setValue(userRisk);
                 mUserResultRisk = mUserResult.child("user_id");
@@ -288,14 +293,15 @@ public class MainActivity extends AppCompatActivity {
                 mUserResultRisk.setValue(count);
                 mUserResultRisk = mUserResult.child("date");
                 mUserResultRisk.setValue(String.valueOf(date));
+                //---Toast message to show user data is stored successfully in db
                 Toast.makeText(MainActivity.this, "Successfully added to cloud", Toast.LENGTH_SHORT).show();
+                //--Show result to user: setText on lbl_result
                 String stdAdvies = " Please daily check your temperature(fever) and stay safe, keep following your symptoms !"+"\n" +"Please respect the rules of distance between people and follow safety precautions.";
                 lbl_result.setText("You have a risk percentage of "+userRisk+"%." + "\n "+"You have following symptoms:"+symptomsMessage +"."+ disease + "\n" +stdAdvies);
-
-
             }
         });
-
+        //---To show all the results of the user: need to start a new activity
+        //Onclick listen on button to go on the activity when user decide it
       btn_showAllResults.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
