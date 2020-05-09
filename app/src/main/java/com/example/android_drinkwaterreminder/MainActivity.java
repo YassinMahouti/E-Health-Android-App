@@ -96,6 +96,9 @@ public class MainActivity extends AppCompatActivity implements Runnable {
                 amountToDrink.setText(textForAmountToDrink);
                 amountToDrink.getText().toString();
 
+                Runnable runnable = new MainActivity();
+                Thread thread = new Thread(runnable);
+                thread.start();
 
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
@@ -141,4 +144,6 @@ public class MainActivity extends AppCompatActivity implements Runnable {
         });
     }
 
-}
+
+    }
+
