@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="haseb/app" />
-      <module fileurl="file://$PROJECT_DIR$/haseb.iml" filepath="$PROJECT_DIR$/haseb.iml" group="haseb" />
+      <module fileurl="file://$PROJECT_DIR$/My Application.iml" filepath="$PROJECT_DIR$/My Application.iml" group="My Application" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="My Application/app" />
       <module fileurl="file://$PROJECT_DIR$/.idea/programming-project-1-19-20.iml" filepath="$PROJECT_DIR$/.idea/programming-project-1-19-20.iml" />
     </modules>
   </component>
