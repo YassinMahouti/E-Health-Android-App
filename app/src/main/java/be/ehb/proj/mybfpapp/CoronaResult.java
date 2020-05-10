@@ -8,16 +8,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.Spinner;
-import android.widget.Toast;
 
 import java.util.List;
 
+/**
+ * Show data from Realtime db: load data. Let user make a new test when he click on "+" Button.
+ */
 public class CoronaResult extends AppCompatActivity {
-private RecyclerView mRecyclerView;
-private ImageButton newTest;
-//private ImageButton btn_testDelete;
-
+    //-- Img button the let the user created a new test(new result)
+    //--Able to later show the values, instantiate create a RecyclerView
+    private RecyclerView mRecyclerView;
+    private ImageButton newTest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +38,16 @@ private ImageButton newTest;
 
 
         new FirebaseDatabaseHelper().readUserCorona(new FirebaseDatabaseHelper.DataStatus() {
+            //--Generate override methode From DataStatus: need data is loaded
             @Override
             public void DataIsLoaded(final List<User> userCorona, List<String> keys) {
-                //when data is loaded from cloud into the recyclerView -> show "waiting" with a progressbar -> setVisibility : GONE
+                //--When data is loaded from cloud into the recyclerView the user need to wait
+                //--To show the "waiting or data loading process" I use a CircleProgressbar.
+                //--setVisibility to Gone, before it was on invisible, now it will "spin".
                 findViewById(R.id.progressbarWaiting).setVisibility(ViewGroup.GONE);
-                new RecylerView_Config().setConfig(mRecyclerView, CoronaResult.this , userCorona, keys);
+                //--Create the recycler view. New each time its called, with the configuration setup(set in "setConfig")
+                //--Pass the created recyclerView, a Context, List with user info and the keys stored in a List too
+                new RecyclerView_Config().setConfig(mRecyclerView, CoronaResult.this , userCorona, keys);
             }
 
             @Override
@@ -60,22 +66,6 @@ private ImageButton newTest;
 
             }
         });
-
-
     }
-    /*
-    private  int getIndex_SpinnerItem(Spinner spinner, String item){
-        int index=0;
-        for(int i=0;i<spinner.getCount();i++)
-        {
-            if(spinner.getItemAtPosition(i).equals(item))
-            {
-                index=i;
-                //stop loop
-                break;
-            }
-        }
-        return index;
 
-    }*/
 }

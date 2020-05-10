@@ -1,12 +1,17 @@
 package be.ehb.proj.mybfpapp;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -15,13 +20,12 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import org.w3c.dom.Text;
-
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
     //---------TextView-----------------------
     private TextView lbl_result;
+    private TextView lbl_result_accurate_risk;
     //---------RecyclerView-----------------------
     private RecyclerView mRecyclerView;
     //---------Buttons-----------------------
@@ -49,6 +53,23 @@ public class MainActivity extends AppCompatActivity {
     private RadioGroup rd_groupSeven;
     private RadioButton rd_answerSeven_yes;
     private RadioButton rd_answerSeven_no;
+    //------------accurate symptoms
+    private RadioGroup rd_group1_accurate;
+    private RadioGroup rd_group2_accurate;
+    private RadioGroup rd_group3_accurate;
+    private RadioGroup rd_group4_accurate;
+    private RadioButton rd_accurate_1_yes;
+    private RadioButton rd_accurate_2_yes;
+    private RadioButton rd_accurate_3_yes;
+    private RadioButton rd_accurate_4_yes;
+    private RadioButton rd_accurate_1_no;
+    private RadioButton rd_accurate_2_no;
+    private RadioButton rd_accurate_3_no;
+    private RadioButton rd_accurate_4_no;
+    private ProgressBar progressBarAccurateSymptoms;
+    private int accurate_risk =0;
+    private String accurate_msg="";
+
     //----------DatabaseReference------------------
     //----------UserCorona: answerSymptoms
     DatabaseReference mRootSymptom;
@@ -77,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
     {
         //---------setup TextView--------------------------------------------
         lbl_result =(TextView) findViewById(R.id.txt_Result);
+        lbl_result_accurate_risk = (TextView) findViewById(R.id.txt_result_accurate);
         //---------setup Buttons---------------------------------------------
         btn_saveAndCalculate =(Button) findViewById(R.id.btn_saveSymptoms);
         btn_showAllResults =(Button) findViewById(R.id.btn_calculateRisk);
@@ -102,6 +124,22 @@ public class MainActivity extends AppCompatActivity {
         rd_groupSeven =(RadioGroup) findViewById(R.id.rd_group7);
         rd_answerSeven_yes = (RadioButton) findViewById(R.id.rd_Seven_yes);
         rd_answerSeven_no = (RadioButton) findViewById(R.id.rd_Seven_no);
+        //---Test Accurate Symptoms------------
+        rd_group1_accurate =(RadioGroup) findViewById(R.id.rd_group1_accurate);
+        rd_group2_accurate =(RadioGroup) findViewById(R.id.rd_group2_accurate);
+        rd_group3_accurate =(RadioGroup) findViewById(R.id.rd_group3_accurate);
+        rd_group4_accurate =(RadioGroup) findViewById(R.id.rd_group4_accurate);
+        rd_accurate_1_yes=(RadioButton) findViewById(R.id.rd_accurate_symp1_ja);
+        rd_accurate_2_yes=(RadioButton) findViewById(R.id.rd_accurate_symp2_ja);
+        rd_accurate_3_yes=(RadioButton) findViewById(R.id.rd_accurate_symp3_ja);
+        rd_accurate_4_yes=(RadioButton) findViewById(R.id.rd_accurate_symp4_ja);
+        rd_accurate_1_no=(RadioButton) findViewById(R.id.rd_accurate_symp1_nee);
+        rd_accurate_2_no=(RadioButton) findViewById(R.id.rd_accurate_symp2_nee);
+        rd_accurate_3_no=(RadioButton) findViewById(R.id.rd_accurate_symp3_nee);
+        rd_accurate_4_no=(RadioButton) findViewById(R.id.rd_accurate_symp4_nee);
+
+
+        progressBarAccurateSymptoms =(ProgressBar) findViewById(R.id.progressBarAccurateSymptoms);
     }
 
     /**
@@ -310,6 +348,96 @@ public class MainActivity extends AppCompatActivity {
               finish();
           }
       });
+
+
+      rd_group1_accurate.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+          @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+          @Override
+          public void onCheckedChanged(RadioGroup group, int checkedId) {
+              if(rd_accurate_1_yes.isChecked())
+              {
+                  accurate_risk +=25;
+                  setupProgressBarAccurateRisk(progressBarAccurateSymptoms, accurate_risk,accurate_msg);
+
+              }
+
+
+          }
+      });
+      rd_group2_accurate.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+          @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+          @Override
+          public void onCheckedChanged(RadioGroup group, int checkedId) {
+              if(rd_accurate_2_yes.isChecked())
+              {
+                  accurate_risk +=25;
+                  setupProgressBarAccurateRisk(progressBarAccurateSymptoms, accurate_risk,accurate_msg);
+
+              }
+
+          }
+      });
+      rd_group3_accurate.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if(rd_accurate_3_yes.isChecked())
+                {
+                    accurate_risk +=25;
+                    setupProgressBarAccurateRisk(progressBarAccurateSymptoms, accurate_risk,accurate_msg);
+
+                }
+
+            }
+        });
+        rd_group4_accurate.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if(rd_accurate_4_yes.isChecked())
+                {
+                    accurate_risk +=25;
+                    setupProgressBarAccurateRisk(progressBarAccurateSymptoms, accurate_risk,accurate_msg);
+
+                }
+
+            }
+        });
+
+
+    }
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public void setupProgressBarAccurateRisk(ProgressBar pg, int risk, String msg)
+    {
+        progressBarAccurateSymptoms.setProgress(risk);
+        if(risk ==0)
+        {
+            msg ="You have selected none of the most important risk, it a good thing! You can do the second test but it's not a must since you don't have the most important symptoms.";
+            progressBarAccurateSymptoms.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
+            lbl_result_accurate_risk.setText(msg);
+        }
+        else if(risk == 25) {
+            progressBarAccurateSymptoms.setProgressTintList(ColorStateList.valueOf(Color.YELLOW));
+            msg = "It seams you selected one symptom.You don't have to answer to the next checkup but we still invite you to do it, so you can better evaluate your risk to be sure.";
+            lbl_result_accurate_risk.setText(msg);
+        }
+        else if (risk ==50){
+            msg ="Please answer to the next questions below! You selected 2 symptoms that are the most accurate symptoms to evaluate if you have COVID-19.If your result on the next question is greater than 50% Please call 911.";
+            progressBarAccurateSymptoms.setProgressTintList(ColorStateList.valueOf(Color.RED));
+            lbl_result_accurate_risk.setText(msg);
+        }
+        else if (risk==75){
+            msg ="Please answer to the next questions below! You selected 3 symptoms that are the most accurate symptoms to evaluate if you have COVID-19.If your result on the next question is greater than 25% Please call 911.";
+            progressBarAccurateSymptoms.setProgressTintList(ColorStateList.valueOf(Color.RED));
+            lbl_result_accurate_risk.setText(msg);
+        }
+        else if (risk ==100){
+            msg ="Please call 911.";
+            progressBarAccurateSymptoms.setProgressTintList(ColorStateList.valueOf(Color.RED));
+            lbl_result_accurate_risk.setText(msg);
+
+        }
+
     }
 
 
