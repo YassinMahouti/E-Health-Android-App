@@ -20,6 +20,7 @@ public class UserCoronaDetailsActivity extends AppCompatActivity {
     private TextView mDate_tv;
     private TextView mRisk_tv;
     private TextView mNumberOfSymptoms_tv;
+    private TextView corona_info;
     private ImageButton imgBtn;
     private ProgressBar progressBarRisk;
     //--properties for recuperation of the information from intent of activity before
@@ -51,6 +52,11 @@ public class UserCoronaDetailsActivity extends AppCompatActivity {
         mNumberOfSymptoms_tv.setText(countSymptoms);
         imgBtn = (ImageButton) findViewById(R.id.imageButton);
         progressBarRisk = (ProgressBar) findViewById(R.id.progressBarRisk);
+
+        corona_info =(TextView) findViewById(R.id.txt_corona_info);
+        String msg_corona_info = new MainActivity().messageFromUserRisk(Float.parseFloat(risk));
+        corona_info.setText(msg_corona_info);
+
         /**
          * Able to have some visual support I created a method to color and have a responding progressbar depending on user risk.
          */

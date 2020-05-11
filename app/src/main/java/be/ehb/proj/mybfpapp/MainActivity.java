@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     private RadioButton rd_accurate_3_no;
     private RadioButton rd_accurate_4_no;
     private ProgressBar progressBarAccurateSymptoms;
-    private int accurate_risk =0;
+    public int accurate_risk =0;
     private String accurate_msg="";
 
     //----------DatabaseReference------------------
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
         lbl_result_accurate_risk = (TextView) findViewById(R.id.txt_result_accurate);
         //---------setup Buttons---------------------------------------------
         btn_saveAndCalculate =(Button) findViewById(R.id.btn_saveSymptoms);
-        btn_showAllResults =(Button) findViewById(R.id.btn_calculateRisk);
+        btn_showAllResults =(Button) findViewById(R.id.btn_show_results);
         //---------setup RadioGroups & RadioButtons -------------------------
         rd_groupFirst = (RadioGroup) findViewById(R.id.rd_group);
         rd_answerFirst_yes = (RadioButton) findViewById(R.id.rd_First_yes);
@@ -438,6 +438,20 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+    }
+    public String messageFromUserRisk(float userRisk) {
+        String disease;
+        if (userRisk >= 70)
+            disease = "You have a result that may us think you possibly have Corona or at least symptoms that coincide whit it.";
+        else if (userRisk < 70 && userRisk >= 40)
+            disease = "Corona is a possibility but Griep has also kind of the same symptoms.";
+        else if (userRisk < 40 && userRisk >= 12)
+            disease = "You are ill, you maybe have a Griep or maybe just a Verkoudheid.";
+        else
+            disease = "You are safe, you maybe just ill and suffering from some headache or a runny nose. ";
+
+        //String stdAdvies = " Please daily check your temperature(fever) and stay safe, keep following your symptoms !" + "\n" + "Please respect the rules of distance between people and follow safety precautions.";
+        return ("You have a risk percentage of " + userRisk + "%." + "\n " +  disease);
     }
 
 
