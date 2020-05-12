@@ -97,12 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Databaseconnetion with firebase
         FirebaseDatabase db = FirebaseDatabase.getInstance();
-        mDB_User = db.getReference().child("User_Drinkwater");
-
-
-        //set time to notif
-
-
+        mDB_User = db.getReference().child("User_Drinkwater").push();
 
 
         switch_state.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -125,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
         confirm_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Creates another Local Date instance
+                //Creates another Local Date instance and set time to notif
                 Date date = new Date(); // given date
                 Calendar calendar = GregorianCalendar.getInstance(); // creates a new calendar instance
                 calendar.setTime(date);   // assigns calendar to given date
@@ -142,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
                 mDB_User.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        mDB_User.child("User_Water").setValue(user);
+                        mDB_User.setValue(user);
                         Toast.makeText(MainActivity.this,"Data inserted",Toast.LENGTH_LONG).show();
                     }
 
