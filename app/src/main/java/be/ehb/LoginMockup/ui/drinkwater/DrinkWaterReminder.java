@@ -14,6 +14,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import be.ehb.Ehealth.R;
 
 
@@ -26,26 +29,35 @@ public class DrinkWaterReminder extends AppCompatActivity {
         createNotificationChannel();
 
         Button button = findViewById(R.id.button);
+        int currentTime = Calendar.getInstance().getTime().getHours();
+        System.out.println(currentTime);
 
 
         button.setOnClickListener(v -> {
-            Toast.makeText(this, "Reminder Set", Toast.LENGTH_SHORT).show();
 
             Intent intent = new Intent(DrinkWaterReminder.this, ReminderBroadcast.class);
             PendingIntent pendingIntent = PendingIntent.getBroadcast(DrinkWaterReminder.this, 0, intent, 0);
             AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
             long timeAtButtonClick = System.currentTimeMillis();
 
-            long tweeUur = 7200000; // 2uur
+            long tweeUur =  2; // 2uur
 
-            alarmManager.set(AlarmManager.RTC_WAKEUP,
-                    timeAtButtonClick + tweeUur,
-                    pendingIntent);
+
+            if(!(currentTime > 22 || currentTime < 6)) {
+
+                Toast.makeText(this, "Reminder Set", Toast.LENGTH_LONG).show();
+
+                alarmManager.set(AlarmManager.RTC_WAKEUP,
+                        timeAtButtonClick + tweeUur,
+                        pendingIntent);
+            }
+
 
 
         });
 
     }
+
 
     private void createNotificationChannel() {
 

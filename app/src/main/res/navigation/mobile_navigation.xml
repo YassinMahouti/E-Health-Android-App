@@ -75,6 +75,11 @@
         android:name="be.ehb.LoginMockup.ui.foodlookup.Foodlookup"
         android:label="@string/nav_foodlookup"
         tools:layout="@layout/activity__food_look_up"/>
+    <activity
+        android:id="@+id/nav_barcode"
+        android:name="be.ehb.LoginMockup.ui.foodlookup.BarcodeScanner"
+        android:label="Barcode scanner"
+        tools:layout="activity_barcode"/>
 
 
 </navigation>

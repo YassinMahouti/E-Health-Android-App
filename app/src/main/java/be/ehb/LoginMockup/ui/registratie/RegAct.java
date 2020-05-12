@@ -51,13 +51,15 @@ public class RegAct extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         progressBar = findViewById(R.id.progressBar);
 
-/*
-        if (firebaseAuth.getCurrentUser() != null) {
+
+        if (firebaseAuth.getCurrentUser() == null) {
             startActivity(new Intent(getApplicationContext(), RegAct.class));
 
         }
 
- */
+
+
+
 
 
 
