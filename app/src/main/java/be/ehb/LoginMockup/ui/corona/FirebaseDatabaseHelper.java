@@ -14,7 +14,7 @@ import java.util.List;
 
 public class FirebaseDatabaseHelper {
     private FirebaseDatabase mDatabase;
-
+    private DatabaseReference mRef;
     private DatabaseReference mRootUserCorona;
     private DatabaseReference mReferenceUserCoronaResult;
     private DatabaseReference mReferenceUserCoronaResult1;
@@ -28,6 +28,8 @@ public class FirebaseDatabaseHelper {
     }
     public FirebaseDatabaseHelper() {
         mDatabase = FirebaseDatabase.getInstance();
+
+
         mReferenceUserCoronaResult = mDatabase.getReference("UserCorona");
         mReferenceUserCoronaResult1 = mReferenceUserCoronaResult.child("userResult");
         /*mRootUserCorona = FirebaseDatabase.getInstance().getReference("UserCorona");
