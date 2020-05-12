@@ -32,19 +32,24 @@ public class MainActivity extends AppCompatActivity {
     Switch switch_state;
     EditText txt_weight;
     Button confirm_btn;
-    TextView amountToDrink;
+    TextView tv_StringToDrink;
     boolean save = false;
+
 
     public void intitialize() {      //intitialisation of android screen vraiables
         switch_state = findViewById(R.id.switch_status);
         txt_weight = findViewById(R.id.Txt_weight);
         confirm_btn = findViewById(R.id.btn_confirm);
+        tv_StringToDrink=findViewById(R.id.tv_StringToDrink);
     }
 
     public double calcToDrinkWater(int weight) {     //methode to calculate amount of to drink water
         double toDrink = weight * 0.033;
         return toDrink;
     }
+
+
+
 
     private void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
@@ -77,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     txt_weight.setVisibility(View.INVISIBLE);
                     confirm_btn.setVisibility(View.INVISIBLE);
+                    tv_StringToDrink.setVisibility((View.INVISIBLE));
                 }
                 createNotificationChannel();
             }
@@ -91,13 +97,15 @@ public class MainActivity extends AppCompatActivity {
                 String value = txt_weight.getText().toString();
                 int user_weight = Integer.parseInt(value);
 
+                //Show the amount of to drink water to the user
+                tv_StringToDrink.setText("You have to drink at least " + calcToDrinkWater(user_weight) + "cl of water everytime you get a notification");
+                tv_StringToDrink.setVisibility((View.VISIBLE));
 
                 //set time to notif
                 Date date = new Date();   // given date
                 Calendar calendar = GregorianCalendar.getInstance(); // creates a new calendar instance
                 calendar.setTime(date);   // assigns calendar to given date
                 int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
-                int nextNotif = currentHour + 2;
                 Calendar notif = calendar.getInstance();
 
 
@@ -113,26 +121,35 @@ public class MainActivity extends AppCompatActivity {
                         builder.setAutoCancel(true);
 
                         Intent intent = new Intent(MainActivity.this, NotificationActivity.class);
+
+                        start();
+
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         intent.putExtra("message", message);
                         PendingIntent pendingIntent = PendingIntent.getActivity(MainActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                        PendingIntent contentIntent = PendingIntent.getService(MainActivity.this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
                         builder.setContentIntent(pendingIntent);
-
-
-
 
                         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
                         notificationManager.notify(0, builder.build());
-
-                        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                        //alarmManager.setExact(AlarmManager.RTC_WAKEUP, notif.getTimeInMillis(), pendingIntent);
-                        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, System.currentTimeMillis(), 100, contentIntent);
-
-
+                        if (!(switch_state.isChecked())) {
+                            cancel();
+                        }
                     }
                 }
+            }
 
+            Intent intent = new Intent(MainActivity.this, NotificationActivity.class);
+            PendingIntent contentIntent = PendingIntent.getService(MainActivity.this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+            public void start() {
+                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                //alarmManager.setExact(AlarmManager.RTC_WAKEUP, notif.getTimeInMillis(), pendingIntent);
+                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 100, contentIntent);
+            }
+
+            public void cancel() {
+                AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                manager.cancel(contentIntent);
             }
         });
     }
