@@ -41,7 +41,6 @@ public class Foodlookup extends AppCompatActivity {
     CameraView camera_view;
     boolean isDetected = false;
     Button btn_start_again;
-
     FirebaseVisionBarcodeDetectorOptions options;
     FirebaseVisionBarcodeDetector detector;
 

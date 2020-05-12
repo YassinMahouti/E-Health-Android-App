@@ -46,6 +46,10 @@
     <string name="bmi_and_bfp">BMI and BFP</string>
     <string name="menu_subtitle" />
     <string name="menu_title" />
+    <string name="title_activity_bottom_nav">BottomNavAct</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 
 
 </resources>
