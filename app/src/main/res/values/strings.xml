@@ -43,6 +43,9 @@
     <string name="nav_am_i_sick">Am i sick?</string>
     <string name="someone_gmail_com">someone@gmail.com</string>
     <string name="scan_barcode">Scan barcode</string>
+    <string name="bmi_and_bfp">BMI and BFP</string>
+    <string name="menu_subtitle" />
+    <string name="menu_title" />
 
 
 </resources>

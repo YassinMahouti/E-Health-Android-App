@@ -8,12 +8,7 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/menu_home" />
-        <item
-            android:id="@+id/nav_bfp"
-            android:title="BFP"></item>
-        <item
-            android:id="@+id/nav_bmi"
-            android:title="BMI"></item>
+
         <item
             android:id="@+id/nav_find_place"
             android:icon="@drawable/ic_where_to_workout"
@@ -35,6 +30,10 @@
             android:id="@+id/nav_stepcounter"
             android:icon="@drawable/ic_step"
             android:title="Step counter"/>
+
+        <item
+            android:id="@+id/nav_bmi_bfp"
+            android:title="@string/bmi_and_bfp" />
 
     </group>
 </menu>

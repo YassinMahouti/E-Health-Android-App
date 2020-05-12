@@ -11,8 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name="be.ehb.LoginMockup.ui.Calorie.CalorieCalc"/>
-        <activity android:name="be.ehb.LoginMockup.ui.drinkwater.DrinkWaterReminder"></activity>
+        <activity android:name="be.ehb.LoginMockup.ui.drinkwater.DrinkWaterReminder" />
         <activity android:name="be.ehb.LoginMockup.ui.corona.UserCoronaDetails" />
         <activity android:name="be.ehb.LoginMockup.ui.corona.UserCoronaListItem" />
         <activity android:name="be.ehb.LoginMockup.ui.corona.CoronaMain" />
@@ -26,7 +27,8 @@
         <activity android:name="be.ehb.LoginMockup.ui.foodlookup.Foodlookup">
             <meta-data
                 android:name="com.google.firebase.ml.vision.DEPENDENCIES"
-                android:value="barcode" />
+                android:value="barcode">
+            </meta-data>
         </activity>
 
 
@@ -42,8 +44,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="be.ehb.LoginMockup.ui.bmiAndBfp.view.BmiBfpMain"/>
 
         <receiver android:name="be.ehb.LoginMockup.ui.drinkwater.ReminderBroadcast" />
+        <activity android:name="be.ehb.LoginMockup.ui.bmiAndBfp.view.UserResults"/>
 
 
     </application>
