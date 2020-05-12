@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,11 +21,12 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class Register extends AppCompatActivity {
 
-    EditText myName, myEmail, myPassword, myPhone;
+    EditText myName, myEmail, myPassword, myPhone, myWeight, myHeight;
     Button myRegisterBtn;
     TextView myLoginBtn;
     FirebaseAuth firebaseAuth;
     ProgressBar progressBar;
+    RadioButton myFemale, myMale;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,10 @@ public class Register extends AppCompatActivity {
         myPhone = findViewById(R.id.phone);
         myRegisterBtn = findViewById(R.id.registerBtn);
         myLoginBtn = findViewById(R.id.createText);
+        myWeight = findViewById(R.id.weight);
+        myFemale = findViewById(R.id.female);
+        myMale = findViewById(R.id.male);
+        myHeight = findViewById(R.id.height);
 
         firebaseAuth = FirebaseAuth.getInstance();
         progressBar = findViewById(R.id.progressBar);
