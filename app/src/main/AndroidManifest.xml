@@ -19,28 +19,32 @@
         <activity android:name="be.ehb.LoginMockup.ui.corona.AmISick" />
         <activity android:name="be.ehb.LoginMockup.LoginAct" />
         <activity android:name="be.ehb.LoginMockup.ui.registratie.RegAct" />
+        <activity android:name="be.ehb.LoginMockup.ui.steps.StepCounter" />
 
-        <meta-data
-            android:name="com.google.firebase.ml.vision.DEPENDENCIES"
-            android:value="barcode" />
 
         <activity android:name="be.ehb.LoginMockup.ui.foodlookup.Foodlookup">
             <meta-data
                 android:name="com.google.firebase.ml.vision.DEPENDENCIES"
                 android:value="barcode" />
         </activity>
+
+
         <activity
             android:name="be.ehb.LoginMockup.NavDrawerAct"
             android:label="@string/title_activity_nav_drawer"
             android:theme="@style/AppTheme.NoActionBar" />
+
+
         <activity android:name="be.ehb.LoginMockup.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name="be.ehb.LoginMockup.ui.drinkwater.ReminderBroadcast"/>
+
+        <receiver android:name="be.ehb.LoginMockup.ui.drinkwater.ReminderBroadcast" />
+
+
     </application>
 
 </manifest>

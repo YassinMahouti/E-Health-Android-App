@@ -42,6 +42,7 @@
     <string name="please_answer_to_the_following_questions">Please answer to the following questions:</string>
     <string name="nav_am_i_sick">Am i sick?</string>
     <string name="someone_gmail_com">someone@gmail.com</string>
+    <string name="scan_barcode">Scan barcode</string>
 
 
 </resources>
