@@ -1,22 +1,27 @@
 package com.example.android_drinkwaterreminder;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.rule.ActivityTestRule;
+
+import com.example.android_drinkwaterreminder.MainActivity;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.*;
 
-@RunWith(AndroidJUnit4.class)
-class MainActivityTest {
+public class MainActivityTest {
     private MainActivity mainActivity;
+    @Rule
+    public ActivityTestRule<MainActivity> mainActivityActivityTestRule = new ActivityTestRule<MainActivity>(MainActivity.class);
 
-    @Before     //init
-    public void setup() throws Exception {
-        mainActivity = new MainActivity();
+   @Before     //init
+    public void setup() {
+       // mainActivity = new MainActivity();
+       mainActivity = mainActivityActivityTestRule.getActivity();
     }
 
     @Test
@@ -31,4 +36,5 @@ class MainActivityTest {
     public void tearDown() throws Exception {
         mainActivity = null;
     }
+
 }
