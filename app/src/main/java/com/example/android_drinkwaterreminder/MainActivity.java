@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -30,7 +29,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -44,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     Button confirm_btn;
     TextView tv_StringToDrink;
     DatabaseReference mDB_User;
+    DatabaseReference mDB_User_Update;
     UserWaterReminder user;
 
     //initialization of button and key variables
@@ -98,6 +97,8 @@ public class MainActivity extends AppCompatActivity {
         //Databaseconnetion with firebase
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         mDB_User = db.getReference().child("User_Drinkwater").push();
+        mDB_User_Update = db.getReference().child("User_Drinkwater");
+
 
 
         switch_state.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
