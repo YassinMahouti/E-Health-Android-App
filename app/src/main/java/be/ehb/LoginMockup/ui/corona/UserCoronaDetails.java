@@ -53,7 +53,7 @@ public class UserCoronaDetails extends AppCompatActivity {
         mNumberOfSymptoms_tv =(TextView) findViewById(R.id.txt_countSymptoms);
         mNumberOfSymptoms_tv.setText(countSymptoms);
         imgBtn = (ImageButton) findViewById(R.id.imageButton);
-        // het kan zijn dat je hier een error krijgt, waarom weet ik niet omdat het werkt: ik ga dit nog testen 
+        // het kan zijn dat je hier een error krijgt, waarom weet ik niet omdat het werkt: ik ga dit nog testen
         progressBarRisk = (ProgressBar) findViewById(R.id.progressBarRisk);
 
         corona_info =(TextView) findViewById(R.id.txt_corona_info);
