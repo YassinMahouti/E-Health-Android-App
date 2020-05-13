@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Creates another Local Date instance and set time to notif
-                Date date = new Date(); // given date
+                Date date    = new Date(); // given date
                 Calendar calendar = GregorianCalendar.getInstance(); // creates a new calendar instance
                 calendar.setTime(date);   // assigns calendar to given date
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -168,12 +168,11 @@ public class MainActivity extends AppCompatActivity {
                         public void onCancelled(@NonNull DatabaseError databaseError) {
 
                         }
-
                     });
 
 
                 //Show the amount of to drink water to the user
-                tv_StringToDrink.setText("You have to drink at least " + calcToDrinkWater(user_weight) + "cl of water everytime you get a notification");
+                tv_StringToDrink.setText("You have to drink at least " + calcToDrinkWater(user_weight) + "l of water today");
                 tv_StringToDrink.setVisibility((View.VISIBLE));
 
 
@@ -200,6 +199,7 @@ public class MainActivity extends AppCompatActivity {
 
                         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
                         notificationManager.notify(0, builder.build());
+
                         if (!(switch_state.isChecked())) {
                             cancel();
                         }
@@ -212,6 +212,7 @@ public class MainActivity extends AppCompatActivity {
 
             Intent intent = new Intent(MainActivity.this, NotificationActivity.class);
             PendingIntent contentIntent = PendingIntent.getService(MainActivity.this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
             public void start() {   //method to start manager
                 AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
                 //alarmManager.setExact(AlarmManager.RTC_WAKEUP, notif.getTimeInMillis(), pendingIntent);

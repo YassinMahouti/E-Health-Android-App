@@ -59,8 +59,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="400dp"
         android:text="Confirm"
-        android:visibility="invisible"
-        android:enabled="false"/>
+        android:visibility="invisible" />
 
     <TextView
         android:id="@+id/tv_StringToDrink"
