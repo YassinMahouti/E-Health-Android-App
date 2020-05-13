@@ -45,6 +45,12 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference mDB_User_Update;
     UserWaterReminder user;
 
+    //Old date variable for comparator
+    //Creates another Local Date instance and set time to notif
+    Date date = java.util.Calendar.getInstance().getTime();
+    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    String str_Date = dateFormat.format(date);
+
     //initialization of button and key variables
     public void intitialize() {
         switch_state = findViewById(R.id.switch_status);
@@ -125,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
                 Date date = new Date(); // given date
                 Calendar calendar = GregorianCalendar.getInstance(); // creates a new calendar instance
                 calendar.setTime(date);   // assigns calendar to given date
-                DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 String str_Date = dateFormat.format(date);
                 int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
 
@@ -135,18 +141,36 @@ public class MainActivity extends AppCompatActivity {
                 user = new UserWaterReminder();                  //creates new user
                 getValues(user_weight,value,str_Date);
 
-                mDB_User.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        mDB_User.setValue(user);
-                        Toast.makeText(MainActivity.this,"Data inserted",Toast.LENGTH_LONG).show();
-                    }
+                compareDates(str_Date);
+                if(compareDates(str_Date)==true) {
+                    mDB_User.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            mDB_User.setValue(user);
+                            Toast.makeText(MainActivity.this, "Data inserted", Toast.LENGTH_LONG).show();
+                        }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                    }
-                });
+                        }
+
+                    });
+                }else if (compareDates(str_Date)==false){
+                    mDB_User_Update.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            mDB_User.setValue(user);
+                            Toast.makeText(MainActivity.this, "Data inserted", Toast.LENGTH_LONG).show();
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+
+                    });
+
 
                 //Show the amount of to drink water to the user
                 tv_StringToDrink.setText("You have to drink at least " + calcToDrinkWater(user_weight) + "cl of water everytime you get a notification");
@@ -183,12 +207,15 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
+
+            }
+
             Intent intent = new Intent(MainActivity.this, NotificationActivity.class);
             PendingIntent contentIntent = PendingIntent.getService(MainActivity.this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-
             public void start() {   //method to start manager
                 AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
                 //alarmManager.setExact(AlarmManager.RTC_WAKEUP, notif.getTimeInMillis(), pendingIntent);
+                alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,200,contentIntent);
                 alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 100, contentIntent);
             }
 
@@ -197,6 +224,17 @@ public class MainActivity extends AppCompatActivity {
                 manager.cancel(contentIntent);
             }
         });
+
+    }
+
+    public boolean compareDates(String newDate){        //compares the str_Date method
+        if (newDate==str_Date){
+            str_Date=newDate;
+            return true;
+        }else {
+            str_Date=newDate;
+            return false;
+        }
     }
 }
 

@@ -5,12 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".NotificationActivity">
-    
+
     <TextView
+        android:id="@+id/text_vieuw"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/text_vieuw"
-        android:textSize="25dp"
-        android:gravity="center"/>
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:textSize="25dp" />
 
 </RelativeLayout>
