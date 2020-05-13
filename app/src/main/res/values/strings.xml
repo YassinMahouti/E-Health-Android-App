@@ -1,0 +1,55 @@
+<resources>
+    <string name="app_name">E-Health</string>
+    <string name="title_activity_nav_drawer">NavDrawerAct</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Username</string>
+    <string name="nav_corona">Am i sick?</string>
+    <string name="nav_header_subtitle">someone@gmail.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="nav_foodlookup">Foodlookup</string>
+    <string name="action_settings">Settings</string>
+    <string name="scan_again">Scan again</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_calCalc">Calorie Calculator</string>
+    <string name="home_second">Home Second</string>
+    <string name="drink_water">Drink water</string>
+    <string name="foodlookup">Foodlookup</string>
+    <string name="menu_bfp" />
+    <string name="menu_bmi" />
+    <string name="username">Username</string>
+    <string name="height">Height</string>
+    <string name="weight">Weight</string>
+    <string name="create_an_account_here">Not a member?</string>
+    <string name="clickHere">Click here!</string>
+    <string name="where_can_i_workout">Where can i workout?</string>
+    <string name="privacy">Privacy</string>
+    <string name="vraag1">Hebt u koorts?(>38°C)</string>
+    <string name="vraag2">Hebt u een droge hoest? </string>
+    <string name="vraag3">Hebt u last om te ademen(of buiten adem zijn)? </string>
+    <string name="vraag4">Hebt u last van vermoeidheid? </string>
+    <string name="vraag5">Hebt u last van expectoraties (slijm)? </string>
+    <string name="vraag6">Hebt u pijn aan u spieren of articulaties zonder te hebben gesport? </string>
+    <string name="vraag7">Hebt u hoofdpijn? </string>
+    <string name="msgDetails">" Please daily check your temperature(fever) and stay safe, keep following your symptoms! Please respect the rules of distance between people and follow safety precautions.";</string>
+    <string name="more_information_about_the_statistics_used">More information about the statistics used:</string>
+    <string name="textview">TextView</string>
+    <string name="delete_this_result">Delete this result</string>
+    <string name="hello">Hello</string>
+    <string name="welcome_to_the_corona_checkup">Welcome to the corona checkup</string>
+    <string name="please_answer_to_the_following_questions">Please answer to the following questions:</string>
+    <string name="nav_am_i_sick">Am i sick?</string>
+    <string name="someone_gmail_com">someone@gmail.com</string>
+    <string name="scan_barcode">Scan barcode</string>
+    <string name="bmi_and_bfp">BMI and BFP</string>
+    <string name="menu_subtitle" />
+    <string name="menu_title" />
+    <string name="title_activity_bottom_nav">BottomNavAct</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+
+</resources>
