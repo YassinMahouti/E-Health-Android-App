@@ -1,10 +1,15 @@
 package be.ehb.LoginMockup.ui.corona;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,17 +17,24 @@ import java.util.List;import be.ehb.Ehealth.R;
 
 
 public class UserCoronaDetails extends AppCompatActivity {
+    //------TextViews---------------------
     private TextView mDate_tv;
     private TextView mRisk_tv;
     private TextView mNumberOfSymptoms_tv;
+    private TextView corona_info;
     private ImageButton imgBtn;
-
-    // properties from intent
+    private ProgressBar progressBarRisk;
+    //--properties for recuperation of the information from intent of activity before
     private String key;
     private String risk;
     private String date;
     private String countSymptoms;
-
+    //--able to support colors in the progressbar: at least LOLLIPOP
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    /**
+     * onCreate the information from the user of the activity before will be stored in to strings.
+     * Then the information will be passed to the TextViews associated with id of layout.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +53,20 @@ public class UserCoronaDetails extends AppCompatActivity {
         mNumberOfSymptoms_tv =(TextView) findViewById(R.id.txt_countSymptoms);
         mNumberOfSymptoms_tv.setText(countSymptoms);
         imgBtn = (ImageButton) findViewById(R.id.imageButton);
+        progressBarRisk = (ProgressBar) findViewById(R.id.progressBarRisk);
 
+        corona_info =(TextView) findViewById(R.id.txt_corona_info);
+        String msg_corona_info = new CoronaMain().messageFromUserRisk(Float.parseFloat(risk));
+        corona_info.setText(msg_corona_info);
+
+        /**
+         * Able to have some visual support I created a method to color and have a responding progressbar depending on user risk.
+         */
+        setupPorgressBarRisk(Float.parseFloat(risk));
+        /**
+         * Able to let the user delete his information from the cloud a created a delete button.
+         * Associated with the FirebaseDatabaseHelper class I created. Generate override methods
+         */
         imgBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,11 +89,32 @@ public class UserCoronaDetails extends AppCompatActivity {
                     @Override
                     public void DataIsDeleted() {
                         Toast.makeText(UserCoronaDetails.this, "Data successfully deleted", Toast.LENGTH_SHORT).show();
-                        finish(); //stop activity and stop returnin
+                        finish(); //stop activity and stop returning
                         return;
                     }
                 });
             }
         });
+    }
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    /**
+     * Able to setup the progressbar with the progress of the user.
+     * And set some colors corresponding with the user risk.
+     * This setup requires at least Lollipop.
+     */
+    public void setupPorgressBarRisk(float risk){
+        if(risk < 10)
+        {
+            progressBarRisk.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
+        }
+        else
+        {
+            if (risk >= 10) progressBarRisk.setProgressTintList(ColorStateList.valueOf(Color.YELLOW));
+            if (risk > 30) progressBarRisk.setProgressTintList(ColorStateList.valueOf(Color.CYAN));
+            if (risk > 45) progressBarRisk.setProgressTintList(ColorStateList.valueOf(Color.RED));
+        }
+        progressBarRisk.setProgress((int) risk);
+
+
     }
 }

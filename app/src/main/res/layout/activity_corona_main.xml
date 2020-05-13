@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="be.ehb.LoginMockup.ui.corona.CoronaMain">
+    tools:context=".MainActivity">
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -30,6 +30,14 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/textView12"
+                android:layout_width="372dp"
+                android:layout_height="wrap_content"
+                android:text="@string/deel1Inleiding"
+                android:textSize="12dp"
+                android:textStyle="italic" />
+
+            <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="31dp"
@@ -38,8 +46,188 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView13"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="@string/accurate_symp1"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <RadioGroup
+                            android:id="@+id/rd_group1_accurate"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp">
+
+                            <RadioButton
+                                android:id="@+id/rd_accurate_symp1_ja"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:text="ja" />
+
+                            <RadioButton
+                                android:id="@+id/rd_accurate_symp1_nee"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checked="true"
+                                android:text="nee" />
+                        </RadioGroup>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/textView15"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="@string/accurate_symp2"
+                        android:textStyle="bold" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+
+
+                        <RadioGroup
+                            android:id="@+id/rd_group2_accurate"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp">
+
+                            <RadioButton
+                                android:id="@+id/rd_accurate_symp2_ja"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:text="ja" />
+
+                            <RadioButton
+                                android:id="@+id/rd_accurate_symp2_nee"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="nee" />
+                        </RadioGroup>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/textView16"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="@string/accurate_symp3"
+                        android:textStyle="bold" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <RadioGroup
+                            android:id="@+id/rd_group3_accurate"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp">
+
+                            <RadioButton
+                                android:id="@+id/rd_accurate_symp3_ja"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:text="ja" />
+
+                            <RadioButton
+                                android:id="@+id/rd_accurate_symp3_nee"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="nee" />
+                        </RadioGroup>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/textView17"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="@string/accurate_symp4"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <RadioGroup
+                            android:id="@+id/rd_group4_accurate"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp">
+
+                            <RadioButton
+                                android:id="@+id/rd_accurate_symp4_ja"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="ja" />
+
+                            <RadioButton
+                                android:id="@+id/rd_accurate_symp4_nee"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="nee" />
+                        </RadioGroup>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="88dp"
+                        android:orientation="vertical">
+
+                        <ProgressBar
+                            android:id="@+id/progressBarAccurateSymptoms"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="289dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal" />
+
+                        <TextView
+                            android:id="@+id/txt_result_accurate"
+                            android:layout_width="match_parent"
+                            android:layout_height="54dp"
+                            android:gravity="center_horizontal"
+                            android:text="TextView" />
+
+                        <TextView
+                            android:id="@+id/textView19"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="Second Checkup:"
+                            android:textStyle="italic" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical">
+
 
                 <LinearLayout
                     android:id="@+id/linearLayout3"
@@ -304,7 +492,6 @@
 
 
                 </LinearLayout>
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -320,7 +507,7 @@
                         android:textColor="#000000" />
 
                     <Button
-                        android:id="@+id/btn_calculateRisk"
+                        android:id="@+id/btn_show_results"
                         android:layout_width="259dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"

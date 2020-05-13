@@ -15,16 +15,15 @@ import java.util.List;import be.ehb.Ehealth.R;
 
 
 public class CoronaResult extends AppCompatActivity {
+    //-- Img button to let the user created a new test(a new result)
+    //--Able to later show the values, instantiate a RecyclerView
     private RecyclerView mRecyclerView;
     private ImageButton newTest;
-//private ImageButton btn_testDelete;
-
-
+    //----------------------------------------------------------------------------------------------
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_corona_result);
-        // btn_testDelete = (ImageButton) findViewById(R.id.imageButton);
         mRecyclerView = (RecyclerView) findViewById(R.id.recylerview_userCorona);
         newTest = (ImageButton) findViewById(R.id.imgBtn_newTest);
         newTest.setOnClickListener(new View.OnClickListener() {
@@ -35,13 +34,13 @@ public class CoronaResult extends AppCompatActivity {
                 finish();
             }
         });
-
-
+        //----------------------------------------------------------------------------------------------------------------------------
         new FirebaseDatabaseHelper().readUserCorona(new FirebaseDatabaseHelper.DataStatus() {
             @Override
             public void DataIsLoaded(final List<User> userCorona, List<String> keys) {
-                //when data is loaded from cloud into the recyclerView -> show "waiting" with a progressbar -> setVisibility : GONE
+                //--When data is loaded from cloud into the recyclerView -> show "waiting" with a progressbar -> setVisibility : GONE
                 findViewById(R.id.progressbarWaiting).setVisibility(ViewGroup.GONE);
+                //--Create the recycler view and pass the configuration
                 new RecyclerView_Config().setConfig(mRecyclerView,CoronaResult.this , userCorona, keys);
             }
 
@@ -58,25 +57,9 @@ public class CoronaResult extends AppCompatActivity {
             @Override
             public void DataIsDeleted() {
 
-
             }
         });
 
-
     }
-    /*
-    private  int getIndex_SpinnerItem(Spinner spinner, String item){
-        int index=0;
-        for(int i=0;i<spinner.getCount();i++)
-        {
-            if(spinner.getItemAtPosition(i).equals(item))
-            {
-                index=i;
-                //stop loop
-                break;
-            }
-        }
-        return index;
 
-    }*/
 }
