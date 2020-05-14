@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import be.ehb.Ehealth.R;
 import be.ehb.LoginMockup.ui.registratie.RegAct;
 
@@ -36,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         loginButton = findViewById(R.id.loginBtn);
+
 
 
 

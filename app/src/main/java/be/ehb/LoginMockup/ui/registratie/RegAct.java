@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +29,7 @@ import be.ehb.LoginMockup.NavDrawerAct;
 
 public class RegAct extends AppCompatActivity {
 
-    EditText myName, myEmail, myPassword, myPhone, myWeight, myHeight;
+    EditText myName, myEmail, myPassword, myPhone, myWeight, myHeight, myAge;
     Button myRegisterBtn;
     TextView myLoginBtn;
     FirebaseAuth firebaseAuth;
@@ -36,6 +37,8 @@ public class RegAct extends AppCompatActivity {
     DatabaseReference mRefValues;
     ProgressBar progressBar;
     ImageView backButton;
+    RadioButton radioButtonFemale, radioButtonMale;
+    String gender = "";
 
 
     @Override
@@ -52,9 +55,13 @@ public class RegAct extends AppCompatActivity {
         myLoginBtn = findViewById(R.id.createText);
         myWeight = findViewById(R.id.weight);
         myHeight = findViewById(R.id.height);
+        myAge = findViewById(R.id.age);
+        radioButtonFemale = findViewById(R.id.radio_female);
+        radioButtonMale = findViewById(R.id.radio_male);
 
 
         firebaseAuth = FirebaseAuth.getInstance();
+
         progressBar = findViewById(R.id.progressBar);
         final FirebaseDatabase mRoot = FirebaseDatabase.getInstance();
 
@@ -65,9 +72,6 @@ public class RegAct extends AppCompatActivity {
         }
 
 
-
-
-
         myRegisterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,8 +80,18 @@ public class RegAct extends AppCompatActivity {
 
                 final String name = myName.getText().toString().trim();
                 final String phone = myPhone.getText().toString().trim();
+                final String weight = myWeight.getText().toString().trim();
+                final String height = myHeight.getText().toString().trim();
+                final String age = myAge.getText().toString().trim();
 
 
+                if (radioButtonFemale.isChecked()) {
+                    gender = "Female";
+                }
+
+                if (radioButtonMale.isChecked()) {
+                    gender = "Male";
+                }
 
                 if (TextUtils.isEmpty(email)) {
                     myEmail.setError("Email is required");
@@ -96,20 +110,25 @@ public class RegAct extends AppCompatActivity {
 
                 progressBar.setVisibility(View.VISIBLE);
 
+
                 firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Member member= new Member(
+                            User user = new User(
                                     name,
                                     email,
-                                    phone
+                                    phone,
+                                    weight,
+                                    height,
+                                    age,
+                                    gender
                             );
-                            databaseReference = mRoot.getReference("Members");
-                            mRefValues = mRoot.getReference("member");
+                            databaseReference = mRoot.getReference("Users");
+                           // mRefValues = mRoot.getReference("user");
                             mRefValues = databaseReference.child(firebaseAuth.getCurrentUser().getUid());
-                            mRefValues.setValue(member);
-                            System.out.println(member.getEmail() +member.getName() +member.getPhone());
+                            mRefValues.setValue(user);
+                            System.out.println(user.getEmail() + user.getName() + user.getPhone());
                              /* FirebaseDatabase.getInstance().getReference("Members")
                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                             .setValue(member);*/
@@ -119,7 +138,7 @@ public class RegAct extends AppCompatActivity {
                             Toast.makeText(RegAct.this, "Something went wrong :/" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);
                         }
-                        }
+                    }
                 });
             }
         });

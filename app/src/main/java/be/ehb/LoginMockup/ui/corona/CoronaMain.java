@@ -17,6 +17,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -26,10 +27,11 @@ import java.util.Date;
 
 import be.ehb.LoginMockup.ui.corona.CoronaResult;
 import be.ehb.Ehealth.R;
+import be.ehb.LoginMockup.ui.registratie.FirebaseAuthHelper;
 
 
 public class CoronaMain extends AppCompatActivity {
-
+        FirebaseAuth gbTest;
     //---------TextView-----------------------
     private TextView lbl_result;
     private TextView lbl_result_accurate_risk;
@@ -97,6 +99,7 @@ public class CoronaMain extends AppCompatActivity {
     DatabaseReference mRootDiseaseMaxPercentage;
     DatabaseReference mRootDiseaseNumberOfSymptoms;
     //----------Datamembers----------------------------------
+
     private int user_id =1;
     public float userRisk =0;
     private int count ;
@@ -207,13 +210,14 @@ public class CoronaMain extends AppCompatActivity {
         //To write to db: instantiate db -> getInstance()
         //-----FirebaseDatabase---------------------------------
         FirebaseDatabase db = FirebaseDatabase.getInstance();
-        mRootUser = db.getReference().child("user");
-        mRootUser.setValue(5);
+        FirebaseAuthHelper fbAuth = new FirebaseAuthHelper();
+        gbTest= FirebaseAuth.getInstance();
+
         //-----References--------------------------------------
         mRootUserCorona = db.getReference("UserCorona");
         mUserResult = db.getReference("UserResult");
-        mRootUser = db.getReference("User");
-        mRootUserID = db.getReference("user_ID");
+        mRootUser = db.getReference("Users");
+        mRootUserID = db.getReference("user_id");
         //-----Create table diseases
         createTableDiseases(db);
         //------------Initialisation of all we need (call own init)------------------------------
@@ -325,7 +329,8 @@ public class CoronaMain extends AppCompatActivity {
                 else disease ="You are safe, you maybe just ill and suffering from some headache or a runny nose. ";
 
                 //----- Write to User: user_id-> user_risk_corona = userRisk
-                mRootUserID = mRootUser.child("user_ID");
+                mRootUserID = mRootUser.child(fbAuth.getUid());
+              //  mRootUserID = mRootUser.child(gbTest.getCurrentUser().getUid());
                 mRootUserID_risk = mRootUserID.child("user_risk_corona");
                 mRootUserID_risk.setValue(userRisk);
                 //----Need to create a date each time the user save a result( later for the progress of the user)
