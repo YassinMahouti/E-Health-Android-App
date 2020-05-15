@@ -1,6 +1,7 @@
 package be.ehb.LoginMockup.ui.profile;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.InputType;
@@ -17,6 +18,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -26,6 +29,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import be.ehb.Ehealth.R;
+import be.ehb.LoginMockup.LoginAct;
+import be.ehb.LoginMockup.ui.registratie.RegAct;
 
 public class UserSettings extends AppCompatActivity {
     //---Creation of local variables---//
@@ -53,9 +58,12 @@ public class UserSettings extends AppCompatActivity {
     RadioGroup radioGroup;
     RadioButton rBtn;
     Button btn_confirm;
+    Button btn_signOut;
 
     DatabaseReference databaseReference;
-    private FirebaseAuth auth;
+    private FirebaseAuth mAuth;
+
+    private UserProfile user;
 
     //---Function that initializes buttons to variables---//
     public void initialize() {
@@ -71,13 +79,14 @@ public class UserSettings extends AppCompatActivity {
         rBtn = (RadioButton) findViewById(R.id.Female);
 
 
-
         btn_confirm = (Button) findViewById(R.id.btn_confirm);
+        btn_signOut = (Button) findViewById(R.id.btn_signOut);
+
 
 
     }
 
-    public void dialog_initialization(){
+    public void dialog_initialization() {
         dialog = new AlertDialog.Builder(this).create();
         editTextUsername = new EditText(this);
         dialog.setTitle("Insert your new value");
@@ -125,43 +134,39 @@ public class UserSettings extends AppCompatActivity {
         setContentView(R.layout.activity_profile_settings);
 
         initialize();       //--!initializes buttons to the on create--//
-       /* UserProfile user = new UserProfile("User", "1528",
-                "example@email.com", 15, "0487230522", 28.2f, 28.2f, "male");*/
 
 
+        //onStart();
         String uid;
 
         final FirebaseDatabase db_Root = FirebaseDatabase.getInstance();
-        auth=FirebaseAuth.getInstance();
-
+        mAuth = FirebaseAuth.getInstance();
+        uid="GRHcHyil5WRnb6H8032fBJAeiA73";
 
         databaseReference = db_Root.getReference("Users");
-        FirebaseUser currentFirebaseUser = auth.getCurrentUser();
-
-            uid=currentFirebaseUser.getUid();
-         //   databaseReference.child(uid);
+        FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+           databaseReference.child(uid);
 
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                UserProfile user= new UserProfile();
 
                 String username = dataSnapshot.child(uid).child("name").getValue(String.class);
                 tv_Username.setText(username);
-                System.out.println("I AM HEEERRRREEEEEEEEEEEE");
-                String gender = dataSnapshot.child(uid).child("gender").getValue(String.class);
-                if(gender =="male"){
 
-                    rBtn= (RadioButton) findViewById(R.id.Male);
-                }else {rBtn= (RadioButton) findViewById(R.id.Female);}
-                System.out.println("NOW I AM HEEERREEEEEEE");
+                String gender = dataSnapshot.child(uid).child("gender").getValue(String.class);
+                if (gender == "male") {
+                    rBtn = (RadioButton) findViewById(R.id.Male);
+                } else {
+                    rBtn = (RadioButton) findViewById(R.id.Female);
+                }
                 String age = dataSnapshot.child(uid).child("age").getValue(String.class);
                 tv_Ageinput.setText(age);
 
-                int weight = Integer.parseInt(dataSnapshot.child(uid).child("weight").getValue(String.class));
+                String weight = dataSnapshot.child(uid).child("weight").getValue(String.class);
                 tv_Weightinput.setText(weight);
-                int height = Integer.parseInt(dataSnapshot.child(uid).child("height").getValue(String.class));
+                String height = dataSnapshot.child(uid).child("height").getValue(String.class);
                 tv_Heightinput.setText(height);
 
 
@@ -171,7 +176,7 @@ public class UserSettings extends AppCompatActivity {
                 String mail = dataSnapshot.child(uid).child("email").getValue(String.class);
                 tv_Emailinput.setText(mail);
 
-
+                user = new UserProfile(username, mail, age, phone, Float.parseFloat(String.valueOf(weight)), Float.parseFloat(String.valueOf(height)), gender);
             }
 
             @Override
@@ -179,10 +184,6 @@ public class UserSettings extends AppCompatActivity {
 
             }
         });
-
-
-
-
 
 
         ///---------------------------All AlertDialogs for every inputtype---------------------------///
@@ -210,10 +211,10 @@ public class UserSettings extends AppCompatActivity {
         dialog3.setButton(DialogInterface.BUTTON_POSITIVE, "Save changes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                int age= Integer.parseInt(editTextAge.getText().toString());
-                if(age>=5 && age<=100) {
+                int age = Integer.parseInt(editTextAge.getText().toString());
+                if (age >= 5 && age <= 100) {
                     tv_Ageinput.setText(editTextAge.getText());
-                }else{
+                } else {
                     Toast.makeText(UserSettings.this, "Invalid input", Toast.LENGTH_SHORT).show();
                     dialog3.show();
                 }
@@ -293,36 +294,67 @@ public class UserSettings extends AppCompatActivity {
         });
 
 
-       btn_confirm.setOnClickListener(new View.OnClickListener() {
+        btn_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               /* String str_name = String.valueOf(tv_Username.getText());
+                String str_name = String.valueOf(tv_Username.getText());
                 user.setUsername(str_name);
-                int int_age = Integer.parseInt(String.valueOf(tv_Ageinput.getText()));
-                user.setAge(int_age);
+                databaseReference.child(uid).child("name").setValue(str_name);
+                String age = (String) tv_Ageinput.getText();
+                user.setAge(age);
+                databaseReference.child(uid).child("age").setValue(age);
                 String gender = rBtn.getText().toString();
                 user.setGender(gender);
+                databaseReference.child(uid).child("gender").setValue(gender);
                 String weight = String.valueOf(tv_Weightinput.getText());
                 user.setUser_weight(Float.parseFloat(String.valueOf(weight)));
+                databaseReference.child(uid).child("weight").setValue(weight);
                 String height = String.valueOf(tv_Heightinput.getText());
                 user.setUser_height(Float.parseFloat(String.valueOf(height)));
+                databaseReference.child(uid).child("height").setValue(height);
                 String email = String.valueOf(tv_Emailinput.getText());
                 user.setUser_mail(email);
+                databaseReference.child(uid).child("email").setValue(email);
                 String phone = String.valueOf(tv_phoneinput.getText());
                 user.setPhone(phone);
+                databaseReference.child(uid).child("phone").setValue(phone);
 
-                System.out.println(user.getGender());*/
             }
 
         });
 
+       /* btn_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                if (v.getId() == R.id.btn_signOut){
+                mAuth.getInstance()
+                        .signOut()
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            public void onComplete(@NonNull Task<Void> task) {
+                                // user is now signed out
+                                startActivity(new Intent(UserSettings.this, RegAct.class));
+                                finish();
+                            }
+                        });
+
+            }
+            }
+        });*/
     }
 
 
-public void onRadioButtonClicked(View v){
-    int selectedId=radioGroup.getCheckedRadioButtonId();
-    rBtn= (RadioButton) findViewById(selectedId);
-}
+    public void onRadioButtonClicked(View v) {
+        int selectedId = radioGroup.getCheckedRadioButtonId();
+        rBtn = (RadioButton) findViewById(selectedId);
+    }
 
+    protected void onStart() {
+        super.onStart();
+        if (mAuth.getCurrentUser() == null) {
+            finish();
+            startActivity(new Intent(this, LoginAct.class));
+        }
+    }
 
 }

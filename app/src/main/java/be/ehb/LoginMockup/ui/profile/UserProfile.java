@@ -2,10 +2,8 @@ package be.ehb.LoginMockup.ui.profile;
 
 public class UserProfile {
     private String username;
-    private String user_id;
-    private String passwd;
     private String user_mail;
-    private int age;
+    private String age;
     private String phone;
     private String gender;
     private float user_weight;
@@ -20,9 +18,8 @@ public class UserProfile {
     public UserProfile() {
     }
 
-    public UserProfile(String username, String user_id, String user_mail, int age,String phone, float user_weight, float user_height,String gender) {
+    public UserProfile(String username, String user_mail, String age,String phone, float user_weight, float user_height,String gender) {
         this.username = username;
-        this.user_id = user_id;
         this.user_mail=user_mail;
         this.age = age;
         this.phone=phone;
@@ -46,14 +43,6 @@ public class UserProfile {
         this.username = username;
     }
 
-    public String getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
-    }
-
     public String getUser_mail() {
         return user_mail;
     }
@@ -62,11 +51,11 @@ public class UserProfile {
         this.user_mail = user_mail;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 
@@ -130,7 +119,6 @@ public class UserProfile {
     public String toString() {
         return "UserProfile{" +
                 "username='" + username + '\'' +
-                ", user_id='" + user_id + '\'' +
                 ", user_mail='" + user_mail + '\'' +
                 ", age=" + age +
                 ", phone='" + phone + '\'' +
