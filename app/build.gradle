@@ -45,6 +45,7 @@ dependencies {
     implementation 'com.otaliastudios:cameraview:2.0.0-rc1'
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
+    implementation 'com.google.firebase:firebase-messaging:20.1.7'
     testImplementation 'junit:junit:4.12'
     //--Espresso-Intents is only compatible with Espresso 2.1+ and version 0.3+ of Android testing libraries
     androidTestImplementation 'androidx.test:runner:1.1.0'
