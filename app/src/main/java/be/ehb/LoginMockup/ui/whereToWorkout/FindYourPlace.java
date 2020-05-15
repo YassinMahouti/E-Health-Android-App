@@ -57,7 +57,7 @@ public class FindYourPlace extends AppCompatActivity implements LocationListener
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FindYourPlace.this,MapsActivity.class);
+                Intent intent = new Intent(FindYourPlace.this,MapBoxTest.class);
                 startActivity(intent);
             }
         });

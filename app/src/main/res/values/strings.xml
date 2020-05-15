@@ -60,7 +60,8 @@
     <string name="title_activity_maps">Map</string>
 
 
-
+    //mapbox
+    <string name="acces_token">pk.eyJ1IjoiY2VkcmljZHZlIiwiYSI6ImNrYTdlbTVxejAyZHMycnJ1bHR5ZXA0bzAifQ.2QPAOu9Utq2rrG3BLS5DKA</string>
 
 
 </resources>
