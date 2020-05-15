@@ -12,9 +12,18 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import be.ehb.Ehealth.R;
 
@@ -35,7 +44,6 @@ public class UserSettings extends AppCompatActivity {
     AlertDialog dialog7;
 
     EditText editTextUsername;
-    EditText editTextGender;
     EditText editTextAge;
     EditText editTextWeight;
     EditText editTextHeight;
@@ -45,6 +53,9 @@ public class UserSettings extends AppCompatActivity {
     RadioGroup radioGroup;
     RadioButton rBtn;
     Button btn_confirm;
+
+    DatabaseReference databaseReference;
+    private FirebaseAuth auth;
 
     //---Function that initializes buttons to variables---//
     public void initialize() {
@@ -62,6 +73,7 @@ public class UserSettings extends AppCompatActivity {
 
 
         btn_confirm = (Button) findViewById(R.id.btn_confirm);
+
 
     }
 
@@ -106,15 +118,71 @@ public class UserSettings extends AppCompatActivity {
         dialog7.setView(editTextMail);
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_settings);
 
         initialize();       //--!initializes buttons to the on create--//
+       /* UserProfile user = new UserProfile("User", "1528",
+                "example@email.com", 15, "0487230522", 28.2f, 28.2f, "male");*/
 
-        UserProfile user = new UserProfile("User", "1528",
-                "example@email.com", 15, "0487230522", 28.2f, 28.2f, "male");
+
+        String uid;
+
+        final FirebaseDatabase db_Root = FirebaseDatabase.getInstance();
+        auth=FirebaseAuth.getInstance();
+
+
+        databaseReference = db_Root.getReference("Users");
+        FirebaseUser currentFirebaseUser = auth.getCurrentUser();
+
+            uid=currentFirebaseUser.getUid();
+         //   databaseReference.child(uid);
+
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                UserProfile user= new UserProfile();
+
+                String username = dataSnapshot.child(uid).child("name").getValue(String.class);
+                tv_Username.setText(username);
+                System.out.println("I AM HEEERRRREEEEEEEEEEEE");
+                String gender = dataSnapshot.child(uid).child("gender").getValue(String.class);
+                if(gender =="male"){
+
+                    rBtn= (RadioButton) findViewById(R.id.Male);
+                }else {rBtn= (RadioButton) findViewById(R.id.Female);}
+                System.out.println("NOW I AM HEEERREEEEEEE");
+                String age = dataSnapshot.child(uid).child("age").getValue(String.class);
+                tv_Ageinput.setText(age);
+
+                int weight = Integer.parseInt(dataSnapshot.child(uid).child("weight").getValue(String.class));
+                tv_Weightinput.setText(weight);
+                int height = Integer.parseInt(dataSnapshot.child(uid).child("height").getValue(String.class));
+                tv_Heightinput.setText(height);
+
+
+                String phone = dataSnapshot.child(uid).child("phone").getValue(String.class);
+                tv_phoneinput.setText(phone);
+
+                String mail = dataSnapshot.child(uid).child("email").getValue(String.class);
+                tv_Emailinput.setText(mail);
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
 
 
         ///---------------------------All AlertDialogs for every inputtype---------------------------///
@@ -225,10 +293,10 @@ public class UserSettings extends AppCompatActivity {
         });
 
 
-        btn_confirm.setOnClickListener(new View.OnClickListener() {
+       btn_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String str_name = String.valueOf(tv_Username.getText());
+               /* String str_name = String.valueOf(tv_Username.getText());
                 user.setUsername(str_name);
                 int int_age = Integer.parseInt(String.valueOf(tv_Ageinput.getText()));
                 user.setAge(int_age);
@@ -243,12 +311,14 @@ public class UserSettings extends AppCompatActivity {
                 String phone = String.valueOf(tv_phoneinput.getText());
                 user.setPhone(phone);
 
-                System.out.println(user.getGender());
+                System.out.println(user.getGender());*/
             }
 
         });
 
     }
+
+
 public void onRadioButtonClicked(View v){
     int selectedId=radioGroup.getCheckedRadioButtonId();
     rBtn= (RadioButton) findViewById(selectedId);

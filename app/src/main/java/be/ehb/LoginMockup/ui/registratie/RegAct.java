@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +19,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import be.ehb.Ehealth.R;
 import be.ehb.LoginMockup.LoginAct;
@@ -26,13 +29,16 @@ import be.ehb.LoginMockup.NavDrawerAct;
 
 public class RegAct extends AppCompatActivity {
 
-    EditText myName, myEmail, myPassword, myPhone;
+    EditText myName, myEmail, myPassword, myPhone, myWeight, myHeight, myAge;
     Button myRegisterBtn;
     TextView myLoginBtn;
     FirebaseAuth firebaseAuth;
+    DatabaseReference databaseReference;
+    DatabaseReference mRefValues;
     ProgressBar progressBar;
     ImageView backButton;
-
+    RadioButton radioButtonFemale, radioButtonMale;
+    String gender = "";
 
 
     @Override
@@ -47,15 +53,25 @@ public class RegAct extends AppCompatActivity {
         myPhone = findViewById(R.id.phone);
         myRegisterBtn = findViewById(R.id.regBtn);
         myLoginBtn = findViewById(R.id.createText);
+        myWeight = findViewById(R.id.weight);
+        myHeight = findViewById(R.id.height);
+        myAge = findViewById(R.id.age);
+        radioButtonFemale = findViewById(R.id.radio_female);
+        radioButtonMale = findViewById(R.id.radio_male);
+
 
         firebaseAuth = FirebaseAuth.getInstance();
+
         progressBar = findViewById(R.id.progressBar);
+        final FirebaseDatabase mRoot = FirebaseDatabase.getInstance();
 
 
-        if (firebaseAuth.getCurrentUser() == null) {
+        if (firebaseAuth.getCurrentUser() != null) {
             startActivity(new Intent(getApplicationContext(), RegAct.class));
 
         }
+
+
 
 
         myRegisterBtn.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +79,21 @@ public class RegAct extends AppCompatActivity {
             public void onClick(View v) {
                 String email = myEmail.getText().toString().trim();
                 String password = myPassword.getText().toString().trim();
+
+                final String name = myName.getText().toString().trim();
+                final String phone = myPhone.getText().toString().trim();
+                final String weight = myWeight.getText().toString().trim();
+                final String height = myHeight.getText().toString().trim();
+                final String age = myAge.getText().toString().trim();
+
+
+                if (radioButtonFemale.isChecked()) {
+                    gender = "Female";
+                }
+
+                if (radioButtonMale.isChecked()) {
+                    gender = "Male";
+                }
 
                 if (TextUtils.isEmpty(email)) {
                     myEmail.setError("Email is required");
@@ -80,21 +111,37 @@ public class RegAct extends AppCompatActivity {
                 }
 
                 progressBar.setVisibility(View.VISIBLE);
+
+
                 firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            User user = new User(
+                                    name,
+                                    email,
+                                    phone,
+                                    weight,
+                                    height,
+                                    age,
+                                    gender
+                            );
+                            databaseReference = mRoot.getReference("Users");
+                            // mRefValues = mRoot.getReference("user");
+                            mRefValues = databaseReference.child(firebaseAuth.getCurrentUser().getUid());
+                            mRefValues.setValue(user);
+                            System.out.println(user.getEmail() + user.getName() + user.getPhone());
+                             /* FirebaseDatabase.getInstance().getReference("Members")
+                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                            .setValue(member);*/
                             Toast.makeText(RegAct.this, "User Created", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                            startActivity(new Intent(getApplicationContext(),LoginAct.class));
                         } else {
                             Toast.makeText(RegAct.this, "Something went wrong :/" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);
                         }
                     }
                 });
-
-
-
             }
         });
 
@@ -114,5 +161,6 @@ public class RegAct extends AppCompatActivity {
             }
         });
     }
+
 
 }

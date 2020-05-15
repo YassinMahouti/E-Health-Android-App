@@ -102,7 +102,8 @@ public class LoginAct extends AppCompatActivity {
         myCreateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), RegAct.class));
+                Intent intent= new Intent(LoginAct.this, RegAct.class);
+                startActivity(intent);
 
             }
         });
