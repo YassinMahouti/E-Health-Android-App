@@ -60,8 +60,14 @@ public class UserSettings extends AppCompatActivity {
     Button btn_confirm;
     Button btn_signOut;
 
-    DatabaseReference databaseReference;
-    DatabaseReference databaseReference2;
+    DatabaseReference databaseReferenceUsers;
+    DatabaseReference databaseReferenceUserBB;
+    DatabaseReference databaseReferenceCorona;
+    DatabaseReference databaseReferenceResults;
+    DatabaseReference databaseReferenceKey;
+
+
+
     private FirebaseAuth mAuth;         //Authentication with firebase
 
     private UserProfile user; //from the class Userprofile in case the connection with firebase fails, the data will still be saved into an Object
@@ -137,25 +143,23 @@ public class UserSettings extends AppCompatActivity {
         setContentView(R.layout.activity_profile_settings);
 
 
+        final FirebaseDatabase db_Root = FirebaseDatabase.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentLogedInUser = FirebaseAuth.getInstance().getCurrentUser();
 
         onStart();      //If code gets past this method, there is already a signed in user
 
         initialize();       //--!initializes buttons to the on create--//
 
 
-        final FirebaseDatabase db_Root = FirebaseDatabase.getInstance();
-        mAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentLogedInUser = FirebaseAuth.getInstance().getCurrentUser();
+        databaseReferenceUsers = db_Root.getReference("Users");  //Defines path to navigate into the "Users" root
+        databaseReferenceUserBB = db_Root.getReference("UserBB");  //Defines path to navigate into the "UserBB" root
+        databaseReferenceCorona = db_Root.getReference("UserCorona");  //Defines path to navigate into the "UserCorona" root
+        databaseReferenceResults = db_Root.getReference("Users_Results");  //Defines path to navigate into the "UserCorona" root
+        databaseReferenceKey = databaseReferenceUsers.child(mAuth.getCurrentUser().getUid());  //Defines path to get the unique key of the authenticated user
 
 
-        databaseReference = db_Root.getReference("Users");  //Defines path to navigate into the "Users" root
-        databaseReference2 = databaseReference.child(mAuth.getCurrentUser().getUid());  //Defines path to get the unique key of the authenticated user
-
-
-        /**
-         * @param {...datasnapshot}
-         */
-        databaseReference2.addValueEventListener(new ValueEventListener() {
+        databaseReferenceKey.addValueEventListener(new ValueEventListener() {
             /**
              * @param dataSnapshot saves a dataScreenshot of the data in the user key IF connection to this key was successful
              * @type {DataSnapshot}
@@ -323,44 +327,46 @@ public class UserSettings extends AppCompatActivity {
             public void onClick(View v) {
                 String str_name = String.valueOf(tv_Username.getText());
                 user.setUsername(str_name);
-                databaseReference2.child("name").setValue(str_name);
+                databaseReferenceKey.child("name").setValue(str_name);
 
                 String age = String.valueOf(tv_Ageinput.getText());
                 user.setAge(age);
-                databaseReference2.child("age").setValue(age);
+                databaseReferenceKey.child("age").setValue(age);
 
                 String gender = rBtn.getText().toString();
                 user.setGender(gender);
-                databaseReference2.child("gender").setValue(gender);
+                databaseReferenceKey.child("gender").setValue(gender);
 
                 String weight = String.valueOf(tv_Weightinput.getText());
                 user.setUser_weight(Float.parseFloat(String.valueOf(weight)));
-                databaseReference2.child("weight").setValue(weight);
+                databaseReferenceKey.child("weight").setValue(weight);
 
                 String height = String.valueOf(tv_Heightinput.getText());
                 user.setUser_height(Float.parseFloat(String.valueOf(height)));
-                databaseReference2.child("height").setValue(height);
+                databaseReferenceKey.child("height").setValue(height);
 
                 String email = String.valueOf(tv_Emailinput.getText());
                 user.setUser_mail(email);
-                databaseReference2.child("email").setValue(email);
+                databaseReferenceKey.child("email").setValue(email);
                 currentLogedInUser.updateEmail(email);
 
                 String phone = String.valueOf(tv_phoneinput.getText());
                 user.setPhone(phone);
-                databaseReference2.child("phone").setValue(phone);
+                databaseReferenceKey.child("phone").setValue(phone);
 
                 Toast.makeText(UserSettings.this, "Changes saved", Toast.LENGTH_SHORT).show();
             }
 
         });
 
+
+        //action listener for the SignOut button
         btn_signOut.setOnClickListener(new View.OnClickListener() {
             /**
-             * This methode checks if there already is an authenticated user logged in
+             * This method checks if there already is an authenticated user logged in
              * finish() --> finishes the activity in case there is no authenticated userdata
              * and sends user back to sign-in screen
-             * @param v is the curerrent view
+             * @param v is the current view
              */
             @Override
             public void onClick(View v) {
@@ -373,9 +379,15 @@ public class UserSettings extends AppCompatActivity {
             }
         });
 
+
+        //action listener for the Delete account button
         tv_DeleteAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                databaseReferenceUsers.child(mAuth.getCurrentUser().getUid()).removeValue();
+                databaseReferenceUserBB.child(mAuth.getCurrentUser().getUid()).removeValue();
+                databaseReferenceCorona.child(mAuth.getCurrentUser().getUid()).removeValue();
+                databaseReferenceResults.child(mAuth.getCurrentUser().getUid()).removeValue();
                 //deletes the Current logged-in user from the authentication in firebase
                 currentLogedInUser.delete();
                 Toast.makeText(UserSettings.this, "Your account has been succesfull deleted", Toast.LENGTH_SHORT).show();
