@@ -19,8 +19,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -31,7 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import be.ehb.Ehealth.R;
 import be.ehb.LoginMockup.LoginAct;
-import be.ehb.LoginMockup.ui.registratie.RegAct;
+import be.ehb.LoginMockup.MainActivity;
 
 public class UserSettings extends AppCompatActivity {
     //---Creation of local variables---//
@@ -63,9 +61,10 @@ public class UserSettings extends AppCompatActivity {
     Button btn_signOut;
 
     DatabaseReference databaseReference;
-    private FirebaseAuth mAuth;
+    DatabaseReference databaseReference2;
+    private FirebaseAuth mAuth;         //Authentication with firebase
 
-    private UserProfile user;
+    private UserProfile user; //from the class Userprofile in case the connection with firebase fails, the data will still be saved into an Object
 
     //-------------------------------Function that initializes buttons to variables-------------------------------//
     public void initialize() {
@@ -85,8 +84,6 @@ public class UserSettings extends AppCompatActivity {
 
         btn_confirm = (Button) findViewById(R.id.btn_confirm);
         btn_signOut = (Button) findViewById(R.id.btn_signOut);
-
-
 
     }
 
@@ -139,69 +136,67 @@ public class UserSettings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_settings);
 
-        final FirebaseDatabase db_Root = FirebaseDatabase.getInstance();
-        mAuth = FirebaseAuth.getInstance();
-        onStart();
-        // User is signed in
 
 
+        onStart();      //If code gets past this method, there is already a signed in user
 
         initialize();       //--!initializes buttons to the on create--//
 
-FirebaseUser currentLogedInUser = FirebaseAuth.getInstance().getCurrentUser();
-        String uid;
+
+        final FirebaseDatabase db_Root = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
-        //uid = currentLogedInUser.getUid();
+        FirebaseUser currentLogedInUser = FirebaseAuth.getInstance().getCurrentUser();
 
 
+        databaseReference = db_Root.getReference("Users");  //Defines path to navigate into the "Users" root
+        databaseReference2 = databaseReference.child(mAuth.getCurrentUser().getUid());  //Defines path to get the unique key of the authenticated user
 
 
-        databaseReference = db_Root.getReference("Users");
-        DatabaseReference databaseReference2 = db_Root.getReference("Keys");
-
-        /*
-        FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        databaseReference.child(uid);*/
-
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        /**
+         * @param {...datasnapshot}
+         */
+        databaseReference2.addValueEventListener(new ValueEventListener() {
+            /**
+             * @param dataSnapshot saves a dataScreenshot of the data in the user key IF connection to this key was successful
+             * @type {DataSnapshot}
+             * Gets the .child of every value needed for the profile screen
+             * Sets all the textViews in the profile screen into the profile screen
+             * Method saves all the values into a UserProfile object in case the connection to the FirebaseDatabase gets lost
+             */
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                for (DataSnapshot child: dataSnapshot.getChildren()) {
-                    String uid = child.getKey();
-                                System.out.println("HEEEEEEEEEEEEEEEEEEEEEEEEEEEEERRRRRRRREEEEEEEEE    "+uid);
+                    String username = dataSnapshot.child("name").getValue(String.class);
+                    tv_Username.setText(username);
 
-                String username = dataSnapshot.child(uid).child("name").getValue(String.class);
-                tv_Username.setText(username);
+                    String gender = dataSnapshot.child("gender").getValue(String.class);
+                    if (gender == "male") {
+                        rBtn = (RadioButton) findViewById(R.id.Male);
+                    } else {
+                        rBtn = (RadioButton) findViewById(R.id.Female);
+                    }
 
-                String gender = dataSnapshot.child(uid).child("gender").getValue(String.class);
-                if (gender == "male") {
-                    rBtn = (RadioButton) findViewById(R.id.Male);
-                } else {
-                    rBtn = (RadioButton) findViewById(R.id.Female);
+                    String age = String.valueOf(dataSnapshot.child("age").getValue());
+                    tv_Ageinput.setText(age);
+
+                    String weight = dataSnapshot.child("weight").getValue(String.class);
+                    tv_Weightinput.setText(weight);
+                    String height = dataSnapshot.child("height").getValue(String.class);
+                    tv_Heightinput.setText(height);
+
+
+                    String phone = dataSnapshot.child("phone").getValue(String.class);
+                    tv_phoneinput.setText(phone);
+
+                    String mail = dataSnapshot.child("email").getValue(String.class);
+                    tv_Emailinput.setText(mail);
+
+                    user = new UserProfile(username, mail, age, phone, Float.parseFloat(String.valueOf(weight)), Float.parseFloat(String.valueOf(height)), gender);
                 }
-                // cest mzi .. mzi comment?
 
-                String age = String.valueOf(dataSnapshot.child(uid).child("age").getValue());
-                tv_Ageinput.setText(age);
-
-                String weight = dataSnapshot.child(uid).child("weight").getValue(String.class);
-                tv_Weightinput.setText(weight);
-                String height = dataSnapshot.child(uid).child("height").getValue(String.class);
-                tv_Heightinput.setText(height);
-
-
-                String phone = dataSnapshot.child(uid).child("phone").getValue(String.class);
-                tv_phoneinput.setText(phone);
-
-                String mail = dataSnapshot.child(uid).child("email").getValue(String.class);
-                tv_Emailinput.setText(mail);
-
-//              user = new UserProfile(username, mail, age, phone, Float.parseFloat(String.valueOf(weight)), Float.parseFloat(String.valueOf(height)), gender);
-                }
-            }
-
+            /**
+             * @param databaseError logs an error if the connection to the user key was not successful
+             */
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.w("Datasnapshot canceled", databaseError.toException());
@@ -211,7 +206,7 @@ FirebaseUser currentLogedInUser = FirebaseAuth.getInstance().getCurrentUser();
 
         ///---------------------------All AlertDialogs for every inputtype---------------------------///
 
-        dialog_initialization();
+        dialog_initialization();        //!--Initialazes all dialogs---//
 
 //--Dialog for Usernameinput--//
         dialog.setButton(DialogInterface.BUTTON_POSITIVE, "Save changes", new DialogInterface.OnClickListener() {
@@ -264,7 +259,7 @@ FirebaseUser currentLogedInUser = FirebaseAuth.getInstance().getCurrentUser();
         tv_Weightinput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editTextWeight.setText(tv_Ageinput.getText());
+                editTextWeight.setText(tv_Weightinput.getText());
                 dialog4.show();
             }
         });
@@ -319,44 +314,84 @@ FirebaseUser currentLogedInUser = FirebaseAuth.getInstance().getCurrentUser();
 
 
         btn_confirm.setOnClickListener(new View.OnClickListener() {
+            /**
+             * @param v is the curerrent view
+             * Sends the data of the user to the database
+             * Puts the data in a local UserProfile object in case connection gets lost
+             */
             @Override
             public void onClick(View v) {
                 String str_name = String.valueOf(tv_Username.getText());
                 user.setUsername(str_name);
-                databaseReference.child("name").setValue(str_name);
+                databaseReference2.child("name").setValue(str_name);
+
                 String age = String.valueOf(tv_Ageinput.getText());
                 user.setAge(age);
-                databaseReference.child("age").setValue(age);
+                databaseReference2.child("age").setValue(age);
+
                 String gender = rBtn.getText().toString();
                 user.setGender(gender);
-                databaseReference.child("gender").setValue(gender);
+                databaseReference2.child("gender").setValue(gender);
+
                 String weight = String.valueOf(tv_Weightinput.getText());
                 user.setUser_weight(Float.parseFloat(String.valueOf(weight)));
-                databaseReference.child("weight").setValue(weight);
+                databaseReference2.child("weight").setValue(weight);
+
                 String height = String.valueOf(tv_Heightinput.getText());
                 user.setUser_height(Float.parseFloat(String.valueOf(height)));
-                databaseReference.child("height").setValue(height);
+                databaseReference2.child("height").setValue(height);
+
                 String email = String.valueOf(tv_Emailinput.getText());
                 user.setUser_mail(email);
-                databaseReference.child("email").setValue(email);
+                databaseReference2.child("email").setValue(email);
+                currentLogedInUser.updateEmail(email);
+
                 String phone = String.valueOf(tv_phoneinput.getText());
                 user.setPhone(phone);
-                databaseReference.child("phone").setValue(phone);
+                databaseReference2.child("phone").setValue(phone);
 
+                Toast.makeText(UserSettings.this, "Changes saved", Toast.LENGTH_SHORT).show();
             }
 
         });
 
-       /* btn_confirm.setOnClickListener(new View.OnClickListener() {
+        btn_signOut.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This methode checks if there already is an authenticated user logged in
+             * finish() --> finishes the activity in case there is no authenticated userdata
+             * and sends user back to sign-in screen
+             * @param v is the curerrent view
+             */
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(UserSettings.this, "Signing out", Toast.LENGTH_SHORT).show();
+                finish();
+                Intent intent=new Intent(UserSettings.this,LoginAct.class);
+                startActivity(intent);
+                Toast.makeText(UserSettings.this, "Signing out sucssesfull", Toast.LENGTH_SHORT).show();
 
+            }
+        });
 
-        });*/
+        tv_DeleteAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //deletes the Current logged-in user from the authentication in firebase
+                currentLogedInUser.delete();
+                Toast.makeText(UserSettings.this, "Your account has been succesfull deleted", Toast.LENGTH_SHORT).show();
+                //sends user back to welcome screen
+                Intent intent=new Intent(UserSettings.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     public void onRadioButtonClicked(View v) {
         int selectedId = radioGroup.getCheckedRadioButtonId();
         rBtn = (RadioButton) findViewById(selectedId);
     }
+
 
     protected void onStart() {
         super.onStart();

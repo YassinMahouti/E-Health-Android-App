@@ -65,7 +65,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/txt_username"
                         android:layout_centerHorizontal="true"
-                        android:text="Example location"
+                        android:text="E-health user"
                         android:textColor="@color/white"
                         android:textSize="18sp" />
 
