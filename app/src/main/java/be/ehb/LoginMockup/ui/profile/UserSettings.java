@@ -40,6 +40,7 @@ public class UserSettings extends AppCompatActivity {
     TextView tv_Heightinput;
     TextView tv_phoneinput;
     TextView tv_Emailinput;
+    TextView tv_DeleteAccount;
 
     AlertDialog dialog;
     AlertDialog dialog3;
@@ -65,7 +66,7 @@ public class UserSettings extends AppCompatActivity {
 
     private UserProfile user;
 
-    //---Function that initializes buttons to variables---//
+    //-------------------------------Function that initializes buttons to variables-------------------------------//
     public void initialize() {
         tv_Username = findViewById(R.id.txt_username);
         tv_Ageinput = findViewById(R.id.txt_ageinput);
@@ -73,6 +74,8 @@ public class UserSettings extends AppCompatActivity {
         tv_Heightinput = findViewById(R.id.txt_heightinput);
         tv_phoneinput = findViewById(R.id.txt_phoneinput);
         tv_Emailinput = findViewById(R.id.txt_mailinput);
+        tv_DeleteAccount = findViewById(R.id.txt_deleteUser);
+
 
         radioGroup = (RadioGroup) findViewById(R.id.Gender);
         rBtn = (RadioButton) findViewById(R.id.Male);
@@ -86,6 +89,8 @@ public class UserSettings extends AppCompatActivity {
 
     }
 
+
+    //--------------------This function sets the dialog, title, view and inputTypes for all Alertdialog's--------------------//
     public void dialog_initialization() {
         dialog = new AlertDialog.Builder(this).create();
         editTextUsername = new EditText(this);
@@ -133,19 +138,25 @@ public class UserSettings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_settings);
 
-        initialize();       //--!initializes buttons to the on create--//
-
-
-        //onStart();
-        String uid;
-
         final FirebaseDatabase db_Root = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
-        uid="GRHcHyil5WRnb6H8032fBJAeiA73";
+        onStart();
+        // User is signed in
+
+
+
+        initialize();       //--!initializes buttons to the on create--//
+
+FirebaseUser currentLogedInUser = FirebaseAuth.getInstance().getCurrentUser();
+        String uid;
+        mAuth = FirebaseAuth.getInstance();
+        //uid = currentLogedInUser.getUid();
+        uid =FirebaseAuth.getInstance().getCurrentUser().getUid(); ;
 
         databaseReference = db_Root.getReference("Users");
+        /*
         FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-           databaseReference.child(uid);
+        databaseReference.child(uid);*/
 
 
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -220,6 +231,7 @@ public class UserSettings extends AppCompatActivity {
                 }
             }
         });
+
 
         tv_Ageinput.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -299,50 +311,35 @@ public class UserSettings extends AppCompatActivity {
             public void onClick(View v) {
                 String str_name = String.valueOf(tv_Username.getText());
                 user.setUsername(str_name);
-                databaseReference.child(uid).child("name").setValue(str_name);
-                String age = (String) tv_Ageinput.getText();
+                databaseReference.child("name").setValue(str_name);
+                String age = String.valueOf(tv_Ageinput.getText());
                 user.setAge(age);
-                databaseReference.child(uid).child("age").setValue(age);
+                databaseReference.child("age").setValue(age);
                 String gender = rBtn.getText().toString();
                 user.setGender(gender);
-                databaseReference.child(uid).child("gender").setValue(gender);
+                databaseReference.child("gender").setValue(gender);
                 String weight = String.valueOf(tv_Weightinput.getText());
                 user.setUser_weight(Float.parseFloat(String.valueOf(weight)));
-                databaseReference.child(uid).child("weight").setValue(weight);
+                databaseReference.child("weight").setValue(weight);
                 String height = String.valueOf(tv_Heightinput.getText());
                 user.setUser_height(Float.parseFloat(String.valueOf(height)));
-                databaseReference.child(uid).child("height").setValue(height);
+                databaseReference.child("height").setValue(height);
                 String email = String.valueOf(tv_Emailinput.getText());
                 user.setUser_mail(email);
-                databaseReference.child(uid).child("email").setValue(email);
+                databaseReference.child("email").setValue(email);
                 String phone = String.valueOf(tv_phoneinput.getText());
                 user.setPhone(phone);
-                databaseReference.child(uid).child("phone").setValue(phone);
+                databaseReference.child("phone").setValue(phone);
 
             }
 
         });
 
        /* btn_confirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                if (v.getId() == R.id.btn_signOut){
-                mAuth.getInstance()
-                        .signOut()
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            public void onComplete(@NonNull Task<Void> task) {
-                                // user is now signed out
-                                startActivity(new Intent(UserSettings.this, RegAct.class));
-                                finish();
-                            }
-                        });
 
-            }
-            }
+
         });*/
     }
-
 
     public void onRadioButtonClicked(View v) {
         int selectedId = radioGroup.getCheckedRadioButtonId();
@@ -351,6 +348,7 @@ public class UserSettings extends AppCompatActivity {
 
     protected void onStart() {
         super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
         if (mAuth.getCurrentUser() == null) {
             finish();
             startActivity(new Intent(this, LoginAct.class));
