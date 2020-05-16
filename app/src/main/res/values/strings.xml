@@ -26,6 +26,13 @@
     <string name="clickHere">Click here!</string>
     <string name="where_can_i_workout">Where can i workout?</string>
     <string name="privacy">Privacy</string>
+    <string name="deel1Inleiding">inforward to help you having the most accurate result related to the COVID-19 Please answer
+        to the 4  first questions first. Those are the most important symptoms today. Next you can find the checklist of the second categories of symptoms, if needed.
+    </string>
+    <string name="accurate_symp1">Hebt u hoofdpijn, specifiek achter de ogen?</string>
+    <string name="accurate_symp2">Hebt u spierpijn of last van stijfheid, zonder te sporten?</string>
+    <string name="accurate_symp3">Hebt u last van buikloop?</string>
+    <string name="accurate_symp4">Hebt u last van smaak-of geurloosheid?</string>
     <string name="vraag1">Hebt u koorts?(>38°C)</string>
     <string name="vraag2">Hebt u een droge hoest? </string>
     <string name="vraag3">Hebt u last om te ademen(of buiten adem zijn)? </string>
@@ -50,6 +57,11 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="title_activity_maps">Map</string>
+
+
+    //mapbox
+    <string name="acces_token">pk.eyJ1IjoiY2VkcmljZHZlIiwiYSI6ImNrYTdlbTVxejAyZHMycnJ1bHR5ZXA0bzAifQ.2QPAOu9Utq2rrG3BLS5DKA</string>
 
 
 </resources>

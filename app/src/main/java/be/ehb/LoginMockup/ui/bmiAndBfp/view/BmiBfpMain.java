@@ -1,5 +1,6 @@
 package be.ehb.LoginMockup.ui.bmiAndBfp.view;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,15 +13,22 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Date;
 import be.ehb.Ehealth.R;
+import be.ehb.LoginMockup.LoginAct;
 import be.ehb.LoginMockup.ui.bmiAndBfp.controller.Controller;
 
 public class BmiBfpMain extends AppCompatActivity
 {
+    FirebaseAuth mAuth;
     //   constant for categorisation
     public static final String CAT_1 = "Under Essential Fat";
     public static final String CAT_2 = "Essential Fat";
@@ -68,6 +76,13 @@ public class BmiBfpMain extends AppCompatActivity
     DatabaseReference mRootUserBB;
     DatabaseReference mRootUserID;
     DatabaseReference mRootUserInfo;
+
+    DatabaseReference mRootUser;
+    DatabaseReference mRootUserID_bmi;
+    DatabaseReference mRootUserID_bfp;
+
+    DatabaseReference mRootUsers;
+    DatabaseReference mRootKey;
     private Thread savingData;
     private Button btn_saveCloud;
     private Button show_results;
@@ -107,10 +122,34 @@ public class BmiBfpMain extends AppCompatActivity
         init();// initialise all we need
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
+        //auth
+        mAuth = FirebaseAuth.getInstance();
+
+
         //getReference to Firebase
         mRootUserBB = database.getReference("UserBB");
         mRootUserID = database.getReference("resultsBB");
 
+        mRootUsers = database.getReference("Users");
+        mRootUser = database.getReference("Users_Results");
+       // user.getIdToken(true);
+        mRootUserID = mRootUser.child(mAuth.getCurrentUser().getUid());
+        mRootUserID_bmi = mRootUserID.child("user_bmi");
+        mRootUserID_bfp = mRootUserID.child("user_bfp");
+
+        mRootUserID.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String values = dataSnapshot.child("age").getValue(String.class);
+                    System.out.println(values);
+                    Toast.makeText(BmiBfpMain.this, values, Toast.LENGTH_SHORT).show();
+                }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         btn_saveCloud.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,7 +162,7 @@ public class BmiBfpMain extends AppCompatActivity
             public void onClick(View v) {
                 Intent intent = new Intent(BmiBfpMain.this , UserResults.class);
                 startActivity(intent);
-
+                finish();
             }
         });
 
@@ -215,7 +254,7 @@ public class BmiBfpMain extends AppCompatActivity
             float bfp = this.controle.getBFP();
             float bmi = this.controle.getBMI();
             Date date = new Date();
-            mRootUserID = mRootUserBB.child("resultsBB").push();
+            mRootUserID = mRootUserBB.child(mAuth.getCurrentUser().getUid()).push();
             mRootUserInfo = mRootUserID.child("user_weight");
             mRootUserInfo.setValue(weight);
             mRootUserInfo = mRootUserID.child("user_height");
@@ -234,6 +273,9 @@ public class BmiBfpMain extends AppCompatActivity
             mRootUserInfo.setValue(bmi);
             mRootUserInfo = mRootUserID.child("user_bfp");
             mRootUserInfo.setValue(bfp);
+            mRootUserID_bmi.setValue(bmi);
+            mRootUserID_bfp.setValue(bfp);
+
         }
 
     }

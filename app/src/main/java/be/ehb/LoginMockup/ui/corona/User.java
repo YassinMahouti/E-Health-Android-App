@@ -1,19 +1,40 @@
 package be.ehb.LoginMockup.ui.corona;
 
-public class User {
+import java.text.DateFormat;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.Locale;
+
+/**
+ * Able to use the Recycler View( to show the results of the user) I need to store the information of the user.
+ * Class User has 2 Constructor, and 4 data-members with getters and setters.
+ */
+public class User implements Comparable<User> {
     //properties same name as in table on Firebase database
     private int countSymptoms;
     private String date;
     private int user_id;
     private float user_risk;
 
-
+    /**
+     * Empty Constructor
+     */
     public User() {
     }
 
+    /**
+     * Constructor able to store the information of the user
+     * @param countSymptoms : the amount of symptoms the user has depending on answers from the CheckUp
+     * @param date : to have a evolution or creating graphics I need to store the date(and later to see the progress)
+     * @param user_id : each user has a unique id, otherwise he can see al the data of other users
+     * @param user_risk : able to give an indication I calculate a risk percentage tha indicate the chance to suffer from the Corona-virus.
+     */
     public User(int countSymptoms, String date, int user_id, float user_risk) {
         this.countSymptoms = countSymptoms;
-        this.date = date;
+        this.date = date.toLowerCase();
         this.user_id = user_id;
         this.user_risk = user_risk;
     }
@@ -27,7 +48,7 @@ public class User {
     }
 
     public String getDate() {
-        return date;
+       return date;
     }
 
     public void setDate(String date) {
@@ -51,4 +72,21 @@ public class User {
     }
 
 
+    @Override
+    public int compareTo(User o) {
+        //interface: return negative or 0 or positive
+        return this.user_id -o.getUser_id();
+    }
+
+    // implement comparator interface
+    public static Comparator<User> myDate = new Comparator<User>() {
+        @Override
+        public int compare(User o1, User o2) {
+
+            return o1.getDate().compareTo(String.valueOf(new Date()));
+            // probleem type date : pattern => naar hours en dan van dagen , dan maand, jaar
+            /* DateFormat formatter = DateFormat.getTimeInstance(DateFormat.SHORT);
+        return  formatter.format(date)*/
+        }
+    };
 }

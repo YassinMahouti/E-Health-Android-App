@@ -1,6 +1,9 @@
 package be.ehb.LoginMockup.ui.bmiAndBfp.model;
 
-public class User {
+import java.util.Comparator;
+import java.util.Date;
+
+public class User implements Comparable<User> {
 
     //properties same name as in table on Firebase database
     private float user_height;
@@ -79,4 +82,19 @@ public class User {
     public void setUser_bmi(float user_bmi) {
         this.user_bmi = user_bmi;
     }
+
+    @Override
+    public int compareTo(User o) {
+        return 0;
+    }
+    public static Comparator<User> myDate = new Comparator<User>() {
+        @Override
+        public int compare(User o1, User o2) {
+
+            return o1.getDate().compareTo(String.valueOf(new Date()));
+            // probleem type date : pattern => naar hours en dan van dagen , dan maand, jaar
+            /* DateFormat formatter = DateFormat.getTimeInstance(DateFormat.SHORT);
+        return  formatter.format(date)*/
+        }
+    };
 }

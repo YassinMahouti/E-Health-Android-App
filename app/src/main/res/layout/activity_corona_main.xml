@@ -7,6 +7,8 @@
     tools:context="be.ehb.LoginMockup.ui.corona.CoronaMain">
 
     <ScrollView
+
+        android:id="@+id/hsv"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -15,31 +17,266 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="150dp"
             android:gravity="center_horizontal|center_vertical"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent">
 
-            <TextView
-                android:id="@+id/txt_Titel_Corona"
+            <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="333dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imgV_goToSymptom"
+                    android:layout_width="422dp"
+                    android:layout_height="885dp"
+                    android:layout_marginTop="-15dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:src="@drawable/coronabackround" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="306dp"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal|center_vertical"
-                android:text="Welcome to the corona checkup"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                android:layout_marginTop="3dp"
+                android:gravity="center"
+                android:text="@string/deel1Inleiding"
+                android:textSize="12dp"
+                android:textStyle="italic" />
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="31dp"
+                android:layout_gravity="start"
+                android:layout_marginLeft="10dp"
+                android:gravity="bottom"
                 android:text="Please answer to the following questions:" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView13"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="@string/accurate_symp1"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <RadioGroup
+                            android:id="@+id/rd_group1_accurate"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp">
+
+                            <RadioButton
+                                android:id="@+id/rd_accurate_symp1_ja"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:text="ja" />
+
+                            <RadioButton
+                                android:id="@+id/rd_accurate_symp1_nee"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checked="false"
+                                android:text="nee" />
+                        </RadioGroup>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/textView15"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="@string/accurate_symp2"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+
+                        <RadioGroup
+                            android:id="@+id/rd_group2_accurate"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp">
+
+                            <RadioButton
+                                android:id="@+id/rd_accurate_symp2_ja"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:text="ja" />
+
+                            <RadioButton
+                                android:id="@+id/rd_accurate_symp2_nee"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="nee" />
+                        </RadioGroup>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/textView16"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="@string/accurate_symp3"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <RadioGroup
+                            android:id="@+id/rd_group3_accurate"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp">
+
+                            <RadioButton
+                                android:id="@+id/rd_accurate_symp3_ja"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:text="ja" />
+
+                            <RadioButton
+                                android:id="@+id/rd_accurate_symp3_nee"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="nee" />
+                        </RadioGroup>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/textView17"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="@string/accurate_symp4"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <RadioGroup
+                            android:id="@+id/rd_group4_accurate"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp">
+
+                            <RadioButton
+                                android:id="@+id/rd_accurate_symp4_ja"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="ja" />
+
+                            <RadioButton
+                                android:id="@+id/rd_accurate_symp4_nee"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="nee" />
+                        </RadioGroup>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="88dp"
+                        android:orientation="vertical">
+
+                        <ProgressBar
+                            android:id="@+id/progressBarAccurateSymptoms"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="289dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="5dp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/txt_result_accurate"
+                                android:layout_width="105dp"
+                                android:layout_height="54dp"
+                                android:layout_weight="1"
+                                android:gravity="center_horizontal"
+                                android:text="Result from the first questions:" />
+
+                            <Button
+                                android:id="@+id/btn_reset_progressbar"
+                                android:layout_width="80dp"
+                                android:layout_height="30dp"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginBottom="96dp"
+                                android:background="@drawable/button"
+                                android:fontFamily="@font/reg"
+                                android:text="Reset"
+                                android:textAllCaps="false"
+                                android:textColor="@color/white"
+                                android:textSize="14dp" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/textView19"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="Second Checkup:"
+                            android:textStyle="italic" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/textView18"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="3dp"
+                    android:background="#2491B9"
+                    android:gravity="center"
+                    android:text="Symptom Checker"
+                    android:textColor="#000000"
+                    android:textSize="22dp"
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:id="@+id/linearLayout3"
@@ -51,6 +288,7 @@
                         android:id="@+id/txt_symptom1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
                         android:paddingLeft="5dp"
                         android:text="@string/vraag1"
                         android:textColor="#000000"
@@ -320,7 +558,7 @@
                         android:textColor="#000000" />
 
                     <Button
-                        android:id="@+id/btn_calculateRisk"
+                        android:id="@+id/btn_show_results"
                         android:layout_width="259dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -331,13 +569,14 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="88dp"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    tools:visibility="visible">
 
                     <TextView
                         android:id="@+id/txt_Result"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="0dp" />
                 </LinearLayout>
 
             </LinearLayout>

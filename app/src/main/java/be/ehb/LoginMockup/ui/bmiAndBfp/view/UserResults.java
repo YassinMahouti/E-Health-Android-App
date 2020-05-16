@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Collections;
 import java.util.List;
 
 import be.ehb.LoginMockup.ui.bmiAndBfp.model.User;
@@ -20,13 +22,18 @@ import be.ehb.Ehealth.R;
 public class UserResults extends AppCompatActivity {
     private RecyclerView rv_resultsBB;
     private ImageButton imgBtn_newCalculation;
+    TextView filter_up;
+    TextView filter_down;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_bmi_results);
-        rv_resultsBB =(RecyclerView) findViewById(R.id.recyclerView);
-        imgBtn_newCalculation = (ImageButton) findViewById(R.id.imageButtonNewCalculation);
+        rv_resultsBB =(RecyclerView) findViewById(R.id.recylerview_bmi);
+        imgBtn_newCalculation = (ImageButton) findViewById(R.id.imgBtn_newTest);
+         filter_up = (TextView) findViewById(R.id.txt_filter_newest);
+         filter_down =(TextView) findViewById(R.id.txt_filter_oldest);
+
         imgBtn_newCalculation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -35,11 +42,51 @@ public class UserResults extends AppCompatActivity {
                 finish();
             }
         });
-        new FirebaseDatabaseHelper().readUser(new FirebaseDatabaseHelper.DataStatus() {
+        loadDataIntoRecyclerViewer();;
+        filter_up.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadDataIntoRecyclerViewer();
+            }
+        });
+        filter_down.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ;new FirebaseDatabaseHelper().readUser(new FirebaseDatabaseHelper.DataStatus() {
+                    @Override
+                    public void DataIsLoaded(final List<User> userBMI, List<String> keys) {
+                        //when data is loaded from cloud into the recyclerView -> show "waiting" with a progressbar -> setVisibility : GONE
+                        findViewById(R.id.progressbarWaiting).setVisibility(ViewGroup.GONE);
+                        new RecyclerView_Config().setConfig(rv_resultsBB, UserResults.this , userBMI, keys);
+
+                    }
+
+                    @Override
+                    public void DataIsInserted() {
+
+                    }
+
+                    @Override
+                    public void DataIsUpdated() {
+
+                    }
+
+                    @Override
+                    public void DataIsDeleted() {
+
+
+                    }
+                });
+            }
+        });
+    }
+    private void loadDataIntoRecyclerViewer(){
+        ;new FirebaseDatabaseHelper().readUser(new FirebaseDatabaseHelper.DataStatus() {
             @Override
             public void DataIsLoaded(final List<User> userBMI, List<String> keys) {
                 //when data is loaded from cloud into the recyclerView -> show "waiting" with a progressbar -> setVisibility : GONE
-                findViewById(R.id.progressBarWaitingResults).setVisibility(ViewGroup.GONE);
+                findViewById(R.id.progressbarWaiting).setVisibility(ViewGroup.GONE);
+                Collections.sort(userBMI, User.myDate);
                 new RecyclerView_Config().setConfig(rv_resultsBB, UserResults.this , userBMI, keys);
 
             }

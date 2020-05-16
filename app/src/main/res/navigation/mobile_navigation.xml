@@ -12,8 +12,8 @@
 
     <activity
         android:id="@+id/nav_am_i_sick"
-        android:name="be.ehb.LoginMockup.ui.corona.AmISick"
-        tools:layout="@layout/am_i_sick"/>
+        android:name="be.ehb.LoginMockup.ui.corona.CoronaMain"
+        tools:layout="@layout/activity_corona_main"/>
 
     <activity
 
@@ -56,11 +56,11 @@
 
 
 
-    <fragment
+    <activity
         android:id="@+id/nav_find_place"
-        android:name="be.ehb.LoginMockup.ui.whereToWorkout.FindPlaceFragment"
+        android:name="be.ehb.LoginMockup.ui.whereToWorkout.FindYourPlace"
         android:label="Where to workout? "
-        tools:layout="@layout/fragment_find_place" />
+        tools:layout="@layout/activity_maps" />
 
 
     <activity
