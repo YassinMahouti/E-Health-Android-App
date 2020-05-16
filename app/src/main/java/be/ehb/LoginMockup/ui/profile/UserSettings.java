@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -151,9 +152,13 @@ FirebaseUser currentLogedInUser = FirebaseAuth.getInstance().getCurrentUser();
         String uid;
         mAuth = FirebaseAuth.getInstance();
         //uid = currentLogedInUser.getUid();
-        uid =FirebaseAuth.getInstance().getCurrentUser().getUid(); ;
+
+
+
 
         databaseReference = db_Root.getReference("Users");
+        DatabaseReference databaseReference2 = db_Root.getReference("Keys");
+
         /*
         FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         databaseReference.child(uid);*/
@@ -162,6 +167,10 @@ FirebaseUser currentLogedInUser = FirebaseAuth.getInstance().getCurrentUser();
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot child: dataSnapshot.getChildren()) {
+                    String uid = child.getKey();
+                                System.out.println("HEEEEEEEEEEEEEEEEEEEEEEEEEEEEERRRRRRRREEEEEEEEE    "+uid);
 
                 String username = dataSnapshot.child(uid).child("name").getValue(String.class);
                 tv_Username.setText(username);
@@ -172,7 +181,9 @@ FirebaseUser currentLogedInUser = FirebaseAuth.getInstance().getCurrentUser();
                 } else {
                     rBtn = (RadioButton) findViewById(R.id.Female);
                 }
-                String age = dataSnapshot.child(uid).child("age").getValue(String.class);
+                // cest mzi .. mzi comment?
+
+                String age = String.valueOf(dataSnapshot.child(uid).child("age").getValue());
                 tv_Ageinput.setText(age);
 
                 String weight = dataSnapshot.child(uid).child("weight").getValue(String.class);
@@ -187,12 +198,13 @@ FirebaseUser currentLogedInUser = FirebaseAuth.getInstance().getCurrentUser();
                 String mail = dataSnapshot.child(uid).child("email").getValue(String.class);
                 tv_Emailinput.setText(mail);
 
-                user = new UserProfile(username, mail, age, phone, Float.parseFloat(String.valueOf(weight)), Float.parseFloat(String.valueOf(height)), gender);
+//              user = new UserProfile(username, mail, age, phone, Float.parseFloat(String.valueOf(weight)), Float.parseFloat(String.valueOf(height)), gender);
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Log.w("Datasnapshot canceled", databaseError.toException());
             }
         });
 
