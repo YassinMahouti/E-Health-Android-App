@@ -87,6 +87,7 @@ public class CoronaMain extends AppCompatActivity {
     private String accurate_msg="";
     //----------DatabaseReference------------------
     //----------UserCorona: answerSymptoms
+    DatabaseReference mRootAnswers;
     DatabaseReference mRootSymptom;
     DatabaseReference addSymp;
     //----------User: user_id -> user_risk_corona
@@ -219,13 +220,10 @@ public class CoronaMain extends AppCompatActivity {
         //-----FirebaseDatabase---------------------------------
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         mAuth= FirebaseAuth.getInstance();
-        mRootUser = db.getReference().child("user");
-        mRootUser.setValue(5);
         //-----References--------------------------------------
         mRootUserCorona = db.getReference("UserCorona");
-        mUserResult = db.getReference("UserResult");
-        mRootUser = db.getReference("User");
-        mRootUserID = db.getReference("user_ID");
+        mRootUser = db.getReference("Users_Results");
+
         //-----Create table diseases
         createTableDiseases(db);
         //------------Initialisation of all we need (call own init)------------------------------
@@ -255,7 +253,8 @@ public class CoronaMain extends AppCompatActivity {
                 //--Check the RadioButtons status and add a percentage to become the "total user risk"
                 //----Check symptom 1----------------------------------
                 rd_answerFirst_no.isChecked();
-                mRootSymptom = mRootUserCorona.child("answerSymptoms");
+                mRootAnswers = db.getReference().child("answerSymptoms");
+                mRootSymptom = mRootAnswers.child(mAuth.getCurrentUser().getUid());
                 addSymp =  mRootSymptom.child("symptom1");
                 if( rd_answerFirst_yes.isChecked())
                 {
@@ -350,7 +349,7 @@ public class CoronaMain extends AppCompatActivity {
                 //----Need to create a date each time the user save a result( later for the progress of the user)
                 Date date = new Date();
                 //------Write to db using push for AUTOINCREMENT: for each result an id
-                mUserResult = mRootUserCorona.child("userResult").push();
+                mUserResult = mRootUserCorona.child(mAuth.getCurrentUser().getUid()).push();
                 //------Write user_risk, user_id, countSymptoms, date
                 mUserResultRisk = mUserResult.child("user_risk");
                 mUserResultRisk.setValue(userRisk);
@@ -366,6 +365,7 @@ public class CoronaMain extends AppCompatActivity {
                 String stdAdvies = " Please daily check your temperature(fever) and stay safe, keep following your symptoms !"+"\n" +"Please respect the rules of distance between people and follow safety precautions.";
                 lbl_result.getLayoutParams().height = 400;
                 lbl_result.setText("You have a risk percentage of "+userRisk+"%." + "\n "+"You have following symptoms:"+symptomsMessage +"."+ disease + "\n" +stdAdvies);
+                hsv.fullScroll(View.FOCUS_DOWN);
             }
         });
         //---To show all the results of the user: need to start a new activity

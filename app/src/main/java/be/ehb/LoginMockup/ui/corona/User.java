@@ -1,6 +1,12 @@
 package be.ehb.LoginMockup.ui.corona;
 
+import java.text.DateFormat;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Comparator;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Able to use the Recycler View( to show the results of the user) I need to store the information of the user.
@@ -42,7 +48,7 @@ public class User implements Comparable<User> {
     }
 
     public String getDate() {
-        return date;
+       return date;
     }
 
     public void setDate(String date) {
@@ -76,7 +82,11 @@ public class User implements Comparable<User> {
     public static Comparator<User> myDate = new Comparator<User>() {
         @Override
         public int compare(User o1, User o2) {
-            return o1.getDate().compareTo(o2.getDate());
+
+            return o1.getDate().compareTo(String.valueOf(new Date()));
+            // probleem type date : pattern => naar hours en dan van dagen , dan maand, jaar
+            /* DateFormat formatter = DateFormat.getTimeInstance(DateFormat.SHORT);
+        return  formatter.format(date)*/
         }
     };
 }

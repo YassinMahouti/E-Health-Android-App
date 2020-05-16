@@ -137,7 +137,7 @@ public class BmiBfpMain extends AppCompatActivity
         mRootUserID_bmi = mRootUserID.child("user_bmi");
         mRootUserID_bfp = mRootUserID.child("user_bfp");
 
-        mRootUsers.addValueEventListener(new ValueEventListener() {
+        mRootUserID.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     String values = dataSnapshot.child("age").getValue(String.class);
@@ -162,7 +162,7 @@ public class BmiBfpMain extends AppCompatActivity
             public void onClick(View v) {
                 Intent intent = new Intent(BmiBfpMain.this , UserResults.class);
                 startActivity(intent);
-
+                finish();
             }
         });
 
@@ -254,7 +254,7 @@ public class BmiBfpMain extends AppCompatActivity
             float bfp = this.controle.getBFP();
             float bmi = this.controle.getBMI();
             Date date = new Date();
-            mRootUserID = mRootUserBB.child("resultsBB").push();
+            mRootUserID = mRootUserBB.child(mAuth.getCurrentUser().getUid()).push();
             mRootUserInfo = mRootUserID.child("user_weight");
             mRootUserInfo.setValue(weight);
             mRootUserInfo = mRootUserID.child("user_height");

@@ -3,6 +3,7 @@ package be.ehb.LoginMockup.ui.corona;
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -18,6 +19,7 @@ import java.util.List;
  */
 public class FirebaseDatabaseHelper {
     private FirebaseDatabase mDatabase;
+    FirebaseAuth mAuth;
     //-----DatabaseReference-----------------------------
     private DatabaseReference mRef;
     private DatabaseReference mRootUserCorona;
@@ -41,8 +43,9 @@ public class FirebaseDatabaseHelper {
      */
     public FirebaseDatabaseHelper() {
         mDatabase = FirebaseDatabase.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         mReferenceUserCoronaResult = mDatabase.getReference("UserCorona");
-        mReferenceUserCoronaResult1 = mReferenceUserCoronaResult.child("userResult");
+        mReferenceUserCoronaResult1 = mReferenceUserCoronaResult.child(mAuth.getCurrentUser().getUid());
     }
 
     /**

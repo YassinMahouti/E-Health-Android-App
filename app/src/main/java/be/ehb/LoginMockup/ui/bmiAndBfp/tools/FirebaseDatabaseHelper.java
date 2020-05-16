@@ -3,6 +3,7 @@ package be.ehb.LoginMockup.ui.bmiAndBfp.tools;
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -19,6 +20,7 @@ public class FirebaseDatabaseHelper {
     private DatabaseReference mReferenceUserBMI;
     private DatabaseReference mReferenceUserBMIResult;
     private List<User> userBMI = new ArrayList<>();
+    FirebaseAuth mAuth;
 
     public interface DataStatus{
         void DataIsLoaded(List<User> userBMI, List<String> keys);
@@ -28,9 +30,9 @@ public class FirebaseDatabaseHelper {
     }
     public FirebaseDatabaseHelper() {
         mDatabase = FirebaseDatabase.getInstance();
-
+        mAuth = FirebaseAuth.getInstance();
         mReferenceUserBMI = mDatabase.getReference("UserBB");
-        mReferenceUserBMIResult = mReferenceUserBMI.child("resultsBB");
+        mReferenceUserBMIResult = mReferenceUserBMI.child(mAuth.getCurrentUser().getUid());
 
 
     }
