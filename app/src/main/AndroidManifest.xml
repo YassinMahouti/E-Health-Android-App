@@ -50,7 +50,6 @@
         <activity android:name="be.ehb.LoginMockup.ui.corona.UserCoronaListItem" />
         <activity android:name="be.ehb.LoginMockup.ui.corona.CoronaMain" />
         <activity android:name="be.ehb.LoginMockup.ui.corona.CoronaResult" />
-        <activity android:name="be.ehb.LoginMockup.ui.corona.AmISick" />
         <activity android:name="be.ehb.LoginMockup.LoginAct" />
         <activity android:name="be.ehb.LoginMockup.ui.registratie.RegAct" />
         <activity android:name="be.ehb.LoginMockup.ui.steps.StepCounter" />
@@ -75,6 +74,7 @@
         <receiver android:name="be.ehb.LoginMockup.ui.drinkwater.ReminderBroadcast" />
 
         <activity android:name="be.ehb.LoginMockup.ui.bmiAndBfp.view.UserResults" />
+        <activity android:name="be.ehb.LoginMockup.ui.bmiAndBfp.view.UserDetails" />
     </application>
 
 </manifest>

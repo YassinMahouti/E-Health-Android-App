@@ -11,6 +11,8 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;import be.ehb.Ehealth.R;
 
 
@@ -24,6 +26,7 @@ public class CoronaResult extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_corona_result);
+
         mRecyclerView = (RecyclerView) findViewById(R.id.recylerview_userCorona);
         newTest = (ImageButton) findViewById(R.id.imgBtn_newTest);
         newTest.setOnClickListener(new View.OnClickListener() {
@@ -41,6 +44,7 @@ public class CoronaResult extends AppCompatActivity {
                 //--When data is loaded from cloud into the recyclerView -> show "waiting" with a progressbar -> setVisibility : GONE
                 findViewById(R.id.progressbarWaiting).setVisibility(ViewGroup.GONE);
                 //--Create the recycler view and pass the configuration
+                Collections.sort(userCorona, User.myDate);
                 new RecyclerView_Config().setConfig(mRecyclerView,CoronaResult.this , userCorona, keys);
             }
 

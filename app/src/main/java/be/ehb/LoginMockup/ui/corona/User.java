@@ -1,10 +1,12 @@
 package be.ehb.LoginMockup.ui.corona;
 
+import java.util.Comparator;
+
 /**
  * Able to use the Recycler View( to show the results of the user) I need to store the information of the user.
  * Class User has 2 Constructor, and 4 data-members with getters and setters.
  */
-public class User {
+public class User implements Comparable<User> {
     //properties same name as in table on Firebase database
     private int countSymptoms;
     private String date;
@@ -26,7 +28,7 @@ public class User {
      */
     public User(int countSymptoms, String date, int user_id, float user_risk) {
         this.countSymptoms = countSymptoms;
-        this.date = date;
+        this.date = date.toLowerCase();
         this.user_id = user_id;
         this.user_risk = user_risk;
     }
@@ -64,4 +66,17 @@ public class User {
     }
 
 
+    @Override
+    public int compareTo(User o) {
+        //interface: return negative or 0 or positive
+        return this.user_id -o.getUser_id();
+    }
+
+    // implement comparator interface
+    public static Comparator<User> myDate = new Comparator<User>() {
+        @Override
+        public int compare(User o1, User o2) {
+            return o1.getDate().compareTo(o2.getDate());
+        }
+    };
 }

@@ -12,8 +12,8 @@
 
     <activity
         android:id="@+id/nav_am_i_sick"
-        android:name="be.ehb.LoginMockup.ui.corona.AmISick"
-        tools:layout="@layout/am_i_sick"/>
+        android:name="be.ehb.LoginMockup.ui.corona.CoronaMain"
+        tools:layout="@layout/activity_corona_main"/>
 
     <activity
 

@@ -11,12 +11,15 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -29,6 +32,7 @@ import be.ehb.Ehealth.R;
 
 
 public class CoronaMain extends AppCompatActivity {
+    FirebaseAuth mAuth;
 
     //---------TextView-----------------------
     private TextView lbl_result;
@@ -73,6 +77,10 @@ public class CoronaMain extends AppCompatActivity {
     private RadioButton rd_accurate_2_no;
     private RadioButton rd_accurate_3_no;
     private RadioButton rd_accurate_4_no;
+    private Button btn_reset_progress;
+    private ImageView imageView;
+    private ScrollView hsv;
+
     //----------------------------------------------
     private ProgressBar progressBarAccurateSymptoms;
     public int accurate_risk =0;
@@ -150,6 +158,9 @@ public class CoronaMain extends AppCompatActivity {
         rd_accurate_2_no=(RadioButton) findViewById(R.id.rd_accurate_symp2_nee);
         rd_accurate_3_no=(RadioButton) findViewById(R.id.rd_accurate_symp3_nee);
         rd_accurate_4_no=(RadioButton) findViewById(R.id.rd_accurate_symp4_nee);
+        btn_reset_progress =(Button) findViewById(R.id.btn_reset_progressbar);
+        imageView =(ImageView) findViewById(R.id.imgV_goToSymptom);
+        hsv = (ScrollView) findViewById(R.id.hsv);
 
         progressBarAccurateSymptoms =(ProgressBar) findViewById(R.id.progressBarAccurateSymptoms);
     }
@@ -207,6 +218,7 @@ public class CoronaMain extends AppCompatActivity {
         //To write to db: instantiate db -> getInstance()
         //-----FirebaseDatabase---------------------------------
         FirebaseDatabase db = FirebaseDatabase.getInstance();
+        mAuth= FirebaseAuth.getInstance();
         mRootUser = db.getReference().child("user");
         mRootUser.setValue(5);
         //-----References--------------------------------------
@@ -218,6 +230,13 @@ public class CoronaMain extends AppCompatActivity {
         createTableDiseases(db);
         //------------Initialisation of all we need (call own init)------------------------------
         init();
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               hsv.fullScroll(View.FOCUS_DOWN);
+               //hsv.scrollTo(0, hsv.getHeight()-10);
+            }
+        });
         //------OnClickListener-----------------------------------------------------------------
         //--save realtime input of user: symptoms
         /**
@@ -325,7 +344,7 @@ public class CoronaMain extends AppCompatActivity {
                 else disease ="You are safe, you maybe just ill and suffering from some headache or a runny nose. ";
 
                 //----- Write to User: user_id-> user_risk_corona = userRisk
-                mRootUserID = mRootUser.child("user_ID");
+                mRootUserID = mRootUser.child(mAuth.getCurrentUser().getUid());
                 mRootUserID_risk = mRootUserID.child("user_risk_corona");
                 mRootUserID_risk.setValue(userRisk);
                 //----Need to create a date each time the user save a result( later for the progress of the user)
@@ -345,6 +364,7 @@ public class CoronaMain extends AppCompatActivity {
                 Toast.makeText(CoronaMain.this, "Successfully added to cloud", Toast.LENGTH_SHORT).show();
                 //--Show result to user: setText on lbl_result
                 String stdAdvies = " Please daily check your temperature(fever) and stay safe, keep following your symptoms !"+"\n" +"Please respect the rules of distance between people and follow safety precautions.";
+                lbl_result.getLayoutParams().height = 400;
                 lbl_result.setText("You have a risk percentage of "+userRisk+"%." + "\n "+"You have following symptoms:"+symptomsMessage +"."+ disease + "\n" +stdAdvies);
             }
         });
@@ -356,6 +376,18 @@ public class CoronaMain extends AppCompatActivity {
                 Intent intent = new Intent(CoronaMain.this , CoronaResult.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+        btn_reset_progress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                accurate_risk = 0;
+                rd_group1_accurate.clearCheck();
+                rd_group2_accurate.clearCheck();
+                rd_group3_accurate.clearCheck();
+                rd_group4_accurate.clearCheck();
+                progressBarAccurateSymptoms.setProgress(0);
+                lbl_result_accurate_risk.setText("You can pass the test again");
             }
         });
 

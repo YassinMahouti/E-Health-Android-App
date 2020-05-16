@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.w3c.dom.Text;
 
+import java.util.Collection;
 import java.util.List;import be.ehb.Ehealth.R;
 
 /**
