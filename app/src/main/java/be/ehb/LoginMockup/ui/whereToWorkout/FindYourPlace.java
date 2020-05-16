@@ -117,18 +117,18 @@ public class FindYourPlace extends AppCompatActivity implements LocationListener
     }
 
     private void loadMap(){
-        //async call: notified when everything is done: cal back(anonymous class(=>inner class!) based on interface)
-        mapFragment.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(GoogleMap googleMap) {
-                //set our map
-                FindYourPlace.this.googleMap = googleMap;
-               googleMap.moveCamera(CameraUpdateFactory.zoomBy(15));
-               googleMap.moveCamera(CameraUpdateFactory.newLatLng(BRUXELLES));// 50.8503 4.05*/
-                googleMap.setMyLocationEnabled(true);
-                googleMap.addMarker(new MarkerOptions().position(new LatLng(50.8503, 4.05)).title("Basic fit"));
-            }
-        });
+            //async call: notified when everything is done: cal back(anonymous class(=>inner class!) based on interface)
+            mapFragment.getMapAsync(new OnMapReadyCallback() {
+                @Override
+                public void onMapReady(GoogleMap googleMap) {
+                    //set our map
+                    FindYourPlace.this.googleMap = googleMap;
+                    googleMap.moveCamera(CameraUpdateFactory.zoomBy(15));
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(BRUXELLES));// 50.8503 4.05*/
+                    googleMap.setMyLocationEnabled(true);
+                    googleMap.addMarker(new MarkerOptions().position(new LatLng(50.8503, 4.05)).title("Basic fit"));
+                }
+            });
     }
 
     //-- calling methods from interface

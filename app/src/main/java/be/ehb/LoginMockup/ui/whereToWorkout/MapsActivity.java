@@ -12,6 +12,9 @@ import android.location.LocationListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.CalendarContract;
+import android.view.View;
+import android.widget.Button;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +26,9 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import org.json.JSONException;
@@ -43,12 +48,21 @@ import java.util.Objects;
 
 import be.ehb.Ehealth.R;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback  {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, SeekBar.OnSeekBarChangeListener {
     private static final LatLng BRUXELLES = new LatLng(50.8503,4.3517);
     private static final int LOCATION_REQUEST = 500;
-    private GoogleMap mMap;
-    private SupportMapFragment mapFragment;
+    GoogleMap mMap;
+    SeekBar seekWidth, seekRed, seekGreen;
+    Button btDraw, btClear;
+    SupportMapFragment mapFragment;
+
+    Polyline polyline =null ;
     ArrayList<LatLng> listPoints;
+    ArrayList<LatLng> latLngList = new ArrayList<>();
+    ArrayList<Marker> markerList = new ArrayList<>();
+
+    int red =0,  green =0 ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,14 +72,71 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        seekWidth =(SeekBar) findViewById(R.id.sk_width_polyline);
+        seekGreen =(SeekBar) findViewById(R.id.sk_green_polyline);
+        seekRed =(SeekBar) findViewById(R.id.sk_red_polyline);
+        btDraw =(Button) findViewById(R.id.bt_draw);
+        btClear =(Button) findViewById(R.id.bt_clear_map);
+
 
         listPoints = new ArrayList<>();
+
+        btDraw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               // draw line on map with "short" click
+                if(polyline !=null)  polyline.remove();
+                PolylineOptions polylineOptions = new PolylineOptions()
+                        .addAll(latLngList).clickable(true);
+                polyline = mMap.addPolyline(polylineOptions);
+
+                polyline.setColor(Color.rgb(red,green,0));
+
+                setWidth();
+
+            }
+        });
+        btClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(polyline !=null)  polyline.remove();
+                for (Marker marker : markerList)
+                {
+                    marker.remove();
+                }
+                //reset lists
+                latLngList.clear();
+                markerList.clear();
+                //reset seeks
+                seekWidth.setProgress(3);
+                seekGreen.setProgress(0);
+                seekRed.setProgress(0);
+            }
+        });
 
 
     }
 
+    private void setWidth() {
+        seekWidth.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                // get the seek progres (from width-seekbar)
+                int width = seekWidth.getProgress();
+                if(polyline != null) polyline.setWidth(width);
+            }
 
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
 
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+    }
 
     /**
      * Manipulates the map once available.
@@ -81,7 +152,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
         ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.ACCESS_FINE_LOCATION} , LOCATION_REQUEST );
-        return;
+            googleMap.moveCamera(CameraUpdateFactory.zoomBy(15));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(BRUXELLES));
 }
 
         // Add a marker in Bruxelles and move the camera
@@ -91,6 +163,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //addingCircleView(lLng);
         //addingCircleView(BRUXELLES);
         //om zelf punt in te geven door te klikken
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                MarkerOptions markerOptions = new MarkerOptions().position(latLng);
+                Marker marker = mMap.addMarker(markerOptions);
+                latLngList.add(latLng);
+                markerList.add(marker);
+            }
+        });
         mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
             @Override
             public void onMapLongClick(LatLng latLng) {
@@ -124,6 +205,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             }
         });
+        // interactie met seeks for colors: SeekBarChangeListener !
+        seekRed.setOnSeekBarChangeListener(this);
+        seekGreen.setOnSeekBarChangeListener(this);
 
     }
 
@@ -240,6 +324,35 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
             break;
         }
+    }
+// generate widgets for interaction with seekbars => OnSeekBarChangeListener() => this
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+        switch (seekBar.getId())
+        {
+            case R.id.sk_red_polyline:
+                red = progress;
+                fromUser = true;
+                break;
+            case R.id.sk_green_polyline:
+                green = progress;
+                fromUser = true;
+                break;
+
+        }
+        // set the color
+        polyline.setColor(Color.rgb(red, green, 0));
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+
     }
 
     private class TaskRequestDirection extends AsyncTask<String,Void,String> {
