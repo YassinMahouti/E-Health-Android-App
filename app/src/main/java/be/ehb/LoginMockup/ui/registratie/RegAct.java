@@ -72,7 +72,7 @@ public class RegAct extends AppCompatActivity {
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                 user = firebaseAuth.getCurrentUser();
+                user = firebaseAuth.getCurrentUser();
                 if(user != null)
                 {
                     Log.d(TAG,"onAuthStateChanged:singed_in:" +user.getUid());
@@ -150,6 +150,23 @@ public class RegAct extends AppCompatActivity {
                 firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+
+                        FirebaseAuth auth = FirebaseAuth.getInstance();
+                        FirebaseUser gebruiker = auth.getCurrentUser();
+
+                        gebruiker.sendEmailVerification()
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Log.d(TAG, "Registered succesfully. Please verify your email" );
+                                            Toast.makeText(RegAct.this, "Registered succesfully. Please verify your email", Toast.LENGTH_SHORT).show();
+                                        }
+                                        else {
+                                            Toast.makeText(RegAct.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
                         if (task.isSuccessful()) {
                             User user = new User(
                                     name,
@@ -171,6 +188,8 @@ public class RegAct extends AppCompatActivity {
                             Toast.makeText(RegAct.this, "User Created", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(),LoginAct.class));
 
+
+
                         } else {
                             Toast.makeText(RegAct.this, "Something went wrong :/" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);
@@ -179,6 +198,9 @@ public class RegAct extends AppCompatActivity {
                 });
             }
         });
+
+
+
 
         backButton = findViewById(R.id.backBtn);
         backButton.setOnClickListener(new View.OnClickListener() {

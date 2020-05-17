@@ -5,11 +5,6 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/nav_home">
 
-
-
-
-
-
     <activity
         android:id="@+id/nav_am_i_sick"
         android:name="be.ehb.LoginMockup.ui.corona.CoronaMain"
@@ -85,5 +80,10 @@
         android:name="be.ehb.LoginMockup.ui.bmiAndBfp.view.BmiBfpMain"
         android:label="Bmi and Bfp"
         tools:layout="@layout/activity_bfp_and_bmi_main"/>
+    <activity
+        android:id="@+id/nav_calorie"
+        android:name="be.ehb.LoginMockup.ui.Calorie.CalorieCalc"
+        android:label="@string/menu_calCalc"
+        tools:layout="@layout/activity_calorie_calculator"/>
 
 </navigation>

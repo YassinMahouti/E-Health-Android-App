@@ -14,7 +14,7 @@
         android:alpha="0.5"
         android:ems="10"
         android:hint="Age"
-        android:inputType="textPersonName"
+        android:inputType="number"
         android:textColor="@color/white"
         android:textColorHint="@color/common_google_signin_btn_text_dark_default"
         app:layout_constraintBottom_toBottomOf="parent"
