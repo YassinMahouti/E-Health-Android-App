@@ -85,5 +85,10 @@
         android:name="be.ehb.LoginMockup.ui.Calorie.CalorieCalc"
         android:label="@string/menu_calCalc"
         tools:layout="@layout/activity_calorie_calculator"/>
+    <activity
+        android:id="@+id/nav_user_settings"
+        android:name="be.ehb.LoginMockup.ui.profile.UserSettings"
+        android:label="User setttings"
+        tools:layout="@layout/activity_profile_settings"/>
 
 </navigation>

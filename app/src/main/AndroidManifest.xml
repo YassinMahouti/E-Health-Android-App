@@ -46,6 +46,7 @@
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
+        <activity android:name="be.ehb.LoginMockup.ui.profile.UserSettings"/>
         <activity android:name="be.ehb.LoginMockup.ui.Calorie.CalorieCalc" />
         <activity android:name="be.ehb.LoginMockup.ui.drinkwater.DrinkWaterReminder" />
         <activity android:name="be.ehb.LoginMockup.ui.corona.UserCoronaDetails" />
