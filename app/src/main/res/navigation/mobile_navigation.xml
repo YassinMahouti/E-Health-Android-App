@@ -55,11 +55,15 @@
 
 
 
-
+    <activity
+        android:id="@+id/nav_workout"
+        android:name="be.ehb.LoginMockup.ui.whereToWorkout.WhereToWorkout"
+        android:label="Where to workkout?"
+        tools:layout="@layout/activity_where_to_workout"/>
     <activity
         android:id="@+id/nav_find_place"
-        android:name="be.ehb.LoginMockup.ui.whereToWorkout.FindYourPlace"
-        android:label="Where to workout? "
+        android:name="be.ehb.LoginMockup.ui.placefinder.MapsActivity"
+        android:label="Create a destination "
         tools:layout="@layout/activity_maps" />
 
 

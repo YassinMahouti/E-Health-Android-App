@@ -62,6 +62,7 @@
 
     //mapbox
     <string name="acces_token">pk.eyJ1IjoiY2VkcmljZHZlIiwiYSI6ImNrYTdlbTVxejAyZHMycnJ1bHR5ZXA0bzAifQ.2QPAOu9Utq2rrG3BLS5DKA</string>
+    <string name="title_activity_where_to_workout">Map</string>
 
 
 </resources>

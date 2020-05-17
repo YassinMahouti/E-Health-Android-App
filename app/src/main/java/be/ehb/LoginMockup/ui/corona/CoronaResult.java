@@ -1,9 +1,11 @@
 package be.ehb.LoginMockup.ui.corona;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +32,8 @@ public class CoronaResult extends AppCompatActivity {
     private ImageButton newTest;
     TextView filter_up;
     TextView filter_down;
-    String filter;
+    LinearLayoutManager mLayoutManager;
+    SharedPreferences mSharedPref;
 
 
 
@@ -49,8 +52,28 @@ public class CoronaResult extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 loadDataIntoRecyclerViewer();
+                SharedPreferences.Editor editor = mSharedPref.edit();
+                editor.putString("Sort", "newest");
+                editor.apply();
+                recreate();
             }
         });
+
+        mSharedPref = getSharedPreferences("SortSettigns",MODE_PRIVATE);
+        String mSorting = mSharedPref.getString("Sort","newest"); //def value: sort: newest
+        if(mSorting.equals("newest")){
+            mLayoutManager = new LinearLayoutManager(this);
+            mLayoutManager.setReverseLayout(true);
+            mLayoutManager.setStackFromEnd(true);
+
+        }
+        else if( mSorting.equals("oldest"))
+        {
+            mLayoutManager = new LinearLayoutManager(this);
+            mLayoutManager.setReverseLayout(false);
+            mLayoutManager.setStackFromEnd(false);
+        }
+
         filter_down.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,8 +84,7 @@ public class CoronaResult extends AppCompatActivity {
                         //--When data is loaded from cloud into the recyclerView -> show "waiting" with a progressbar -> setVisibility : GONE
                         findViewById(R.id.progressbarWaiting).setVisibility(ViewGroup.GONE);
                         //--Create the recycler view and pass the configuration
-
-                        new RecyclerView_Config().setConfig(mRecyclerView,CoronaResult.this , userCorona, keys);
+                        new RecyclerView_Config().setConfig(mRecyclerView,CoronaResult.this , userCorona, keys, mLayoutManager);
                     }
 
                     @Override
@@ -80,6 +102,10 @@ public class CoronaResult extends AppCompatActivity {
 
                     }
                 });
+                SharedPreferences.Editor editor = mSharedPref.edit();
+                editor.putString("Sort", "oldest");
+                editor.apply();
+                recreate();
             }
         });
         newTest.setOnClickListener(new View.OnClickListener() {
@@ -104,8 +130,8 @@ public class CoronaResult extends AppCompatActivity {
                 //--When data is loaded from cloud into the recyclerView -> show "waiting" with a progressbar -> setVisibility : GONE
                 findViewById(R.id.progressbarWaiting).setVisibility(ViewGroup.GONE);
                 //--Create the recycler view and pass the configuration
-                Collections.sort(userCorona, User.myDate);
-                new RecyclerView_Config().setConfig(mRecyclerView,CoronaResult.this , userCorona, keys);
+
+                new RecyclerView_Config().setConfig(mRecyclerView,CoronaResult.this , userCorona, keys , mLayoutManager);
             }
 
             @Override

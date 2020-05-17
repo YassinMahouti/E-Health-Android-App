@@ -12,7 +12,7 @@ import java.util.Locale;
  * Able to use the Recycler View( to show the results of the user) I need to store the information of the user.
  * Class User has 2 Constructor, and 4 data-members with getters and setters.
  */
-public class User implements Comparable<User> {
+public class User {
     //properties same name as in table on Firebase database
     private int countSymptoms;
     private String date;
@@ -72,21 +72,4 @@ public class User implements Comparable<User> {
     }
 
 
-    @Override
-    public int compareTo(User o) {
-        //interface: return negative or 0 or positive
-        return this.user_id -o.getUser_id();
-    }
-
-    // implement comparator interface
-    public static Comparator<User> myDate = new Comparator<User>() {
-        @Override
-        public int compare(User o1, User o2) {
-
-            return o1.getDate().compareTo(String.valueOf(new Date()));
-            // probleem type date : pattern => naar hours en dan van dagen , dan maand, jaar
-            /* DateFormat formatter = DateFormat.getTimeInstance(DateFormat.SHORT);
-        return  formatter.format(date)*/
-        }
-    };
 }

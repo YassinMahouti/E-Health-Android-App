@@ -82,8 +82,7 @@ public class BmiBfpMain extends AppCompatActivity
     DatabaseReference mRootUserID_bfp;
 
     DatabaseReference mRootUsers;
-    DatabaseReference mRootKey;
-    private Thread savingData;
+
     private Button btn_saveCloud;
     private Button show_results;
 
@@ -142,7 +141,6 @@ public class BmiBfpMain extends AppCompatActivity
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     String values = dataSnapshot.child("age").getValue(String.class);
                     System.out.println(values);
-                    Toast.makeText(BmiBfpMain.this, values, Toast.LENGTH_SHORT).show();
                 }
 
             @Override
@@ -193,7 +191,7 @@ public class BmiBfpMain extends AppCompatActivity
             cloud = true;
             schrijfResultCloud(1,1,weight, height, age, sex,save,cloud);
 
-            Toast.makeText(this, "Date successfully saved in Cloud", Toast.LENGTH_SHORT).show();
+
 
         }
         else Toast.makeText(this, "Date CANT BE saved in the Cloud, please agree the conditions below.", Toast.LENGTH_SHORT).show();
@@ -264,17 +262,18 @@ public class BmiBfpMain extends AppCompatActivity
             mRootUserInfo = mRootUserID.child("user_age");
             mRootUserInfo.setValue(age);
             mRootUserInfo = mRootUserID.child("user_sex");
-            if(sex == 1)
-            {
-                mRootUserInfo.setValue("man");
-
-            }else mRootUserInfo.setValue("woman");
+            //------------------------------------------------
+            if(sex == 1) mRootUserInfo.setValue("man");
+            else mRootUserInfo.setValue("woman");
+            //------------------------------------------------
             mRootUserInfo = mRootUserID.child("user_bmi");
             mRootUserInfo.setValue(bmi);
             mRootUserInfo = mRootUserID.child("user_bfp");
             mRootUserInfo.setValue(bfp);
             mRootUserID_bmi.setValue(bmi);
             mRootUserID_bfp.setValue(bfp);
+            //------------------------------------------------
+            Toast.makeText(this, "Date successfully saved in Cloud", Toast.LENGTH_SHORT).show();
 
         }
 
@@ -298,7 +297,7 @@ public class BmiBfpMain extends AppCompatActivity
             if ( bfp > MIN_AVE_M && bfp <= MAX_AVE_M ) return CAT_5;
             if ( bfp > MIN_OBE_M) return CAT_6;
         }
-        return "something went wrong, couldnt give you details";
+        return "something went wrong, couldn't load your details";
     }
 
     public String msgBB(float bmi, float bfp, String sex){

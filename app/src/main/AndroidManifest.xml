@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="be.ehb.Ehealth">
+
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -32,9 +33,11 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name="be.ehb.LoginMockup.ui.whereToWorkout.MapsActivity"
+            android:name="be.ehb.LoginMockup.ui.whereToWorkout.WhereToWorkout"
+            android:label="@string/title_activity_where_to_workout"></activity>
+        <activity
+            android:name="be.ehb.LoginMockup.ui.placefinder.MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name="be.ehb.LoginMockup.ui.whereToWorkout.MapBoxTest"/>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -43,7 +46,6 @@
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
-        <activity android:name="be.ehb.LoginMockup.ui.whereToWorkout.FindYourPlace" />
         <activity android:name="be.ehb.LoginMockup.ui.Calorie.CalorieCalc" />
         <activity android:name="be.ehb.LoginMockup.ui.drinkwater.DrinkWaterReminder" />
         <activity android:name="be.ehb.LoginMockup.ui.corona.UserCoronaDetails" />

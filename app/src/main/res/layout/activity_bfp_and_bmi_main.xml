@@ -6,36 +6,40 @@
     android:layout_height="match_parent"
     tools:context="be.ehb.LoginMockup.ui.bmiAndBfp.view.BmiBfpMain">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:gravity="center_horizontal|center_vertical"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:gravity="center_horizontal|center_vertical"
+            android:layout_height="211dp"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/txt_TitelBmiBfp"
-                android:layout_width="394dp"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="@string/menu_title"
-                android:textColor="#020202"
-                android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="572dp"
+                android:layout_height="891dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/bmihead" />
+        </LinearLayout>
 
-            <TextView
-                android:id="@+id/txt_SubtitelBmiBfp"
-                android:layout_width="357dp"
-                android:layout_height="wrap_content"
-                android:text="@string/menu_subtitle"
-                android:textStyle="italic" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:gravity="center_horizontal|center_vertical"
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="293dp"
+                android:layout_height="219dp"
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:gravity="center_horizontal|center_vertical"
                 android:orientation="horizontal">
@@ -44,8 +48,44 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_weight="1"
+                    android:background="#00974444"
                     android:gravity="center_horizontal|center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
+
+                    <RadioGroup
+                        android:id="@+id/grpRadioSex"
+                        android:layout_width="216dp"
+                        android:layout_height="236dp"
+                        android:paddingTop="2px"
+                        android:paddingBottom="1dp">
+
+                        <RadioButton
+                            android:id="@+id/radioMan"
+                            android:layout_width="match_parent"
+                            android:layout_height="46dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_weight="1"
+                            android:checked="true"
+                            android:text="Im a man" />
+
+                        <RadioButton
+                            android:id="@+id/radioWoman"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_weight="1"
+                            android:text="Im a woman" />
+                    </RadioGroup>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -53,29 +93,26 @@
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="1"
                         android:gravity="center_horizontal|center_vertical"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
-                        <RadioGroup
-                            android:id="@+id/grpRadioSex"
+                        <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:paddingTop="30px">
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="My weight:" />
 
-                            <RadioButton
-                                android:id="@+id/radioMan"
-                                android:layout_width="match_parent"
-                                android:layout_height="46dp"
-                                android:layout_weight="1"
-                                android:checked="true"
-                                android:text="Im a man" />
-
-                            <RadioButton
-                                android:id="@+id/radioWoman"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Im a woman" />
-                        </RadioGroup>
+                        <EditText
+                            android:id="@+id/txtInputWeight"
+                            android:layout_width="206dp"
+                            android:layout_height="30dp"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginRight="18dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/btredround"
+                            android:ems="10"
+                            android:gravity="center"
+                            android:inputType="number" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -84,157 +121,135 @@
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="1"
                         android:gravity="center_horizontal|center_vertical"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center_horizontal|center_vertical"
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:gravity="center_horizontal|center_vertical"
-                            android:orientation="horizontal">
+                            android:text="My height" />
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="My weight:" />
-
-                            <EditText
-                                android:id="@+id/txtInputWeight"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:ems="10"
-                                android:inputType="number" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center_horizontal|center_vertical"
+                        <EditText
+                            android:id="@+id/txtInputHeight"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginRight="18dp"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="1"
-                            android:gravity="center_horizontal|center_vertical"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="My height" />
-
-                            <EditText
-                                android:id="@+id/txtInputHeight"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:ems="10"
-                                android:inputType="number" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center_horizontal|center_vertical"
-                            android:layout_weight="1"
-                            android:gravity="center_horizontal|center_vertical"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="My Age:" />
-
-                            <EditText
-                                android:id="@+id/txtInputAge"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:ems="10"
-                                android:inputType="number" />
-                        </LinearLayout>
+                            android:background="@drawable/btredround"
+                            android:ems="10"
+                            android:gravity="center"
+                            android:inputType="number" />
 
                     </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="My Age:" />
+
+                        <EditText
+                            android:id="@+id/txtInputAge"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginRight="18dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/btredround"
+                            android:ems="10"
+                            android:gravity="center"
+                            android:inputType="number" />
+                    </LinearLayout>
+
                 </LinearLayout>
             </LinearLayout>
+        </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="397dp"
-                android:layout_height="194dp"
-                android:layout_gravity="center_horizontal|center_vertical"
-                android:gravity="center_horizontal|center_vertical"
-                android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="397dp"
+            android:layout_height="151dp"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:gravity="center_horizontal|center_vertical"
+            android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/lblResult"
-                    android:layout_width="377dp"
-                    android:layout_height="108dp"
-                    android:gravity="center_horizontal" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <Switch
-                    android:id="@+id/sw_saveResult"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal|center_vertical"
-                    android:checked="true"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:text="Save my informations for the next time" />
-
-                <Switch
-                    android:id="@+id/sw_cloud"
-                    android:layout_width="289dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:checked="true"
-                    android:gravity="center_horizontal"
-                    android:text="I agree to save my results in the cloud" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|center_vertical"
-                android:gravity="center_horizontal|center_vertical"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/button_saveCloud"
-                    android:layout_width="2dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="#BE4DFF28"
-                    android:text="Save results in the cloud to view your progress"
-                    android:textSize="12sp" />
-
-                <Button
-                    android:id="@+id/btnCalculateBMI_BFP_Click"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/red"
-                    android:text="Calculate my BFP and BMI"
-                    android:textColorHighlight="#FFFFFF"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/btnViewResults"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#9E1C2243"
-                android:text="View Results (only if you saved in the cloud)"
-                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/lblResult"
+                android:layout_width="377dp"
+                android:layout_height="108dp"
+                android:gravity="center_horizontal" />
 
         </LinearLayout>
-    </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Switch
+                android:id="@+id/sw_saveResult"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:checked="true"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="Save my informations for the next time" />
+
+            <Switch
+                android:id="@+id/sw_cloud"
+                android:layout_width="289dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:checked="true"
+                android:gravity="center_horizontal"
+                android:text="I agree to save my results in the cloud" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:gravity="center_horizontal|center_vertical"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button_saveCloud"
+                android:layout_width="2dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#BE4DFF28"
+                android:text="Save results in the cloud to view your progress"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/btnCalculateBMI_BFP_Click"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/red"
+                android:text="Calculate my BFP and BMI"
+                android:textColorHighlight="#FFFFFF"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnViewResults"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#9E1C2243"
+            android:text="View Results (only if you saved in the cloud)"
+            android:textSize="12sp" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
