@@ -47,6 +47,18 @@ public class WhereToWorkout extends FragmentActivity implements OnMapReadyCallba
     private static final LatLng JIMS_BXL_LOUISE = new LatLng( 50.82 , 4.37  );
     private static final LatLng JIMS_LEUVEN = new LatLng( 50.87 , 4.69  );
 
+    private static final LatLng LA_GYM = new LatLng( 51.21 , 4.39  );
+    private static final LatLng NATO_GYM = new LatLng( 50.88 , 4.42  );
+    private static final LatLng ANYTIME_FITNESS_STEKELE = new LatLng( 51.22 , 4.07  );
+    private static final LatLng FYZIX = new LatLng( 50.92 , 4.40  );
+    private static final LatLng FIRST_CLASS_GYM = new LatLng( 51.03, 3.72  );
+    private static final LatLng GYM_TONIC_2B_FIT = new LatLng( 51.11 , 4.37  );
+    private static final LatLng ANYTIME_FITNESS_KALMTHOUT = new LatLng( 51.39 , 4.47  );
+    private static final LatLng HEALTHCITY_BELGIE = new LatLng( 50.89 , 4.31  );
+    private static final LatLng THE_BRICK = new LatLng( 51.21 , 4.39  );
+    private static final LatLng LIFE_STYLE_FITNESS_LEUVEN = new LatLng( 50.88 , 4.70  );
+    private static final LatLng I_FITNESS_TURNHOUT = new LatLng( 51.33 , 4.93  );
+
     private GoogleMap mMap;
 
     @Override
@@ -103,6 +115,21 @@ public class WhereToWorkout extends FragmentActivity implements OnMapReadyCallba
         mMap.addMarker(markerOptionsJIMS.position(JIMS_GROOT_BIJGAARDEN).title("JIMS Groot Bijgaarden"));
         mMap.addMarker(markerOptionsJIMS.position(JIMS_BXL_LOUISE).title("JIMS Bxl Louise"));
         mMap.addMarker(markerOptionsJIMS.position(JIMS_LEUVEN).title("JIMS Leuven"));
+        
+        //Prive fitness marks op de map
+        MarkerOptions markerOptionsPRIVE = new MarkerOptions();
+        markerOptionsPRIVE.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+        mMap.addMarker(markerOptionsPRIVE.position(LA_GYM).title("La Gym"));
+        mMap.addMarker(markerOptionsPRIVE.position(NATO_GYM).title("Nato Gym"));
+        mMap.addMarker(markerOptionsPRIVE.position(ANYTIME_FITNESS_STEKELE).title("Anytime Fitness Stekele"));
+        mMap.addMarker(markerOptionsPRIVE.position(FYZIX).title("Fyzix"));
+        mMap.addMarker(markerOptionsPRIVE.position(FIRST_CLASS_GYM).title("First Class Gym"));
+        mMap.addMarker(markerOptionsPRIVE.position(GYM_TONIC_2B_FIT).title("Gym Tonic-2b Fit"));
+        mMap.addMarker(markerOptionsPRIVE.position(ANYTIME_FITNESS_KALMTHOUT).title("Anytime Fitness Kalmhout"));
+        mMap.addMarker(markerOptionsPRIVE.position(HEALTHCITY_BELGIE).title("Healthcity België"));
+        mMap.addMarker(markerOptionsPRIVE.position(THE_BRICK).title("The Brick"));
+        mMap.addMarker(markerOptionsPRIVE.position(LIFE_STYLE_FITNESS_LEUVEN).title("Life Style Fitness Leuven"));
+        mMap.addMarker(markerOptionsPRIVE.position(I_FITNESS_TURNHOUT).title("I fitness Turnhout"));
 
     }
 }
