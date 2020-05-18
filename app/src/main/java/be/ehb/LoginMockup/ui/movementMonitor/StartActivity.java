@@ -136,7 +136,8 @@ public class StartActivity extends AppCompatActivity {
         resultsRef.child("user_total_Duration").setValue(MovementMonitor.getTotalSessionDuration());
 
         if (isRunning){
-            MovementMonitor.setTotalSessionCalories(MovementMonitor.calcCalorie(myMillis, resetMillis));
+            float help = resetMillis - myMillis;
+            MovementMonitor.setTotalSessionCalories(MovementMonitor.calcCalorie(help, resetMillis));
             resultsRef.child("user_total_Calories").setValue(MovementMonitor.getTotalSessionCalories());
         } else {
             resultsRef.child("user_total_Calories").setValue(MovementMonitor.getTotalSessionCalories());

@@ -67,7 +67,7 @@ public class MovementMonitor {
 
         help1 = ((totalDuration / 60000) % 60);
 
-        help2 = ((totalDuration - duration) / 60000) % 60;
+        help2 = (duration / 60000) % 60;
 
         help3 = (calories/help1) * help2;
 
