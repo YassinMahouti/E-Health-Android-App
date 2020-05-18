@@ -59,8 +59,6 @@ public class CoronaStatsAPI extends AsyncTask<Void , Void , Void> {
         } catch (IOException ex) {
             ex.printStackTrace();
 
-
-
         } return null;
     }
         @Override
