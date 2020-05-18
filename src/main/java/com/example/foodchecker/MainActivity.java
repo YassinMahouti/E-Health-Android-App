@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +16,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,7 +34,8 @@ public class MainActivity extends AppCompatActivity {
     // Toon nutrition op basis van id
 
     private static final String BASE_URL_SEARCH = "https://api.spoonacular.com/food/products/search";
-    private static final String API_KEY = "apiKey=042f21f13acd4749b106f4af1dd52728";
+    //private static final String API_KEY = "apiKey=042f21f13acd4749b106f4af1dd52728";
+    private static final String API_KEY = "apiKey=bd789f29c279480fb2a12b1d4102c658";
 
     // test
 //    private static final String TEST = "https://api.spoonacular.com/food/products/22347?";
@@ -40,8 +43,10 @@ public class MainActivity extends AppCompatActivity {
 
 
     private EditText mEditTextInput;
+    private TextView mTextViewNutrition;
     private TextView mTextViewFoodResult;
     private RequestQueue mRequestQueue;
+    private String Image ="";
 
     private String userInput = "";
     private String foodId;
@@ -52,11 +57,27 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mEditTextInput = findViewById(R.id.editTextInput);
-        mTextViewFoodResult = findViewById(R.id.textViewFoodResult);
-        Button buttonSearch = findViewById(R.id.buttonFetchFood);
-        Button buttonDetails = findViewById(R.id.buttonFetchDetails);
 
+        mTextViewFoodResult = findViewById(R.id.textViewFoodResult);
+        mTextViewNutrition = findViewById(R.id.textViewNutrition);
+        final Button buttonSearch = findViewById(R.id.buttonFetchFood);
+        final Button buttonDetails = findViewById(R.id.buttonFetchDetails);
+        final ImageView imageView = (ImageView) findViewById(R.id.imageView);
+        final Button BtnClear = findViewById(R.id.BtnClear);
+        //Picasso.get().load(Image).into(imageView);
         mRequestQueue = Volley.newRequestQueue(this);
+
+        BtnClear.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+
+                mTextViewNutrition.setText("");
+                mTextViewFoodResult.setText("");
+                imageView.setImageResource(0);
+
+            }
+        });
 
         buttonSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
                 userInput = mEditTextInput.getText().toString().trim();
 
                 jsonAnalyser();
+
+
             }
         });
 
@@ -72,9 +95,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 jsonAnalyserDetails();
+
+                Picasso.get().load(Image).into(imageView);
+
+
+
             }
         });
     }
+
 
     private void jsonAnalyser() {
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, BASE_URL_SEARCH + "?" + API_KEY + "&query=" + userInput + "&number=1", null,
@@ -92,8 +121,11 @@ public class MainActivity extends AppCompatActivity {
                                 String title = product.getString("title");
                                 String image = product.getString("image");
 
-                                mTextViewFoodResult.append(title + "\n" + image + "\n\n");
+                                Image = image;
+
+                                mTextViewFoodResult.append(title + "\n");
                             }
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -106,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         mRequestQueue.add(objectRequest);
+
     }
 
     private void jsonAnalyserDetails() {
@@ -156,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
                             } catch (JSONException e) { serving_size = "N.A.";
                             }
 
-                            mTextViewFoodResult.append("Calories: " + calories + "\nFat: " + fat + "\nProtein: " + protein + "\nCarbs: " + carbs + "\nServing Size: " + serving_size);
+                            mTextViewNutrition.append("Calories: " + calories + "\nFat: " + fat + "\nProtein: " + protein + "\nCarbs: " + carbs + "\nServing Size: " + serving_size);
 
 
 //                            String protein = (String) jsonObject.get("protein");
@@ -175,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
                                 String title = nutrients.getString("title");
                                 String amount = nutrients.getString("amount");
 
-                                mTextViewFoodResult.append(title + "\n" + amount);
+                                mTextViewNutrition.append(title + "\n" + amount);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
