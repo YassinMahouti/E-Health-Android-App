@@ -113,7 +113,7 @@ public class RegAct extends AppCompatActivity {
             public void onClick(View v) {
                 String email = myEmail.getText().toString().trim();
                 String password = myPassword.getText().toString().trim();
-
+        // opgelet dit zijn strings ! opgelet error long.String
                 final String name = myName.getText().toString().trim();
                 final String phone = myPhone.getText().toString().trim();
                 final String weight = myWeight.getText().toString().trim();

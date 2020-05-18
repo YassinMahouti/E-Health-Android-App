@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -34,6 +35,7 @@ public class CoronaResult extends AppCompatActivity {
     TextView filter_down;
     LinearLayoutManager mLayoutManager;
     SharedPreferences mSharedPref;
+    Button btn_showDoctorsandHospitals;
 
 
 
@@ -47,6 +49,7 @@ public class CoronaResult extends AppCompatActivity {
         newTest = (ImageButton) findViewById(R.id.imgBtn_newTest);
         filter_up = (TextView) findViewById(R.id.txt_filter_newest);
         filter_down = (TextView) findViewById(R.id.txt_filter_oldest);
+        btn_showDoctorsandHospitals =(Button) findViewById(R.id.bt_find_doctor);
         loadDataIntoRecyclerViewer();
         filter_up.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +109,14 @@ public class CoronaResult extends AppCompatActivity {
                 editor.putString("Sort", "oldest");
                 editor.apply();
                 recreate();
+            }
+        });
+        btn_showDoctorsandHospitals.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CoronaResult.this, FindAHospital.class);
+                startActivity(intent);
+                finish();
             }
         });
         newTest.setOnClickListener(new View.OnClickListener() {

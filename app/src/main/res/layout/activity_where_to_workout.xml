@@ -52,6 +52,7 @@
                     android:id="@+id/rd_BASIC"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
                     android:layout_weight="1"
                     android:text="Basic Fit" />
 
@@ -63,11 +64,11 @@
                     android:text="JIMS" />
 
                 <RadioButton
-                    android:id="@+id/radioButton3"
+                    android:id="@+id/rd_others"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="RadioButton" />
+                    android:text="Others" />
             </RadioGroup>
         </LinearLayout>
 
@@ -77,7 +78,7 @@
             android:layout_height="17dp"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:background="@drawable/cmposantcinq"
+            android:background="@drawable/confirm_btn"
             android:text="Apply Filter" />
 
     </LinearLayout>
@@ -85,8 +86,8 @@
     <fragment
         android:id="@+id/map_to_workout"
         android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="412dp"
-        android:layout_height="538dp"
+        android:layout_width="match_parent"
+        android:layout_height="528dp"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

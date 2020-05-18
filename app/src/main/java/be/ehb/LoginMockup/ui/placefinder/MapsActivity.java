@@ -197,9 +197,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Marker marker = mMap.addMarker(markerOptions);
                 latLngList.add(latLng);
                 markerList.add(marker);
-
-
-
             }
         });
         //--On long click: om markers te plaatsen, in paar, deze keer wordt dit "vertaald" in een request via url naar de google api
@@ -270,7 +267,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return url;
     }
     //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    private void addingCircleView(LatLng mLatlng){
+    public void addingCircleView(LatLng mLatlng){
         CircleOptions circleOptions = new CircleOptions()
                 .center(mLatlng)
                 .radius(30)
