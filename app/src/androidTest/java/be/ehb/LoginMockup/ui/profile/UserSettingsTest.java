@@ -86,13 +86,13 @@ public class UserSettingsTest {
         }
     }
 
-    public boolean shouldChangeValue() {
+    public void shouldChangeValue() {
         editTextUsername.setText("Hallo");
         //--Should change the value of an editText
-        String str_result = editTextUsername.getText().toString();
-        if (str_result != "Hallo") {
-            return true;
-        } else return false;
+        String str_result = "Hi";
+        str_result=editTextUsername.getText().toString();
+        assertTrue(str_result=="Hallo");
+        assertFalse(str_result!="Hallo");
     }
 
     public void shouldConfirmDialog() {
