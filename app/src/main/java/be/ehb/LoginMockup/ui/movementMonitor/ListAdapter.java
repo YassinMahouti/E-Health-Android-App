@@ -43,10 +43,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.listHolder> {
         return activities.size();
     }
 
-    public Activity getactivityfromsize( int getal){
-        return activities.get(getal);
-    }
-
     public class listHolder extends RecyclerView.ViewHolder{
 
         private TextView name_activity, duration,kcal, intensity, type;
