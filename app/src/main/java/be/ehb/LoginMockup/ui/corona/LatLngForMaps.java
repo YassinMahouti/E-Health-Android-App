@@ -2,7 +2,7 @@ package be.ehb.LoginMockup.ui.corona;
 
 import com.google.android.gms.maps.model.LatLng;
 
-public class ConstantenVoorMaps {
+public class LatLngForMaps {
     //-Properties HOSPITALS: LatLng, address, titel--------------------------------------------------
      static final LatLng HOS_1 = new LatLng(50.795190 , 4.413760);
      static final String HOS_ADR_1 = "Rue Marconi 142, 1190 Forest";
