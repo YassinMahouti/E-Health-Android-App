@@ -40,7 +40,7 @@ public class CalorieOwn extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 //Get data from the user that is currently loggin in.
-                Toast.makeText(CalorieOwn.this, "fdsfdsqfsdq", Toast.LENGTH_SHORT).show();
+
                 int weight = Integer.parseInt(dataSnapshot.child("weight").getValue(String.class));
                 int height = Integer.parseInt(dataSnapshot.child("height").getValue(String.class));
                 int age = Integer.parseInt(dataSnapshot.child("age").getValue(String.class));
@@ -67,42 +67,12 @@ public class CalorieOwn extends AppCompatActivity {
 
 
     public int bereken(String mOrFResult, int weight_int, int height_int, int age) {
-
         float uitkomst;
-
         if (mOrFResult.equals("Male")) {
             uitkomst = (float) ((10 * weight_int) + (6.25 * height_int) - (5 * age) + 5);
         } else {
             uitkomst = (float) ((10 * weight_int) + (6.25 * height_int) - (5 * age) - 161);
         }
-
-
         return (int) uitkomst;
     }
 }
-
-
-
-
-
-
-
-
-
-               /* String username = dataSnapshot.child(uid).child("name").getValue(String.class);
-                tv_Username.setText(username);
-
-
-                String age = dataSnapshot.child(uid).child("age").getValue(String.class);
-                tv_Ageinput.setText(age);
-
-
-
-
-
-
-        });
-    }
-}
-
-*/

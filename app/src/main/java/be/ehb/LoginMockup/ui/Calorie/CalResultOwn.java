@@ -16,18 +16,21 @@ public class CalResultOwn extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calc_result);
-        txtRes = (TextView)findViewById(R.id.txtRes);
+        txtRes = (TextView)findViewById(R.id.txtRes2);
 
         Intent mIntent = getIntent();
         int result = mIntent.getIntExtra("Result", 0);
         int minCal = result -400;
         int maxCal = result + 400;
 
+        if (minCal <= 0) {
+            minCal = 0;
+        }
+        if (maxCal <= 0) {
+            maxCal = 0;
+        }
+
         txtRes.setText("Your calories per day should be between "+ minCal + " and " + maxCal);
-
-
-
-
     }
 
 

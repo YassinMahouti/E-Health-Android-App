@@ -47,7 +47,7 @@
         -->
         <activity android:name="be.ehb.LoginMockup.ui.profile.UserSettings" />
         <activity android:name="be.ehb.LoginMockup.ui.Calorie.CalorieCalc" />
-        <activity android:name="be.ehb.LoginMockup.ui.drinkwater.DrinkWaterReminder" />
+        <activity android:name="be.ehb.LoginMockup.ui.drinkwater.DrinkWaterReminderActivity" />
         <activity android:name="be.ehb.LoginMockup.ui.corona.UserCoronaDetails" />
         <activity android:name="be.ehb.LoginMockup.ui.corona.UserCoronaListItem" />
         <activity android:name="be.ehb.LoginMockup.ui.corona.CoronaMain" />
@@ -57,6 +57,8 @@
         <activity android:name="be.ehb.LoginMockup.ui.steps.StepCounter" />
         <activity android:name="be.ehb.LoginMockup.ui.foodlookup.Foodlookup" />
         <activity android:name="be.ehb.LoginMockup.ui.home.HomeFragment" />
+        <activity android:name="be.ehb.LoginMockup.ui.steps.StepCounter" />
+        <activity android:name="be.ehb.LoginMockup.ui.steps.DebugActivity"/>
 
         <meta-data
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
@@ -79,8 +81,6 @@
         <activity android:name="be.ehb.LoginMockup.ui.Calorie.CalResultOwn" />
         <activity android:name="be.ehb.LoginMockup.ui.Calorie.CalorieCustom" />
         <activity android:name="be.ehb.LoginMockup.ui.Calorie.CalResult" />
-
-        <receiver android:name="be.ehb.LoginMockup.ui.drinkwater.ReminderBroadcast" />
 
         <activity android:name="be.ehb.LoginMockup.ui.bmiAndBfp.view.UserResults" />
         <activity android:name="be.ehb.LoginMockup.ui.bmiAndBfp.view.UserDetails" />

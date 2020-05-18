@@ -14,7 +14,10 @@ import be.ehb.LoginMockup.ui.corona.FirebaseDatabaseHelper;
 import be.ehb.LoginMockup.ui.corona.User;
 
 public class CalResult extends AppCompatActivity {
+
     TextView txtRes;
+    public int minCal;
+    public int maxCal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,16 +25,21 @@ public class CalResult extends AppCompatActivity {
         setContentView(R.layout.activity_calc_result);
 
 
-        txtRes = (TextView)findViewById(R.id.txtRes);
+        txtRes = (TextView) findViewById(R.id.txtRes2);
 
         Intent mIntent = getIntent();
         int result = mIntent.getIntExtra("Result", 0);
-        int minCal = result -400;
-        int maxCal = result + 400;
+        minCal = result - 400;
+        maxCal = result + 400;
 
-        txtRes.setText("Your calories per day should be between "+ minCal + " and " + maxCal);
+        if (minCal <= 0) {
+            minCal = 0;
+        }
+        if (maxCal <= 0) {
+            maxCal = 0;
+        }
 
-
+        txtRes.setText("Your calories per day should be between " + minCal + " and " + maxCal);
 
 
     }
