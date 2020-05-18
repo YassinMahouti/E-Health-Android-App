@@ -45,7 +45,7 @@ public class NavDrawerAct extends AppCompatActivity {
         // menu should be considered as top level destinations.
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_bmi_bfp,R.id.nav_foodlookup,R.id.nav_find_place, R.id.nav_am_i_sick,R.id.nav_drink_water,R.id.nav_barcode,R.id.nav_stepcounter,R.id.nav_bmi_bfp)
+                R.id.nav_home, R.id.nav_bmi_bfp,R.id.nav_foodlookup,R.id.nav_find_place, R.id.nav_am_i_sick,R.id.nav_drink_water,R.id.nav_barcode,R.id.nav_stepcounter,R.id.nav_bmi_bfp,R.id.nav_movement_monitor)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);

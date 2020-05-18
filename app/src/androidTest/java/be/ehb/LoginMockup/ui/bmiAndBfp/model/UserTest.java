@@ -34,9 +34,6 @@ public class UserTest {
         user2 = new User(1,String.valueOf(new Date()),1,20.0f);
     }
 
-
-
-
     @Test
     public void shouldReturnEmptyConstructor(){
         //--By calling UserInitEmptyConstructor() I expect a user with an empty constructor is created.

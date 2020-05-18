@@ -35,5 +35,9 @@
             android:id="@+id/nav_bmi_bfp"
             android:title="@string/bmi_and_bfp" />
 
+        <item
+            android:id="@+id/nav_movement_monitor"
+            android:title="Movement Monitor" />
+
     </group>
 </menu>

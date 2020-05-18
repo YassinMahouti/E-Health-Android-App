@@ -5,11 +5,6 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/nav_home">
 
-
-
-
-
-
     <activity
         android:id="@+id/nav_am_i_sick"
         android:name="be.ehb.LoginMockup.ui.corona.CoronaMain"
@@ -53,9 +48,6 @@
             app:argType="string" />
     </fragment>
 
-
-
-
     <activity
         android:id="@+id/nav_find_place"
         android:name="be.ehb.LoginMockup.ui.whereToWorkout.FindYourPlace"
@@ -81,5 +73,13 @@
         android:name="be.ehb.LoginMockup.ui.bmiAndBfp.view.BmiBfpMain"
         android:label="Bmi and Bfp"
         tools:layout="@layout/activity_bfp_and_bmi_main"/>
+
+    <activity
+        android:id="@+id/nav_movement_monitor"
+        android:name="be.ehb.LoginMockup.ui.movementMonitor.MainActivity"
+        android:label="Movement Monitor"
+        tools:layout="@layout/activity_movement_monitor_main"/>
+
+
 
 </navigation>
