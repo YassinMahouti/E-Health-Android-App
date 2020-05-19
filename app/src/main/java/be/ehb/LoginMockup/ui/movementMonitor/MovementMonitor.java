@@ -9,7 +9,6 @@ public class MovementMonitor {
     private static float calories;
     public static float totalSessionCalories;
     public static float totalSessionDuration;  //in min
-    //TODO check + documentation
     public MovementMonitor(int sessionCalories, int sessionDuration) {
         this.sessionCalories = sessionCalories;
         this.sessionDuration = sessionDuration;

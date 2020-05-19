@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import be.ehb.Ehealth.R;
 
-//TODO Documentation
 public class MonitorActivity extends AppCompatActivity {
 
     private Button button_to_list_activity;
@@ -35,10 +34,14 @@ public class MonitorActivity extends AppCompatActivity {
         button_to_list_activity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /**
+                 * user choice a radiobutton and put data in the edit text
+                 * Safe entry: test of user put data in edittex */
                 int sessionCaloriesInt = safeEntry(sessionCaloriesString);
                 int sessionDurationInt = safeEntry(sessionDurationString);
 
                 Intent intent = new Intent(MonitorActivity.this, ListActivity.class);
+
                 if (choiceOne.isChecked() && sessionCaloriesInt != Integer.MAX_VALUE){
                     intent.putExtra("sessionCalories" ,sessionCaloriesInt);
                     intent.putExtra("sessionDuration", 0);
@@ -55,9 +58,6 @@ public class MonitorActivity extends AppCompatActivity {
             }
         });
     }
-
-    /**
-     * Safe entry*/
 
     private int safeEntry(EditText editText){
         String help = editText.getText().toString();

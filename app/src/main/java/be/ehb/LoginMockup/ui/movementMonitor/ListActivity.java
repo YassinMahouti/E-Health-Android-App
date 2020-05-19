@@ -68,6 +68,9 @@ public class ListActivity extends AppCompatActivity {
                     int activityKcal = Integer.parseInt(String.valueOf(snapshot.child("activity_kcal").getValue()));
                     int activityDuration = Integer.parseInt(String.valueOf(snapshot.child("activity_duration").getValue()));
 
+                    /**
+                     * filter the activities of you have enter a number in the monitorActivity*/
+
                     if (monitor.getSessionDuration() == 0 && activityKcal >= monitor.getSessionCalories() ){
                         activities.add(new Activity(activityName, activityType,activityKcal, activityDuration, activityIntensity, activityImage));
                     } else if (monitor.getSessionCalories() == 0 && activityDuration >= monitor.getSessionDuration()){
@@ -86,6 +89,9 @@ public class ListActivity extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     * this function build the recycleView*/
 
     private void buildRecycleView() {
         RecyclerView recyclerView = findViewById(R.id.recycler_view);

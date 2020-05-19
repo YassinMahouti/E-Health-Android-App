@@ -35,6 +35,8 @@ public class StartActivity extends AppCompatActivity {
     private Button buttonPause;
     private Button buttonReset;
 
+    private int extraKcal;
+    private int extraDuration;
     private long resetMillis;
     private long theMillis;
     private float myMillis;
@@ -43,8 +45,7 @@ public class StartActivity extends AppCompatActivity {
 
     private Date lastDate = null;
 
-    private int extraKcal;
-    private int extraDuration;
+    String extraNameActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +53,7 @@ public class StartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_movement_monitor_start);
 
         Intent intent = getIntent();
-        String extraNameActivity = intent.getStringExtra("name activity");
+        extraNameActivity = intent.getStringExtra("name activity");
         String extraImage = intent.getStringExtra("image");
 
         extraKcal = intent.getIntExtra("kcal", 0);
@@ -70,7 +71,6 @@ public class StartActivity extends AppCompatActivity {
 
         name_activity.setText(extraNameActivity);
         Picasso.get().load(String.valueOf(extraImage)).into(image);
-        //Picasso.with(this).load(String.valueOf(extraImage)).into(image);
 
         buttonToStartActivityTime = findViewById(R.id.button_start_activity_activity_time);
         buttonPause = findViewById(R.id.button_pause);
@@ -85,6 +85,7 @@ public class StartActivity extends AppCompatActivity {
         buttonToStartActivityTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                writeDate(false);
                 startTimer(totalKcal, totalDuration);
             }
         });
@@ -92,6 +93,7 @@ public class StartActivity extends AppCompatActivity {
         buttonPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                writeDate(true);
                 pauseTimer();
             }
         });
@@ -113,7 +115,7 @@ public class StartActivity extends AppCompatActivity {
 
         DatabaseReference usersActivityRef = database.getReference().child("Users_Activity");
         DatabaseReference activityRef = usersActivityRef.child(authentication.getCurrentUser().getUid());
-        activityRef.push().setValue(String.valueOf(new Date()));
+        activityRef.push().child("end").setValue(String.valueOf(new Date()));
 
         DatabaseReference usersResultsRef = database.getReference().child("Users_Results");
         DatabaseReference resultsRef = usersResultsRef.child(authentication.getCurrentUser().getUid());
@@ -141,6 +143,18 @@ public class StartActivity extends AppCompatActivity {
         } else {
             resultsRef.child("user_total_Calories").setValue(MovementMonitor.getTotalSessionCalories());
         }
+    }
+
+    private void writeDate(boolean running){
+        DatabaseReference usersActivityRef = database.getReference().child("Users_Activity");
+        DatabaseReference activityRef = usersActivityRef.child(authentication.getCurrentUser().getUid());
+
+        if (running){
+            activityRef.push().child("pause").setValue(String.valueOf(new Date()));
+        } else {
+            activityRef.push().child(extraNameActivity).setValue(String.valueOf(new Date()));
+        }
+
     }
 
     private void readDateToFirebase(TextView totalKcal , TextView totalDuration){
