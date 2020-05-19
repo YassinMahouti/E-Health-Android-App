@@ -85,7 +85,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.listHolder> {
             intensity.setText("Intensity: " + String.valueOf(activity.getIntensity()));
             type.setText("type: " + String.valueOf(activity.getType()));
             imageString = activity.getActivityImage();
-            Picasso.with(context).load(String.valueOf(imageString)).into(imageActivity);
+            Picasso.get().load(String.valueOf(imageString)).into(imageActivity);
+            //Picasso.with(context).load(String.valueOf(imageString)).into(imageActivity);
         }
     }
 }

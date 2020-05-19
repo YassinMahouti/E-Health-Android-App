@@ -11,14 +11,14 @@
 
     <Button
         android:id="@+id/button6"
-        android:layout_width="140dp"
-        android:layout_height="58dp"
+        android:layout_width="157dp"
+        android:layout_height="65dp"
         android:background="@drawable/blue"
-        android:text="Activities to burn calories"
+        android:text="Calories today"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        android:textColor="@color/white"
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView24"
@@ -26,16 +26,18 @@
 
     <Button
         android:id="@+id/button7"
-        android:layout_width="140dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="157dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="28dp"
         android:background="@drawable/blue"
-        android:textColor="@color/white"
+        android:text="Activities to burn calories"
 
-        android:text="Calories today"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/txtRes2"
@@ -69,9 +71,10 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:text="Calculate how many calories you ate today"
+        android:layout_marginTop="68dp"
+        android:text="Burn some calories by exercises"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtRes2" />
 

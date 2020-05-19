@@ -1,5 +1,5 @@
 package be.ehb.LoginMockup.ui.foodchecker;
-/*
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -23,7 +23,7 @@ import org.json.JSONObject;
 
 import be.ehb.Ehealth.R;
 
-public class MainActivity extends AppCompatActivity {
+public class FoodCheckerMain extends AppCompatActivity {
 
     // Fetch data from userInput - DONE
     // Place the fetched data in url - DONE
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     // URL of our food API
     private static final String BASE_URL_SEARCH = "https://api.spoonacular.com/food/products/search";
     //private static final String API_KEY = "apiKey=042f21f13acd4749b106f4af1dd52728";
-    private static final String API_KEY = "apiKey=bd789f29c279480fb2a12b1d4102c658";
+    private static final String API_KEY = "apiKey=eb799ee8f33e4cf89c5a3649834df06e";
 
     // test
     //  private static final String TEST = "https://api.spoonacular.com/food/products/22347?";
@@ -100,8 +100,6 @@ public class MainActivity extends AppCompatActivity {
                 userInput = mEditTextInput.getText().toString().trim();
 
                 jsonAnalyser();
-
-
             }
         });
 
@@ -115,8 +113,7 @@ public class MainActivity extends AppCompatActivity {
                 // source: https://square.github.io/picasso/
                 // image library for android
                 // loads images through an url
-                //TODO Picasso.with().load(String.valueOf(Image)).into(imageView);
-
+                //Picasso.get().load(String.valueOf(Image)).into(imageView);
             }
         });
     }
@@ -257,4 +254,3 @@ public class MainActivity extends AppCompatActivity {
         mRequestQueue.add(objectRequest);
     }
 }
-*/

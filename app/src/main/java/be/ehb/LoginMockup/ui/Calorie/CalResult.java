@@ -2,7 +2,9 @@ package be.ehb.LoginMockup.ui.Calorie;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +20,8 @@ public class CalResult extends AppCompatActivity {
     TextView txtRes;
     public int minCal;
     public int maxCal;
+    Button buttonActiviteit;
+    Button buttonFoodChecker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,24 @@ public class CalResult extends AppCompatActivity {
 
 
         txtRes = (TextView) findViewById(R.id.txtRes2);
+        buttonActiviteit = (Button) findViewById(R.id.button7);
+        buttonFoodChecker = (Button) findViewById(R.id.button6);
+
+        buttonActiviteit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (CalResult.this , be.ehb.LoginMockup.ui.movementMonitor.MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        buttonFoodChecker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (CalResult.this,be.ehb.LoginMockup.ui.foodchecker.FoodCheckerMain.class);
+                startActivity(intent);
+            }
+        });
 
         Intent mIntent = getIntent();
         int result = mIntent.getIntExtra("Result", 0);

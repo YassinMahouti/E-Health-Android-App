@@ -69,7 +69,8 @@ public class StartActivity extends AppCompatActivity {
         TextView totalDuration = findViewById(R.id.textView_start_activity_variable_total_duration);
 
         name_activity.setText(extraNameActivity);
-        Picasso.with(this).load(String.valueOf(extraImage)).into(image);
+        Picasso.get().load(String.valueOf(extraImage)).into(image);
+        //Picasso.with(this).load(String.valueOf(extraImage)).into(image);
 
         buttonToStartActivityTime = findViewById(R.id.button_start_activity_activity_time);
         buttonPause = findViewById(R.id.button_pause);

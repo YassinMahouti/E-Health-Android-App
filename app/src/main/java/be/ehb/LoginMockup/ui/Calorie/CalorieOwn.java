@@ -46,7 +46,6 @@ public class CalorieOwn extends AppCompatActivity {
                 int age = Integer.parseInt(dataSnapshot.child("age").getValue(String.class));
                 String gender = String.valueOf((dataSnapshot.child("gender").getValue(String.class)));
 
-
                 int result = bereken(gender, weight, height, age);
 
                 Intent intent = new Intent(CalorieOwn.this, CalResult.class);

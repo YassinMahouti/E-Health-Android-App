@@ -58,7 +58,6 @@ public class ListActivity extends AppCompatActivity {
         activitiesRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //TODO findViewById(R.id.progressbarWaiting).setVisibility(ViewGroup.GONE);
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     System.out.println(snapshot);

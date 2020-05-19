@@ -4,20 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="be.ehb.LoginMockup.ui.foodchecker.MainActivity">
+    tools:context="be.ehb.LoginMockup.ui.foodchecker.FoodCheckerMain">
 
-    <Button
-        android:id="@+id/buttonFetchDetails"
-        android:layout_width="146dp"
-        android:layout_height="52dp"
-        android:background="@android:drawable/toast_frame"
-        android:text="CONFIRM"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.941" />
 
     <TextView
         android:id="@+id/textViewFoodResult"
@@ -36,7 +24,8 @@
         android:id="@+id/buttonFetchFood"
         android:layout_width="146dp"
         android:layout_height="52dp"
-        android:background="@android:drawable/toast_frame"
+        android:background="@drawable/button"
+
         android:text="Search"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,7 +38,7 @@
         android:id="@+id/editTextInput"
         android:layout_width="370dp"
         android:layout_height="63dp"
-        android:background="@android:drawable/toast_frame"
+        android:background="@drawable/input_field"
         android:ems="10"
         android:gravity="center"
         android:hint="Enter a food brand"
@@ -103,5 +92,16 @@
         app:layout_constraintStart_toEndOf="@+id/buttonFetchDetails"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.941" />
+
+    <Button
+        android:id="@+id/buttonFetchDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button"
+        android:text="Confirm"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNutrition" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
