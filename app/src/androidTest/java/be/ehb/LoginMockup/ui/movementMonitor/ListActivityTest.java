@@ -30,16 +30,16 @@ public class ListActivityTest {
     @Rule
     public ActivityTestRule<ListActivity> listActivityTestRule = new ActivityTestRule<>(ListActivity.class);
 
-    /*@Before
+    @Before
     public void setListActivity() throws Exception{
-        listActivity = listActivityTestRule.getActivity();
+        /*listActivity = listActivityTestRule.getActivity();
         activitie = new ArrayList<>();
         activity = new Activity("test", "endurance", 1000, 10, "hard", "url");
 
         recyclerView = listActivity.findViewById(R.id.recycler_view);
         //textView = listActivity.findViewById(R.id.textView_list_activity_variable_name_activity);
-        //testing = String.valueOf(textView.getText());
-    }*/
+        //testing = String.valueOf(textView.getText());*/
+    }
 
     @Test
     public void userAppContext(){

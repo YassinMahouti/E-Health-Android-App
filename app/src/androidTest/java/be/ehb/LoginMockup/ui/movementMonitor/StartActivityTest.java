@@ -53,4 +53,9 @@ public class StartActivityTest {
         onView(withId(R.id.button_start_activity_activity_time)).perform(click());
        // onView(withId(R.id.button_reset)).perform(click());
     }
+
+    @After
+    public void tearDown() throws Exception {
+        startActivity =null;
+    }
 }
