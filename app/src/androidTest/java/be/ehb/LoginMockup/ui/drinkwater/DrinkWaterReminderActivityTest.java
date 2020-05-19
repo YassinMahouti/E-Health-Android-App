@@ -44,7 +44,7 @@ public class DrinkWaterReminderActivityTest {
     }
     @Test
     public void compareDates(){//compares the str_Date method
-        String expected = "2020-05-18"; // expected datum van vandaag, moet aangepast worden
+        String expected = "2020-05-19"; // expected datum van vandaag, moet aangepast worden
         String actual = str_Date;
        assertEquals(expected , actual);
     }

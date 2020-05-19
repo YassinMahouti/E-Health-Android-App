@@ -85,6 +85,17 @@
         android:name="be.ehb.LoginMockup.ui.profile.UserSettings"
         android:label="User setttings"
         tools:layout="@layout/activity_profile_settings"/>
+    <activity
+        android:id="@+id/nav_movement_monitor"
+        android:name="be.ehb.LoginMockup.ui.movementMonitor.MainActivity"
+        android:label="Movement Monitor"
+        tools:layout="@layout/activity_movement_monitor_main"/>
+
+    <activity
+        android:id="@+id/nav_food_checker"
+        android:name="be.ehb.LoginMockup.ui.foodchecker.FoodCheckerMain"
+        android:label="Food Checker"
+        tools:layout="@layout/activity_main_food_checker"/>
 
     <activity
         android:id="@+id/nav_movement_monitor"

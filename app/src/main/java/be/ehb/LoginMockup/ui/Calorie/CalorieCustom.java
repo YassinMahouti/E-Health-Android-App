@@ -18,10 +18,9 @@ public class CalorieCustom extends AppCompatActivity {
     RadioButton radioButtonFemale;
 
     String mOrFResult;
-    float weight;
     int age;
 
-
+    public int result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,14 +46,12 @@ public class CalorieCustom extends AppCompatActivity {
                 float weight_int = Float.parseFloat(String.valueOf(weightStr.getText()));
                 float height_int = Float.parseFloat(String.valueOf(heightStr.getText()));
                 age = Integer.parseInt(String.valueOf(ageText.getText()));
-                int result;
 
 
                 result = bereken(mOrFResult, weight_int, height_int, age);
                 Intent intent = new Intent(CalorieCustom.this, CalResult.class);
                 intent.putExtra("Result",result);
                 startActivity(intent);
-
             }
         });
 
@@ -70,8 +67,6 @@ public class CalorieCustom extends AppCompatActivity {
         } else {
             uitkomst = (float) ((10 * weight_int) + (6.25 * height_int) - (5 * age) - 161);
         }
-
-
         return (int) uitkomst;
     }
 

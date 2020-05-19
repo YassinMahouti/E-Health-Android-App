@@ -1,10 +1,11 @@
-package be.ehb.proj.mybfpapp;
+package be.ehb.LoginMockup.ui.corona ;
 
 import android.content.Intent;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,8 +21,7 @@ import static org.junit.Assert.*;
 public class UserTest {
     private User user;
     private User user2;
-
-
+    // Testing the User from klass
     @Before
     public void UserInitEmptyConstructor(){
         user = new User();
@@ -65,7 +65,14 @@ public class UserTest {
         assertEquals(expected.getUser_id(),actual.getUser_id());
         assertEquals(expected.getUser_risk(),actual.getUser_risk(),0.1f);
     }
-    /*@Test
+    @After
+    public void tearDown() throws Exception{
+        user = null;
+        user2 = null;
+    }
+}
+    /*
+    @Test
     public void shouldReturnAMessage()
     {
         float float_risk =30;
@@ -73,9 +80,4 @@ public class UserTest {
         mainActivity = new MainActivity();
         String actual = mainActivity.messageFromUserRisk(float_risk);
         assertEquals(expected,actual);
-    }*/
-
-
-
-
-}
+  }*/

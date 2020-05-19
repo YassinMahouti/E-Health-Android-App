@@ -63,7 +63,9 @@
         <activity android:name="be.ehb.LoginMockup.ui.steps.StepCounter" />
         <activity android:name="be.ehb.LoginMockup.ui.foodlookup.Foodlookup" />
         <activity android:name="be.ehb.LoginMockup.ui.home.HomeFragment" />
-        <activity android:name="be.ehb.LoginMockup.ui.steps.DebugActivity" />
+        <activity android:name="be.ehb.LoginMockup.ui.steps.StepCounter" />
+        <activity android:name="be.ehb.LoginMockup.ui.steps.DebugActivity"/>
+
         <meta-data
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
             android:value="barcode" />
@@ -85,6 +87,7 @@
         <activity android:name="be.ehb.LoginMockup.ui.Calorie.CalResultOwn" />
         <activity android:name="be.ehb.LoginMockup.ui.Calorie.CalorieCustom" />
         <activity android:name="be.ehb.LoginMockup.ui.Calorie.CalResult" />
+
         <activity android:name="be.ehb.LoginMockup.ui.bmiAndBfp.view.UserResults" />
         <activity android:name="be.ehb.LoginMockup.ui.bmiAndBfp.view.UserDetails" />
     </application>

@@ -32,9 +32,7 @@ import be.ehb.LoginMockup.MainActivity;
 
 public class UserSettings extends AppCompatActivity {
     //---Creation of local variables---//
-    TextView tv_Username;
-    TextView tv_Ageinput;
-    TextView tv_Weightinput;
+    TextView tv_Username, tv_Ageinput,tv_Weightinput ;
     TextView tv_Heightinput;
     TextView tv_phoneinput;
     TextView tv_Emailinput;
