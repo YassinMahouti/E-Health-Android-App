@@ -85,7 +85,6 @@ public class StartActivity extends AppCompatActivity {
         buttonToStartActivityTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                writeDate();
                 startTimer(totalKcal, totalDuration);
             }
         });
@@ -114,7 +113,7 @@ public class StartActivity extends AppCompatActivity {
 
         DatabaseReference usersActivityRef = database.getReference().child("Users_Activity");
         DatabaseReference activityRef = usersActivityRef.child(authentication.getCurrentUser().getUid());
-        activityRef.push().child("end").setValue(String.valueOf(new Date()));
+        activityRef.push().setValue(String.valueOf(new Date()));
 
         DatabaseReference usersResultsRef = database.getReference().child("Users_Results");
         DatabaseReference resultsRef = usersResultsRef.child(authentication.getCurrentUser().getUid());
@@ -137,18 +136,11 @@ public class StartActivity extends AppCompatActivity {
         resultsRef.child("user_total_Duration").setValue(MovementMonitor.getTotalSessionDuration());
 
         if (isRunning){
-            float help = resetMillis - myMillis;
-            MovementMonitor.setTotalSessionCalories(MovementMonitor.calcCalorie(help, resetMillis));
+            MovementMonitor.setTotalSessionCalories(MovementMonitor.calcCalorie((resetMillis - myMillis), resetMillis));
             resultsRef.child("user_total_Calories").setValue(MovementMonitor.getTotalSessionCalories());
         } else {
             resultsRef.child("user_total_Calories").setValue(MovementMonitor.getTotalSessionCalories());
         }
-    }
-
-    private void writeDate(){
-        DatabaseReference usersActivityRef = database.getReference().child("Users_Activity");
-        DatabaseReference activityRef = usersActivityRef.child(authentication.getCurrentUser().getUid());
-        activityRef.push().child("begin").setValue(String.valueOf(new Date()));
     }
 
     private void readDateToFirebase(TextView totalKcal , TextView totalDuration){
@@ -218,7 +210,6 @@ public class StartActivity extends AppCompatActivity {
     }
 
     private void updateTime(){
-        //TODO cast int
         NumberFormat f = new DecimalFormat("00");
         double hour =  (theMillis / 3600000) % 24;
         double min = (theMillis / 60000) % 60;
