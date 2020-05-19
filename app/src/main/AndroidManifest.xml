@@ -19,6 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name="be.ehb.LoginMockup.ui.corona.FindAHospital"></activity>
+
+        <activity android:name="be.ehb.LoginMockup.ui.foodchecker.FoodDetails"></activity>
+        <activity android:name="be.ehb.LoginMockup.ui.foodchecker.FoodCheckerMain" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

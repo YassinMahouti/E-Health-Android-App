@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="be.ehb.LoginMockup.ui.movementMonitor.MonitorActivity">
+
+    <EditText
+        android:textColorHint="@color/gray"
+        android:background="@drawable/input_field"
+        android:id="@+id/editTextInput_monitor_activity_question_two"
+        android:layout_width="131dp"
+        android:layout_height="51dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.58" />
+
+    <Button
+        android:id="@+id/button_monitor_activity_show_activity_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="  Show activity list  "
+        android:background="@drawable/button"
+        android:fontFamily="@font/reg"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.525"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.734" />
+
+    <TextView
+        android:id="@+id/textView_monitor_activity_question_one"
+        android:layout_width="305dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/bold"
+        android:text="How much calories wouls you like to burn?"
+        android:textColor="@color/gray"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.132" />
+
+    <TextView
+        android:id="@+id/textView_monitor_activity_question_two"
+        android:layout_width="315dp"
+        android:layout_height="79dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/bold"
+        android:text="How long do you want to perform the activity?"
+        android:textColor="@color/gray"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.454" />
+
+    <EditText
+        android:textColorHint="@color/gray"
+        android:background="@drawable/input_field"
+        android:id="@+id/editTextInput_monitor_activity_question_one"
+        android:layout_width="131dp"
+        android:layout_height="51dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.263" />
+
+    <TextView
+        android:id="@+id/textView_monitor_activity_one_kcal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kcal"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/bold"
+        android:textSize="20sp"
+        android:textColor="@color/gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.269" />
+
+    <TextView
+        android:id="@+id/textView_monitor_activity_one_min"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Min"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/bold"
+        android:textSize="20sp"
+        android:textColor="@color/gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.661"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.574" />
+
+    <RadioGroup
+        android:layout_width="55dp"
+        android:layout_height="441dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.87"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.289">
+
+        <RadioButton
+            android:id="@+id/radioButton_monitor_activity_question_one"
+            android:layout_width="match_parent"
+            android:layout_height="230dp" />
+
+        <RadioButton
+            android:id="@+id/radioButton_monitor_activity_question_two"
+            android:layout_width="match_parent"
+            android:layout_height="207dp"/>
+    </RadioGroup>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

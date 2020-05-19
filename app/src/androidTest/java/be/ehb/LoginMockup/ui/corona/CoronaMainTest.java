@@ -6,6 +6,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.test.espresso.Espresso;
@@ -112,6 +113,7 @@ public class CoronaMainTest {
         assertNotNull(btn_check_show_results);
         //---Need Espresso: to have acces to the static method onView
         //----to perfrom a click:  need to import  click
+        Espresso.closeSoftKeyboard();
         onView(withId(R.id.btn_show_results)).perform(click());
         //---------to use monitor: call instrumentation: monitor with timeout to set the monitor and a timeout
         Activity Corona = getInstrumentation().waitForMonitorWithTimeout(monitor,5000);
@@ -132,6 +134,7 @@ public class CoronaMainTest {
     public void submitATestResult32(){
         float expected =32.06f;
         onView(withId(R.id.rd_First_yes)).perform(click());
+        Espresso.closeSoftKeyboard();
         onView(withId(R.id.btn_saveSymptoms)).perform(click());
         float actual = mActivity.userRisk;
         assertEquals(expected,actual,0.1f);
@@ -140,6 +143,7 @@ public class CoronaMainTest {
     public void shouldReturn25(){
         int expected= 25;
         onView(withId(R.id.rd_accurate_symp1_ja)).perform(click());
+        Espresso.closeSoftKeyboard();
         onView(withId(R.id.btn_saveSymptoms)).perform(click());
         float actual = mActivity.accurate_risk;
         assertEquals(expected,actual,0.2);

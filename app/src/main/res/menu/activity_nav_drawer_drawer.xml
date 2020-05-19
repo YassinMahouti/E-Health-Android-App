@@ -44,8 +44,16 @@
             android:icon="@drawable/ic_direction"
             android:title="Find my way "/>
         <item
+            android:id="@+id/nav_movement_monitor"
+            android:icon="@drawable/ic_movement_monitor"
+            android:title="Movement Monitor" />
+        <item
             android:id="@+id/nav_user_settings"
             android:icon="@drawable/ic_settings"
             android:title="User settings"/>
+        <item
+            android:id="@+id/nav_food_checker"
+            android:icon="@drawable/ic_food_checker"
+            android:title="Food Checker"/>
     </group>
 </menu>
