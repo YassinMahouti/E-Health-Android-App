@@ -25,6 +25,7 @@ import static junit.framework.TestCase.assertNotNull;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 public class CalorieCalcTest {
@@ -77,39 +78,16 @@ public class CalorieCalcTest {
         assertNotNull(R.id.button_apply);
         onView(withId(R.id.button_apply)).perform(click());
         Activity calorie = getInstrumentation().waitForMonitorWithTimeout(monitor, 5000);
-        assertNotNull(calorie);
-        calorie.finish();
+        //vermots hier geen foutencontrole is moet de waarde dat berekend zijn gelijk zijn aan 0
+       assertNotNull(calorie);
     }
-
-/*
- -----------------------ERROR null pointer exception op lijn 97 ----------------------
-    @Test
-    public void
-    shouldExpectAValueAboveZero() {
-        int expect = 0;
-        result = mCalCust.bereken("Male", 100, 170, 22);
-        boolean check ;
-        if(expect < result){
-            check = true;
-        }else {
-            check = false ;
-        }
-        assertTrue(check);
-    }
- */
 
     @Test
     public void testIfRadioButtonExist() {
         assertNotNull(mCalActivity.findViewById(R.id.radio_one));
     }
-    /*
-    public void shouldWriteSomeTextInTextView(){
-        //--Test write to a TextView on MainActivity
-        TextView txt = m.findViewById(R.id.txtRes2);
-        txt.setText("Testing message");
-            Espresso.onView(withId(R.id.txt_result_accurate)).perform(typeText("Test"));
-        }
-*/
+
+
     @After
     public void tearDown() throws Exception {
         // "stop the activity enfaite"

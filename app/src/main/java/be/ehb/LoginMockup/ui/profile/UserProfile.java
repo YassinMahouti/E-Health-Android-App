@@ -75,30 +75,6 @@ public class UserProfile {
         this.user_height = user_height;
     }
 
-    public boolean isAdult() {
-        return adult;
-    }
-
-    public void setAdult(boolean adult) {
-        this.adult = adult;
-    }
-
-    public float getUserBMI() {
-        return userBMI;
-    }
-
-    public void setUserBMI(float userBMI) {
-        this.userBMI = userBMI;
-    }
-
-    public float getUserBFP() {
-        return userBFP;
-    }
-
-    public void setUserBFP(float userBFP) {
-        this.userBFP = userBFP;
-    }
-
     public String getPhone() {
         return phone;
     }
