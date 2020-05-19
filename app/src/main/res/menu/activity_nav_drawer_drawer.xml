@@ -42,6 +42,7 @@
 
         <item
             android:id="@+id/nav_movement_monitor"
+            android:icon="@drawable/ic_movement_monitor"
             android:title="Movement Monitor" />
 
         <item
