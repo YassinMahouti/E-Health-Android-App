@@ -64,7 +64,6 @@
         <activity android:name="be.ehb.LoginMockup.ui.foodlookup.Foodlookup" />
         <activity android:name="be.ehb.LoginMockup.ui.home.HomeFragment" />
         <activity android:name="be.ehb.LoginMockup.ui.steps.DebugActivity" />
-
         <meta-data
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
             android:value="barcode" />
