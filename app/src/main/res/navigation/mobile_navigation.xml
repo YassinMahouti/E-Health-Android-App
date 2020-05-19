@@ -48,8 +48,6 @@
             app:argType="string" />
     </fragment>
 
-
-
     <activity
         android:id="@+id/nav_workout"
         android:name="be.ehb.LoginMockup.ui.whereToWorkout.WhereToWorkout"
@@ -60,7 +58,6 @@
         android:name="be.ehb.LoginMockup.ui.placefinder.MapsActivity"
         android:label="Create a destination "
         tools:layout="@layout/activity_maps" />
-
 
     <activity
         android:id="@+id/nav_foodlookup"
@@ -73,7 +70,6 @@
         android:name="be.ehb.LoginMockup.ui.steps.StepCounter"
         android:label="stappen teller"
         tools:layout="activity_stepcounter"/>
-
 
     <activity
         android:id="@+id/nav_bmi_bfp"
@@ -97,6 +93,9 @@
         android:label="Movement Monitor"
         tools:layout="@layout/activity_movement_monitor_main"/>
 
-
-
+    <activity
+        android:id="@+id/nav_food_checker"
+        android:name="be.ehb.LoginMockup.ui.foodchecker.MainActivity"
+        android:label="Food Checker"
+        tools:layout="@layout/activity_main_food_checker"/>
 </navigation>

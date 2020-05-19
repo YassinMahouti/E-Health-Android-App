@@ -18,8 +18,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="be.ehb.LoginMockup.ui.corona.FindAHospital"></activity>
-        <activity android:name="be.ehb.LoginMockup.ui.movementMonitor.StartActivity"></activity>
+        <activity android:name="be.ehb.LoginMockup.ui.foodchecker.FoodDetails"></activity>
+        <activity android:name="be.ehb.LoginMockup.ui.foodchecker.MainActivity" />
+        <activity android:name="be.ehb.LoginMockup.ui.corona.FindAHospital" />
+        <activity android:name="be.ehb.LoginMockup.ui.movementMonitor.StartActivity" />
         <activity android:name="be.ehb.LoginMockup.ui.movementMonitor.MonitorActivity" />
         <activity android:name="be.ehb.LoginMockup.ui.movementMonitor.MainActivity" />
         <activity android:name="be.ehb.LoginMockup.ui.movementMonitor.ListActivity" />
@@ -41,7 +43,7 @@
         <activity
             android:name="be.ehb.LoginMockup.ui.placefinder.MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name="be.ehb.LoginMockup.ui.whereToWorkout.MapBoxTest"/>
+        <activity android:name="be.ehb.LoginMockup.ui.whereToWorkout.MapBoxTest" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -63,7 +65,7 @@
         <activity android:name="be.ehb.LoginMockup.ui.foodlookup.Foodlookup" />
         <activity android:name="be.ehb.LoginMockup.ui.home.HomeFragment" />
         <activity android:name="be.ehb.LoginMockup.ui.steps.StepCounter" />
-        <activity android:name="be.ehb.LoginMockup.ui.steps.DebugActivity"/>
+        <activity android:name="be.ehb.LoginMockup.ui.steps.DebugActivity" />
 
         <meta-data
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
@@ -86,7 +88,6 @@
         <activity android:name="be.ehb.LoginMockup.ui.Calorie.CalResultOwn" />
         <activity android:name="be.ehb.LoginMockup.ui.Calorie.CalorieCustom" />
         <activity android:name="be.ehb.LoginMockup.ui.Calorie.CalResult" />
-
         <activity android:name="be.ehb.LoginMockup.ui.bmiAndBfp.view.UserResults" />
         <activity android:name="be.ehb.LoginMockup.ui.bmiAndBfp.view.UserDetails" />
     </application>
