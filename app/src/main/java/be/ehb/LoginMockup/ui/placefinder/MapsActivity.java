@@ -1,4 +1,4 @@
-package be.ehb.LoginMockup.ui.whereToWorkout;
+package be.ehb.LoginMockup.ui.placefinder;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -11,7 +11,11 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.CalendarContract;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ScrollView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +27,9 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import org.json.JSONException;
@@ -34,21 +40,32 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 
 import be.ehb.Ehealth.R;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback  {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, SeekBar.OnSeekBarChangeListener , LocationListener {
     private static final LatLng BRUXELLES = new LatLng(50.8503,4.3517);
+
+    // 1° => 111.111km
     private static final int LOCATION_REQUEST = 500;
-    private GoogleMap mMap;
-    private SupportMapFragment mapFragment;
+    GoogleMap mMap;
+    SeekBar seekWidth, seekRed, seekGreen;
+    Button btDraw, btClear;
+    SupportMapFragment mapFragment;
+
+    Polyline polyline =null ;
     ArrayList<LatLng> listPoints;
+    ArrayList<LatLng> latLngList = new ArrayList<>();
+    ArrayList<Marker> markerList = new ArrayList<>();
+
+    ScrollView hsv;
+
+    int red =0,  green =0 ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,14 +75,89 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        seekWidth =(SeekBar) findViewById(R.id.sk_width_polyline);
+        seekGreen =(SeekBar) findViewById(R.id.sk_green_polyline);
+        seekRed =(SeekBar) findViewById(R.id.sk_red_polyline);
+        btDraw =(Button) findViewById(R.id.bt_draw);
+        btClear =(Button) findViewById(R.id.bt_clear_map);
 
+        ImageView img = (ImageView) findViewById(R.id.imgV_FindYourPlace);
+        hsv =(ScrollView) findViewById(R.id.sc_hsv);
         listPoints = new ArrayList<>();
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hsv.fullScroll(View.FOCUS_DOWN);
+            }
+        });
+        btDraw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               // draw line on map with "short" click
+                if(polyline !=null)  polyline.remove();
+                PolylineOptions polylineOptions = new PolylineOptions()
+                        .addAll(latLngList).clickable(true);
+                polyline = mMap.addPolyline(polylineOptions);
+                polyline.setColor(Color.rgb(red,green,0));
+                setWidth();
+                if(latLngList.size() ==2)
+                {
+                    LatLng first_point = latLngList.get(0);
+                    LatLng second_point = latLngList.get(1);
+                    double lat_first_point = first_point.latitude;
+                    double lng_first_point = first_point.longitude;
+                    double lat_second_point = second_point.latitude;
+                    double lng_second_point = second_point.longitude;
+                    int result = measure(lat_first_point, lng_first_point,lat_second_point, lng_second_point);
+                    System.out.println("measure :" + result +"        dddddddddddddddd" );
+                    TextView textView = (TextView) findViewById(R.id.txt_result_in_meters);
+                    textView.setText(result +"m");
+                    result =0;
+                }
+
+            }
+        });
+        btClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(polyline !=null)  polyline.remove();
+                for (Marker marker : markerList)
+                {
+                    marker.remove();
+                }
+                //reset lists
+                latLngList.clear();
+                markerList.clear();
+                //reset seeks
+                seekWidth.setProgress(3);
+                seekGreen.setProgress(0);
+                seekRed.setProgress(0);
+            }
+        });
 
 
     }
 
+    private void setWidth() {
+        seekWidth.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                // get the seek progres (from width-seekbar)
+                int width = seekWidth.getProgress();
+                if(polyline != null) polyline.setWidth(width);
+            }
 
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
 
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+    }
 
     /**
      * Manipulates the map once available.
@@ -79,27 +171,43 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
         ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.ACCESS_FINE_LOCATION} , LOCATION_REQUEST );
-        return;
+        //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            mMap.moveCamera(CameraUpdateFactory.zoomBy(15));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(BRUXELLES));
 }
-
+        //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
         // Add a marker in Bruxelles and move the camera
         //mMap.addMarker(new MarkerOptions().position(BRUXELLES).title("Marker in The best city ever"));
         //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(BRUXELLES,15));
         mMap.setMyLocationEnabled(true);
+        //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //addingCircleView(lLng);
         //addingCircleView(BRUXELLES);
+        //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //om zelf punt in te geven door te klikken
+        //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //--"Korte " klik zorgt voor het zetten van markers, in paar, waarna als de user op draw drukt een recht wordt getekend tussen de twee punten(markers)
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                MarkerOptions markerOptions = new MarkerOptions().position(latLng);
+                Marker marker = mMap.addMarker(markerOptions);
+                latLngList.add(latLng);
+                markerList.add(marker);
+            }
+        });
+        //--On long click: om markers te plaatsen, in paar, deze keer wordt dit "vertaald" in een request via url naar de google api
+        //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
         mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
             @Override
             public void onMapLongClick(LatLng latLng) {
-
                 //reste markers: "als er al punten zijn"
                 if(listPoints.size() == 2) {
                     listPoints.clear();
                     mMap.clear();
-
                 }
                 listPoints.add(latLng);
 
@@ -115,18 +223,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
                 //add marker to map
                 mMap.addMarker(markerOptions);
-
                 if(listPoints.size() ==2){
                     String url= getRequestUrl(listPoints.get(0),listPoints.get(1));
                     TaskRequestDirection taskRequestDirection = new TaskRequestDirection();
                     taskRequestDirection.execute(url);
                 }
-
             }
         });
-
+        //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        // interactie met seeks for colors: SeekBarChangeListener !
+        seekRed.setOnSeekBarChangeListener(this);
+        seekGreen.setOnSeekBarChangeListener(this);
     }
-
+    public int  measure(double lat1,double lon1,double lat2,double lon2){  // generally used geo measurement function
+        double R = 6378.137; // Radius of earth in KM
+        double dLat = lat2 * Math.PI / 180 - lat1 * Math.PI / 180;
+        double dLon = lon2 * Math.PI / 180 - lon1 * Math.PI / 180;
+        double a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                        Math.sin(dLon/2) * Math.sin(dLon/2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        double d = R * c;
+        return (int) (d * 1000); // meters
+    }
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
     private String getRequestUrl(LatLng from, LatLng to) {
         // value of (from) adnd (to) in string
         String str_from = "origin=" + from.latitude + "," +from.longitude;
@@ -141,12 +261,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         String output = "json";
         // create the url request: google Place api
         String url ="https://maps.googleapis.com/maps/api/directions/" + output + "?" + build +"&key="+"AIzaSyDYR6gggyy0olNo9qtpRQr4byQP9ANR0cY"; // of oudere versie maps / api /directions /
+        // hier kan je dan in de logcat zien wat de request is waarom deze niet kan geantwoord worden.
         System.out.println("              "+url);
        // String tes_url ="https://maps.googleapis.com/maps/api/directions/json?origin=Disneyland&destination=Universal+Studios+Hollywood&key=YOUR_API";
         return url;
     }
-
-    private void addingCircleView(LatLng mLatlng){
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    public void addingCircleView(LatLng mLatlng){
         CircleOptions circleOptions = new CircleOptions()
                 .center(mLatlng)
                 .radius(30)
@@ -161,16 +282,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .strokeColor(Color.parseColor("#0294FF"))
                 .strokeWidth(1);
         Circle myCircle2 = mMap.addCircle(circleOptions);
-
-
-
     }
-    /*
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
     @Override
     public void onLocationChanged(Location location) {
         //loaction.
         double latitude = location.getLatitude();
-        latitude+=0.0001;
         double longitude = location.getLongitude();
         Toast.makeText(this, "Location:"+ latitude+ "/" + longitude, Toast.LENGTH_SHORT).show();
         if (mMap != null){
@@ -178,11 +296,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.moveCamera(CameraUpdateFactory.newLatLng(position));
         }
         addingCircleView(new LatLng(latitude,longitude));
+    }
 
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
 
-    }*/
+    }
 
+    @Override
+    public void onProviderEnabled(String provider) {
 
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
     private String requestDirection(String reqUrl){
         String str_response ="";
         InputStream inputStream = null;
@@ -227,9 +357,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             httpURLConnection.disconnect();
         }
         return str_response;
-
     }
-
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -241,9 +370,41 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             break;
         }
     }
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+    // generate widgets for interaction with seekbars => OnSeekBarChangeListener() => this
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+        switch (seekBar.getId())
+        {
+            case R.id.sk_red_polyline:
+                red = progress;
+                fromUser = true;
+                break;
+            case R.id.sk_green_polyline:
+                green = progress;
+                fromUser = true;
+                break;
+            default: red = 0 ; green = 0 ;
+            break;
+
+        }
+        // set the color
+        polyline.setColor(Color.rgb(red, green, 0));
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+
+    }
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
     private class TaskRequestDirection extends AsyncTask<String,Void,String> {
-
         @Override
         protected String doInBackground(String... strings) {
             String str_response = "";
@@ -251,8 +412,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             return str_response;
         }
         //Generate onPost Excute: void method
-
-
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
@@ -261,7 +420,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             taskParser.execute(s);
         }
     }
-
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
     public class TaskParser extends AsyncTask<String, Void, List<List<HashMap<String, String>>>>
     {
 

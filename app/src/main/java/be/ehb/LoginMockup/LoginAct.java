@@ -24,7 +24,7 @@ import be.ehb.Ehealth.R;
 import be.ehb.LoginMockup.ui.registratie.RegAct;
 
 public class LoginAct extends AppCompatActivity {
-public String key;
+    public String key;
     ImageView backButton;
     Button login;
     EditText myEmail, myPassword;
@@ -81,12 +81,16 @@ public String key;
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(LoginAct.this, "Logged in", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(),NavDrawerAct.class));
-                            FirebaseUser user = firebaseAuth.getCurrentUser();
-                             key = user.getUid();
+                            if(firebaseAuth.getCurrentUser().isEmailVerified())
+                            {
+                                startActivity(new Intent(getApplicationContext(),NavDrawerAct.class));
+                                Toast.makeText(LoginAct.this, "Logged in", Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(LoginAct.this, "Please verify your email ", Toast.LENGTH_SHORT).show();
+                            }
+
                         } else {
-                            Toast.makeText(LoginAct.this, "Invalid e-mail or password. Try again." + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginAct.this, task.getException().getMessage() ,  Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);
                         }
                     }

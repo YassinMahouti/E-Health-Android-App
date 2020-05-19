@@ -2,4 +2,5 @@
 <resources>
     <item name="nav_barcode" type="id" />
     <item name="nav_bmi_and_bfp" type="id" />
+    <item name="nav_steps" type="id" />
 </resources>

@@ -1,4 +1,4 @@
-package be.ehb.LoginMockup.ui.whereToWorkout;
+package be.ehb.LoginMockup.ui.placefinder;
 
 import com.google.android.gms.maps.model.LatLng;
 

@@ -2,6 +2,7 @@ package be.ehb.LoginMockup.ui.corona;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.opengl.ETC1Util;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,15 +25,17 @@ import java.util.List;import be.ehb.Ehealth.R;
  * I created a list_item layout.xml and to be able to set or read dat I will need an adapter
  */
 public class RecyclerView_Config {
+    //able to sort data from de firebase
+    SharedPreferences mSharedPref;
     //--need a context to set activities
     private Context mContext;
     //--need adapter to read/write info of the user
     private UserAdapter mUserAdapter;
     //--setup the config: Recycler, context, List, key
-    public void setConfig(RecyclerView recyclerView, Context context, List<User> users , List<String> keys){
+    public void setConfig(RecyclerView recyclerView, Context context, List<User> users , List<String> keys, LinearLayoutManager llm){
         mContext = context;
         mUserAdapter = new UserAdapter(users,keys);
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        recyclerView.setLayoutManager(llm);
         recyclerView.setAdapter(mUserAdapter);
     }
 

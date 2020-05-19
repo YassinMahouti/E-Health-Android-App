@@ -1,6 +1,7 @@
 package be.ehb.LoginMockup.ui.bmiAndBfp.view;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,14 +17,18 @@ import java.util.List;
 import be.ehb.LoginMockup.ui.bmiAndBfp.model.User;
 import be.ehb.Ehealth.R;
 
+
 public class RecyclerView_Config {
     private Context mContext;
 
+    SharedPreferences mSharedPref; // for saving sort settings
+
+
     private UserAdapter mUserAdapter;
-    public void setConfig(RecyclerView recyclerView, Context context, List<User> users , List<String> keys){
+    public void setConfig(RecyclerView recyclerView, Context context, List<User> users , List<String> keys , LinearLayoutManager lm){
         mContext = context;
         mUserAdapter = new UserAdapter(users,keys);
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        recyclerView.setLayoutManager(lm);
         recyclerView.setAdapter(mUserAdapter);
     }
 
@@ -113,7 +118,7 @@ public class RecyclerView_Config {
         private List<User> mUserList;
         private List<String> mkeys;
 
-        public UserAdapter(List<User> mUserList, List<String> mkeys) {
+        public UserAdapter (List<User> mUserList, List<String> mkeys)  {
             this.mUserList = mUserList;
             this.mkeys = mkeys;
         }

@@ -8,28 +8,27 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.List;import be.ehb.Ehealth.R;
 
 
 public class UserCoronaDetails extends AppCompatActivity {
     //------TextViews---------------------
-    private TextView mDate_tv;
-    private TextView mRisk_tv;
-    private TextView mNumberOfSymptoms_tv;
-    private TextView corona_info;
+    private TextView mDate_tv, mRisk_tv, mNumberOfSymptoms_tv, corona_info;
+    public static TextView data_api;
     private ImageButton imgBtn;
     private ProgressBar progressBarRisk;
     //--properties for recuperation of the information from intent of activity before
-    private String key;
-    private String risk;
-    private String date;
-    private String countSymptoms;
+    private String key, risk , date , countSymptoms;
     //--able to support colors in the progressbar: at least LOLLIPOP
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     /**
      * onCreate the information from the user of the activity before will be stored in to strings.
@@ -59,6 +58,17 @@ public class UserCoronaDetails extends AppCompatActivity {
         corona_info =(TextView) findViewById(R.id.txt_corona_info);
         String msg_corona_info = new CoronaMain().messageFromUserRisk(Float.parseFloat(risk));
         corona_info.setText(msg_corona_info);
+
+        data_api =(TextView) findViewById(R.id.txt_Result_api_corona);
+        Button btn_fetch =(Button) findViewById(R.id.btn_start_fetch);
+        btn_fetch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CoronaStatsAPI api_call = new CoronaStatsAPI();
+                api_call.execute();
+            }
+        });
+
 
         /**
          * Able to have some visual support I created a method to color and have a responding progressbar depending on user risk.

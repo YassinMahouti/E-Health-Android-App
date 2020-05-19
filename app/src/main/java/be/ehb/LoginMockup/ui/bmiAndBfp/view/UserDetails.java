@@ -1,5 +1,6 @@
 package be.ehb.LoginMockup.ui.bmiAndBfp.view;
 
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Build;
@@ -19,6 +20,7 @@ import be.ehb.LoginMockup.ui.bmiAndBfp.model.User;
 import be.ehb.LoginMockup.ui.bmiAndBfp.tools.FirebaseDatabaseHelper;
 import be.ehb.Ehealth.R;
 public class UserDetails extends AppCompatActivity {
+
     private TextView mDate_tv;
 
     private TextView mHeight_tv;
@@ -85,6 +87,7 @@ public class UserDetails extends AppCompatActivity {
         progressBarBFP =(ProgressBar) findViewById(R.id.progressBarBFP);
         setUpProgressBarBMI(progressBarBMI,bmi);
         setUpProgressBarBFP(progressBarBFP,bfp,gender);
+        //-------------------------------------------------------
 
         //-------------------------------------------------------
         btn_delete =(Button) findViewById(R.id.btn_delete);
@@ -110,9 +113,9 @@ public class UserDetails extends AppCompatActivity {
 
                     @Override
                     public void DataIsDeleted() {
-                        Toast.makeText(UserDetails.this, "Data has been deleted", Toast.LENGTH_SHORT).show();
-                        //stop activity and stop return anything
-                        finish(); return;
+                            Toast.makeText(UserDetails.this, "Data has been deleted", Toast.LENGTH_SHORT).show();
+                            //stop activity and stop return anything
+                            finish(); return;
                     }
                 });
             }
