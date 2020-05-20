@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="be.ehb.Ehealth">
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name="be.ehb.LoginMockup.ui.corona.FindAHospital"></activity>
+
+        <activity android:name="be.ehb.LoginMockup.ui.foodchecker.FoodDetails"></activity>
+        <activity android:name="be.ehb.LoginMockup.ui.foodchecker.FoodCheckerMain" />
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name="be.ehb.LoginMockup.ui.whereToWorkout.WhereToWorkout"
+            android:label="@string/title_activity_where_to_workout" />
+        <activity
+            android:name="be.ehb.LoginMockup.ui.placefinder.MapsActivity"
+            android:label="@string/title_activity_maps" />
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
+        -->
+        <activity android:name="be.ehb.LoginMockup.ui.profile.UserSettings" />
+        <activity android:name="be.ehb.LoginMockup.ui.Calorie.CalorieCalc" />
+        <activity android:name="be.ehb.LoginMockup.ui.drinkwater.DrinkWaterReminderActivity" />
+        <activity android:name="be.ehb.LoginMockup.ui.corona.UserCoronaDetails" />
+        <activity android:name="be.ehb.LoginMockup.ui.corona.UserCoronaListItem" />
+        <activity android:name="be.ehb.LoginMockup.ui.corona.CoronaMain" />
+        <activity android:name="be.ehb.LoginMockup.ui.corona.CoronaResult" />
+        <activity android:name="be.ehb.LoginMockup.LoginAct" />
+        <activity android:name="be.ehb.LoginMockup.ui.registratie.RegAct" />
+        <activity android:name="be.ehb.LoginMockup.ui.foodlookup.Foodlookup" />
+        <activity android:name="be.ehb.LoginMockup.ui.home.HomeFragment" />
+
+        <activity android:name="be.ehb.LoginMockup.ui.steps.DebugActivity"/>
+
+        <meta-data
+            android:name="com.google.firebase.ml.vision.DEPENDENCIES"
+            android:value="barcode" />
+
+        <activity
+            android:name="be.ehb.LoginMockup.NavDrawerAct"
+            android:label="@string/title_activity_nav_drawer"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name="be.ehb.LoginMockup.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="be.ehb.LoginMockup.ui.bmiAndBfp.view.BmiBfpMain" />
+        <activity android:name="be.ehb.LoginMockup.ui.premium.Premium" />
+        <activity android:name="be.ehb.LoginMockup.ui.Calorie.CalorieOwn" />
+        <activity android:name="be.ehb.LoginMockup.ui.Calorie.CalResultOwn" />
+        <activity android:name="be.ehb.LoginMockup.ui.Calorie.CalorieCustom" />
+        <activity android:name="be.ehb.LoginMockup.ui.Calorie.CalResult" />
+        <activity android:name="be.ehb.LoginMockup.ui.steps.StepCounter"/>
+
+        <activity android:name="be.ehb.LoginMockup.ui.bmiAndBfp.view.UserResults" />
+        <activity android:name="be.ehb.LoginMockup.ui.bmiAndBfp.view.UserDetails" />
+        <activity android:name="be.ehb.LoginMockup.ui.movementMonitor.MainActivity"/>
+        <activity android:name="be.ehb.LoginMockup.ui.movementMonitor.MonitorActivity"/>
+        <activity android:name="be.ehb.LoginMockup.ui.movementMonitor.ListActivity"/>
+        <activity android:name="be.ehb.LoginMockup.ui.movementMonitor.StartActivity"/>
+    </application>
+
+</manifest>

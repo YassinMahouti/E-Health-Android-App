@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <activity
+        android:id="@+id/nav_am_i_sick"
+        android:name="be.ehb.LoginMockup.ui.corona.CoronaMain"
+        tools:layout="@layout/activity_corona_main"/>
+
+    <activity
+
+        android:id="@+id/nav_drink_water"
+        android:name="be.ehb.LoginMockup.ui.drinkwater.DrinkWaterReminderActivity"
+        android:label="@string/drink_water"
+        tools:layout="@layout/activity_drink_water_reminder"
+        />
+
+    <activity
+        android:id="@+id/nav_corona"
+        android:name="be.ehb.LoginMockup.ui.corona.CoronaMain"
+        android:label="@string/nav_corona"
+        tools:layout="@layout/activity_corona_main"/>
+
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="be.ehb.LoginMockup.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_HomeFragment_to_HomeSecondFragment"
+            app:destination="@id/nav_home_second" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_home_second"
+        android:name="be.ehb.LoginMockup.ui.home.HomeSecondFragment"
+        android:label="@string/home_second"
+        tools:layout="@layout/fragment_home_second">
+        <action
+            android:id="@+id/action_HomeSecondFragment_to_HomeFragment"
+            app:destination="@id/nav_home" />
+
+        <argument
+            android:name="myArg"
+            app:argType="string" />
+    </fragment>
+
+
+
+    <activity
+        android:id="@+id/nav_workout"
+        android:name="be.ehb.LoginMockup.ui.whereToWorkout.WhereToWorkout"
+        android:label="Where to workkout?"
+        tools:layout="@layout/activity_where_to_workout"/>
+    <activity
+        android:id="@+id/nav_find_place"
+        android:name="be.ehb.LoginMockup.ui.placefinder.MapsActivity"
+        android:label="Create a destination "
+        tools:layout="@layout/activity_maps" />
+
+
+    <activity
+        android:id="@+id/nav_foodlookup"
+        android:name="be.ehb.LoginMockup.ui.foodlookup.Foodlookup"
+        android:label="@string/nav_foodlookup"
+        tools:layout="@layout/activity__food_look_up"/>
+
+    <activity
+        android:id="@+id/nav_stepcounter"
+        android:name="be.ehb.LoginMockup.ui.steps.StepCounter"
+        android:label="stappen teller"
+        tools:layout="@layout/activity_stepcounter"/>
+
+
+    <activity
+        android:id="@+id/nav_bmi_bfp"
+        android:name="be.ehb.LoginMockup.ui.bmiAndBfp.view.BmiBfpMain"
+        android:label="Bmi and Bfp"
+        tools:layout="@layout/activity_bfp_and_bmi_main"/>
+    <activity
+        android:id="@+id/nav_calorie"
+        android:name="be.ehb.LoginMockup.ui.Calorie.CalorieCalc"
+        android:label="@string/menu_calCalc"
+        tools:layout="@layout/activity_calorie_calculator"/>
+    <activity
+        android:id="@+id/nav_user_settings"
+        android:name="be.ehb.LoginMockup.ui.profile.UserSettings"
+        android:label="User setttings"
+        tools:layout="@layout/activity_profile_settings"/>
+    <activity
+        android:id="@+id/nav_movement_monitor"
+        android:name="be.ehb.LoginMockup.ui.movementMonitor.MainActivity"
+        android:label="Movement Monitor"
+        tools:layout="@layout/activity_movement_monitor_main"/>
+
+    <activity
+        android:id="@+id/nav_food_checker"
+        android:name="be.ehb.LoginMockup.ui.foodchecker.FoodCheckerMain"
+        android:label="Food Checker"
+        tools:layout="@layout/activity_main_food_checker"/>
+
+</navigation>
